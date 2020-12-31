@@ -8,8 +8,27 @@
             "email": "josh@hitsystems.com.au"
         }
     ],
+    "repositories": {
+        "livewire": {
+            "type": "path",
+            "url": "/Users/josh/Sites/livewire-dusk"
+        }
+    },
     "require": {
         "php": "^7.4"
+    },
+    "require-dev": {
+        "josh/livewire-dusk": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "LivewireAutocomplete\\": "src/LivewireAutocomplete/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LivewireAutocomplete\\Tests\\": "tests/"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
