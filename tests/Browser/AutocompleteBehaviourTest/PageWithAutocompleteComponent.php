@@ -1,6 +1,6 @@
 <?php
 
-namespace LivewireAutocomplete\Tests\Browser;
+namespace LivewireAutocomplete\Tests\Browser\AutocompleteBehaviourTest;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

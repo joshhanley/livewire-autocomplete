@@ -1,11 +1,12 @@
 <?php
 
-namespace LivewireAutocomplete\Tests\Browser;
+namespace LivewireAutocomplete\Tests\Browser\AutocompleteBehaviourTest;
 
 use Laravel\Dusk\Browser;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\Browser\TestCase;
 
-class AutocompleteTest extends TestCase
+class AutocompleteBehaviourTest extends TestCase
 {
     /** @test */
     public function an_input_is_shown_on_screen()
