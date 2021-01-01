@@ -437,14 +437,16 @@ class AutocompleteTest extends TestCase
     }
 
     /** @test */
-    public function mouse_click_causes_double_up_on_new_results()
+    public function mouse_click_only_fires_once_on_newly_generated_morphed_results()
     {
+        // This is a bug in livewire/livewire#763, this test triggers it without work around
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                     ->click('@autocomplete-input')
                     ->waitForLivewire()->click('@result-1')
                     ->assertSeeIn('@result-output', 'john')
                     ->click('@autocomplete-input')
+                    // Need to press keys to trigger input events livewire requires
                     ->waitForLivewire()->keys('@autocomplete-input', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}')
                     ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
                     ->waitForLivewire()->click('@result-2')
