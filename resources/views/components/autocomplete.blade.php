@@ -1,6 +1,6 @@
 @props([
-    'selectAction',
-    'resultsProperty',
+'selectAction',
+'resultsProperty',
 ])
 <div x-data="autocomplete()" x-on:click.away="close()">
     <input
@@ -19,17 +19,15 @@
         x-on:input.debounce.300ms="clearFocus()"
         class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
         type="text"
-        dusk="autocomplete-input"
-    />
+        dusk="autocomplete-input" />
 
     <div x-show="showDropdown" x-on:click="selectItem()" x-on:mouseleave="focusIndex = null" dusk="autocomplete-dropdown" x-cloak>
-        @foreach($this->$resultsProperty as $key => $result)
+        @foreach ($this->$resultsProperty as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
                 x-on:mouseenter="focusIndex = {{ $key }}"
                 :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
-                dusk="result-{{ $key }}"
-            >
+                dusk="result-{{ $key }}">
                 {{ $result }}
             </div>
         @endforeach
@@ -37,129 +35,130 @@
 </div>
 
 @once
-<script>
-    function autocomplete() {
-        return {
-            showDropdown: false,
-            value: @entangle($attributes->wire('model')),
-            results: @entangle($resultsProperty),
-            selectAction: '{{ $selectAction }}',
-            focusIndex: null,
-            resultsCount: null,
-            shiftIsPressed: false,
-            selectOnTab: true,
+    <script>
+        function autocomplete() {
+            return {
+                showDropdown: false,
+                value: @entangle($attributes - > wire('model')),
+                results: @entangle($resultsProperty),
+                selectAction: '{{ $selectAction }}',
+                focusIndex: null,
+                resultsCount: null,
+                shiftIsPressed: false,
+                selectOnTab: true,
 
-            show() {
-                this.showDropdown = true
-            },
+                show() {
+                    this.showDropdown = true
+                },
 
-            hide() {
-                this.showDropdown = false
-            },
+                hide() {
+                    this.showDropdown = false
+                },
 
-            isShown() {
-                return this.showDropdown
-            },
+                isShown() {
+                    return this.showDropdown
+                },
 
-            isHidden() {
-                return ! this.isShown()
-            },
+                isHidden() {
+                    return !this.isShown()
+                },
 
-            tab() {
-                if(this.shiftIsPressed) return this.close()
+                tab() {
+                    if (this.shiftIsPressed) return this.close()
 
-                if(this.selectOnTab) return this.selectItem()
+                    if (this.selectOnTab) return this.selectItem()
 
-                return this.close()
-            },
+                    return this.close()
+                },
 
-            shift(isPressed) {
-                this.shiftIsPressed = isPressed
-            },
+                shift(isPressed) {
+                    this.shiftIsPressed = isPressed
+                },
 
-            close() {
-                if (this.isHidden()) return
+                close() {
+                    if (this.isHidden()) return
 
-                this.hide()
-                this.clearFocus();
-            },
+                    this.hide()
+                    this.clearFocus();
+                },
 
-            clearFocus() {
-                this.focusIndex = null
-            },
+                clearFocus() {
+                    this.focusIndex = null
+                },
 
-            hasResults() {
-                return this.totalResults() > 0
-            },
+                hasResults() {
+                    return this.totalResults() > 0
+                },
 
-            hasNoResults() {
-                return ! this.hasResults()
-            },
+                hasNoResults() {
+                    return !this.hasResults()
+                },
 
-            clearResultsCount() {
-                this.resultsCount = null
-            },
+                clearResultsCount() {
+                    this.resultsCount = null
+                },
 
-            totalResults() {
-                if(this.resultsCount) return this.resultsCount //Use memoised count
+                totalResults() {
+                    if (this.resultsCount) return this.resultsCount //Use memoised count
 
-                // if (this.isGrouped) {
-                //     return this.resultsCount = this.totalGroupedResults()
-                // }
+                    // if (this.isGrouped) {
+                    //     return this.resultsCount = this.totalGroupedResults()
+                    // }
 
-                return this.resultsCount = this.results.length
-            },
+                    return this.resultsCount = this.results.length
+                },
 
-            hasFocus() {
-                return this.focusIndex !== null
-            },
+                hasFocus() {
+                    return this.focusIndex !== null
+                },
 
-            hasNoFocus() {
-                return ! this.hasFocus()
-            },
+                hasNoFocus() {
+                    return !this.hasFocus()
+                },
 
-            focusIsAtStart() {
-                return this.focusIndex == 0
-            },
+                focusIsAtStart() {
+                    return this.focusIndex == 0
+                },
 
-            focusIsAtEnd() {
-                return this.focusIndex >= this.totalResults() - 1
-            },
+                focusIsAtEnd() {
+                    return this.focusIndex >= this.totalResults() - 1
+                },
 
-            focusFirst() {
-                this.focusIndex = 0
-            },
+                focusFirst() {
+                    this.focusIndex = 0
+                },
 
-            focusLast() {
-                this.focusIndex = this.totalResults() - 1
-            },
+                focusLast() {
+                    this.focusIndex = this.totalResults() - 1
+                },
 
-            focusPrevious() {
-                if(this.hasNoResults()) return this.clearFocus()
+                focusPrevious() {
+                    if (this.hasNoResults()) return this.clearFocus()
 
-                if(this.hasNoFocus()) return
+                    if (this.hasNoFocus()) return
 
-                if(this.focusIsAtStart()) return this.clearFocus();
+                    if (this.focusIsAtStart()) return this.clearFocus();
 
-                this.focusIndex--
-            },
+                    this.focusIndex--
+                },
 
-            focusNext() {
-                if(this.hasNoResults()) return this.clearFocus()
+                focusNext() {
+                    if (this.hasNoResults()) return this.clearFocus()
 
-                if(this.hasNoFocus()) return this.focusFirst()
+                    if (this.hasNoFocus()) return this.focusFirst()
 
-                if(this.focusIsAtEnd()) return
+                    if (this.focusIsAtEnd()) return
 
-                this.focusIndex++
-            },
+                    this.focusIndex++
+                },
 
-            selectItem() {
-                if (this.hasFocus()) this.$wire.call(this.selectAction, this.focusIndex, this.key)
+                selectItem() {
+                    if (this.hasFocus()) this.$wire.call(this.selectAction, this.focusIndex, this.key)
 
-                this.close()
-            },
+                    this.close()
+                },
+            }
         }
-    }
-</script>
+
+    </script>
 @endonce
