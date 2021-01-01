@@ -8,8 +8,8 @@ class PageWithAutocompleteComponent extends Component
 {
     public $results = [
         'bob',
-        'bill',
-        'john'
+        'john',
+        'bill'
     ];
     public function render()
     {
