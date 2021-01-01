@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> --}}
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
     <style>
         [x-cloak] {
             display: none;
