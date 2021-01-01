@@ -66,7 +66,7 @@ class AutocompleteTest extends TestCase
                     ->assertSeeIn('@autocomplete-dropdown', 'bob')
                     ->assertSeeIn('@autocomplete-dropdown', 'john')
                     ->assertSeeIn('@autocomplete-dropdown', 'bill')
-                    ->seeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
+                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
                     ;
         });
     }
