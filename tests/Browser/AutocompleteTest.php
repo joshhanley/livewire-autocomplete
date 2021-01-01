@@ -63,10 +63,9 @@ class AutocompleteTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                     ->click('@autocomplete-input')
-                    ->assertVisible('@autocomplete-dropdown')
-                    ->keys('@autocomplete-input', '{escape}')
-                    ->assertNotFocused('@autocomplete-input')
-                    ->assertMissing('@autocomplete-dropdown')
+                    ->assertSeeIn('@autocomplete-dropdown', 'bob')
+                    ->assertSeeIn('@autocomplete-dropdown', 'bill')
+                    ->assertSeeIn('@autocomplete-dropdown', 'john')
                     ;
         });
     }
