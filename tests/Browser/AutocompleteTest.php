@@ -33,4 +33,20 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function dropdown_closes_when_anything_else_is_clicked()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->with('@page', function ($page) {
+                        $page->click('input')
+                            ->assertVisible('@dropdown')
+                            ->clickAtXPath('//body')
+                            ->assertMissing('@dropdown')
+                            ;
+                    })
+                    ;
+        });
+    }
 }
