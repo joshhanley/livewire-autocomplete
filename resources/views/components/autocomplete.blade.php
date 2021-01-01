@@ -18,6 +18,7 @@
     <div x-show="open" dusk="autocomplete-dropdown" x-cloak>
         @foreach($this->$resultsProperty as $key => $result)
             <div
+                wire:key="result-{{ $key }}"
                 :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
                 dusk="result-{{ $key }}"
             >

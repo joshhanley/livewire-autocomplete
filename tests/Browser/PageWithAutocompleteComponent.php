@@ -3,6 +3,7 @@
 namespace LivewireAutocomplete\Tests\Browser;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class PageWithAutocompleteComponent extends Component
@@ -17,9 +18,12 @@ class PageWithAutocompleteComponent extends Component
 
     public function updatedInput()
     {
-        $this->results = Arr::where($this->results, function ($value) {
-            return str_contains($value, $this->input);
-        });
+        $this->results = Collection::wrap($this->results)
+            ->filter(function ($result) {
+                return str_contains($result, $this->input);
+            })
+            ->values()
+            ->toArray();
     }
 
     public function render()
