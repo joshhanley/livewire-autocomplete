@@ -190,4 +190,62 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function home_key_focuses_first_result_in_dropdown()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    // Attempt if none selected
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{HOME}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+
+                    // Attempt if one further down the list is selected
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertHasClass('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{HOME}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function end_key_focuses_last_result_in_dropdown()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    // Attempt if none selected
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{END}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertHasClass('@result-2', 'bg-blue-500')
+
+                    // Attempt if one further down the list is selected
+                    ->keys('@autocomplete-input', '{ARROW_UP}')
+                    ->keys('@autocomplete-input', '{ARROW_UP}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{END}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertHasClass('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
 }
