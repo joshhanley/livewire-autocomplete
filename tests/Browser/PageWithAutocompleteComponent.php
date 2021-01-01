@@ -38,6 +38,7 @@ class PageWithAutocompleteComponent extends Component
 
     public function updatedInput()
     {
+        $this->reset('results');
         $this->calculateResults();
     }
 
