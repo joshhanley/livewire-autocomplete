@@ -81,6 +81,10 @@
                 this.focusIndex = 0
             },
 
+            focusLast() {
+                this.focusIndex = this.totalResults() - 1
+            },
+
             focusPrevious() {
                 if(this.hasNoResults()) return this.clearFocus()
 
