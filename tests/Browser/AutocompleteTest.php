@@ -283,4 +283,95 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function enter_key_only_selects_if_there_is_a_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                    ->assertSeeIn('@result-output', 'john')
+                    ->click('@autocomplete-input')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{ENTER}')
+                    ->pause(300)
+                    ->assertSeeIn('@result-output', 'john')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function dropdown_is_hidden_and_focus_cleared_on_selection()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                    ->assertSeeIn('@result-output', 'bob')
+                    ->assertMissing('@autocomplete-dropdown')
+                    ->click('@autocomplete-input')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function tab_key_selects_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{END}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertHasClass('@result-2', 'bg-blue-500')
+                    ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
+                    ->assertSeeIn('@result-output', 'bill')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function tab_key_only_selects_if_there_is_a_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{END}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertHasClass('@result-2', 'bg-blue-500')
+                    ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
+                    ->assertSeeIn('@result-output', 'bill')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function shift_tab_does_not_select_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{HOME}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{SHIFT}', '{TAB}')
+                    ->pause(300)
+                    ->assertDontSeeIn('@result-output', 'bob')
+                    ;
+        });
+    }
 }

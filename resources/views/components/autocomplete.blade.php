@@ -2,11 +2,15 @@
     'selectAction',
     'resultsProperty',
 ])
-<div x-data="autocomplete()" x-on:click.away="open = false">
+<div x-data="autocomplete()" x-on:click.away="showDropdown = false">
     <input
         x-model.debounce.300ms="value"
-        x-on:focus="open = true"
-        x-on:keydown.escape.prevent="open = false; event.target.blur()"
+        x-on:focus="showDropdown = true"
+        x-on:keydown.tab="tab()"
+        x-on:keydown.shift.window="shift(true)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
+        x-on:keyup.shift.window="shift(false)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
+        x-on:blur.window="shift(false)" {{-- Clear shift on window blur otherwise can't select --}}
+        x-on:keydown.escape.prevent="showDropdown = false; event.target.blur()"
         x-on:keydown.enter.stop.prevent="selectItem(); event.target.blur()"
         x-on:keydown.arrow-up.prevent="focusPrevious()"
         x-on:keydown.arrow-down.prevent="focusNext()"
@@ -18,7 +22,7 @@
         dusk="autocomplete-input"
     />
 
-    <div x-show="open" dusk="autocomplete-dropdown" x-cloak>
+    <div x-show="showDropdown" dusk="autocomplete-dropdown" x-cloak>
         @foreach($this->$resultsProperty as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
@@ -35,12 +39,49 @@
 <script>
     function autocomplete() {
         return {
-            open: false,
+            showDropdown: false,
             value: @entangle($attributes->wire('model')),
             results: @entangle($resultsProperty),
             selectAction: '{{ $selectAction }}',
             focusIndex: null,
             resultsCount: null,
+            shiftIsPressed: false,
+            selectOnTab: true,
+
+            show() {
+                this.showDropdown = true
+            },
+
+            hide() {
+                this.showDropdown = false
+            },
+
+            isShown() {
+                return this.showDropdown
+            },
+
+            isHidden() {
+                return ! this.isShown()
+            },
+
+            tab() {
+                if(this.shiftIsPressed) return this.close()
+
+                if(this.selectOnTab) return this.selectItem()
+
+                return this.close()
+            },
+
+            shift(isPressed) {
+                this.shiftIsPressed = isPressed
+            },
+
+            close() {
+                if (this.isHidden()) return
+
+                this.hide()
+                this.clearFocus();
+            },
 
             clearFocus() {
                 this.focusIndex = null
