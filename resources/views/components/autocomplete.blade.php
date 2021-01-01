@@ -2,7 +2,7 @@
     'selectAction',
     'resultsProperty',
 ])
-<div x-data="autocomplete()" x-on:click.away="showDropdown = false">
+<div x-data="autocomplete()" x-on:click.away="close()">
     <input
         x-model.debounce.300ms="value"
         x-on:focus="showDropdown = true"
@@ -26,6 +26,7 @@
         @foreach($this->$resultsProperty as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
+                x-on:mouseenter="focusIndex = {{ $key }}"
                 :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
                 dusk="result-{{ $key }}"
             >
