@@ -1,4 +1,5 @@
 @props([
+    'selectAction',
     'resultsProperty',
 ])
 <div x-data="autocomplete()" x-on:click.away="open = false">
@@ -6,6 +7,7 @@
         x-model.debounce.300ms="value"
         x-on:focus="open = true"
         x-on:keydown.escape.prevent="open = false; event.target.blur()"
+        x-on:keydown.enter.stop.prevent="selectItem(); event.target.blur()"
         x-on:keydown.arrow-up.prevent="focusPrevious()"
         x-on:keydown.arrow-down.prevent="focusNext()"
         x-on:keydown.home.prevent="focusFirst()"
@@ -36,6 +38,7 @@
             open: false,
             value: @entangle($attributes->wire('model')),
             results: @entangle($resultsProperty),
+            selectAction: '{{ $selectAction }}',
             focusIndex: null,
             resultsCount: null,
 
@@ -107,6 +110,12 @@
                 if(this.focusIsAtEnd()) return
 
                 this.focusIndex++
+            },
+
+            selectItem() {
+                if (this.hasFocus()) this.$wire.call(this.selectAction, this.focusIndex, this.key)
+
+                this.close()
             },
         }
     }

@@ -16,6 +16,13 @@ class PageWithAutocompleteComponent extends Component
 
     public $input = '';
 
+    public $selected;
+
+    public function select($index)
+    {
+        $this->selected = $this->results[$index] ?? null;
+    }
+
     public function updatedInput()
     {
         $this->results = Collection::wrap($this->results)
@@ -31,7 +38,9 @@ class PageWithAutocompleteComponent extends Component
         return
 <<<'HTML'
 <div dusk="page">
-    <x-lwc::autocomplete wire:model="input" resultsProperty="results" />
+    <x-lwc::autocomplete wire:model="input" select-action="select" results-property="results" />
+
+    <div dusk="result-output">{{ $selected }}</div>
 </div>
 HTML;
     }

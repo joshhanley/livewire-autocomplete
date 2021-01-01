@@ -266,4 +266,21 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function enter_key_selects_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertHasClass('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                    ->assertSeeIn('@result-output', 'john')
+                    ;
+        });
+    }
 }
