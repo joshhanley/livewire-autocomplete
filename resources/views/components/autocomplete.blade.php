@@ -10,6 +10,7 @@
         x-on:keydown.arrow-down.prevent="focusNext()"
         x-on:keydown.home.prevent="focusFirst()"
         x-on:keydown.end.prevent="focusLast()"
+        x-on:input.debounce.300ms="clearFocus()"
         class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
         type="text"
         dusk="autocomplete-input"

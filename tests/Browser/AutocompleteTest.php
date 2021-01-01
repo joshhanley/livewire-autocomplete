@@ -235,7 +235,7 @@ class AutocompleteTest extends TestCase
                     ->assertClassMissing('@result-1', 'bg-blue-500')
                     ->assertHasClass('@result-2', 'bg-blue-500')
 
-                    // Attempt if one further down the list is selected
+                    // Attempt if one further up the list is selected
                     ->keys('@autocomplete-input', '{ARROW_UP}')
                     ->keys('@autocomplete-input', '{ARROW_UP}')
                     ->assertHasClass('@result-0', 'bg-blue-500')
@@ -245,6 +245,26 @@ class AutocompleteTest extends TestCase
                     ->assertClassMissing('@result-0', 'bg-blue-500')
                     ->assertClassMissing('@result-1', 'bg-blue-500')
                     ->assertHasClass('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function focus_is_cleared_if_input_changes()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertHasClass('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ->waitForLivewire()->type('@autocomplete-input', 'b')
+                    //Wait for debounce
+                    ->pause(300)
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
                     ;
         });
     }
