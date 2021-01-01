@@ -30,6 +30,13 @@
             "LivewireAutocomplete\\Tests\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LivewireAutocomplete\\LivewireAutocompleteServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
