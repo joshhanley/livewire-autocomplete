@@ -70,4 +70,18 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function results_are_filtered_based_on_input()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
+                    ->waitForLivewire()->type('@autocomplete-input', 'b')
+                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'bill'])
+                    ->assertDontSeeIn('@autocomplete-dropdown', 'john')
+                    ;
+        });
+    }
 }
