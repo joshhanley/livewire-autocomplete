@@ -22,11 +22,12 @@
         dusk="autocomplete-input"
     />
 
-    <div x-show="showDropdown" dusk="autocomplete-dropdown" x-cloak>
+    <div x-show="showDropdown" x-on:mouseleave="focusIndex = null" dusk="autocomplete-dropdown" x-cloak>
         @foreach($this->$resultsProperty as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
                 x-on:mouseenter="focusIndex = {{ $key }}"
+                x-on:click="selectItem()"
                 :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
                 dusk="result-{{ $key }}"
             >

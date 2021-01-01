@@ -396,4 +396,41 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function mouse_leave_clears_focus_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->mouseover('@result-1')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertHasClass('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    //Empty mouseover simulates mouseout by mousing over body
+                    ->mouseover('')
+                    ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function mouse_click_selects_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->click('@result-1')
+                    ->assertSeeIn('@result-output', 'john')
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->click('@result-2')
+                    ->assertSeeIn('@result-output', 'bill')
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->click('@result-0')
+                    ->assertSeeIn('@result-output', 'bob')
+                    ;
+        });
+    }
 }
