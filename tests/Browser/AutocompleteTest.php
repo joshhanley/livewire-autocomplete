@@ -12,9 +12,7 @@ class AutocompleteTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->with('@page', function ($page) {
-                        $page->assertPresent('input');
-                    })
+                    ->assertPresent('@autocomplete-input')
                     ;
         });
     }
@@ -24,12 +22,9 @@ class AutocompleteTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->with('@page', function ($page) {
-                        $page->assertMissing('@dropdown')
-                            ->click('input')
-                            ->assertVisible('@dropdown')
-                            ;
-                    })
+                    ->assertMissing('@autocomplete-dropdown')
+                    ->click('@autocomplete-input')
+                    ->assertVisible('@autocomplete-dropdown')
                     ;
         });
     }
@@ -39,14 +34,11 @@ class AutocompleteTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->with('@page', function ($page) {
-                        $page->click('input')
-                            ->assertVisible('@dropdown')
-                            ->clickAtXPath('//body')
-                            ->assertNotFocused('input')
-                            ->assertMissing('@dropdown')
-                            ;
-                    })
+                    ->click('@autocomplete-input')
+                    ->assertVisible('@autocomplete-dropdown')
+                    ->clickAtXPath('//body')
+                    ->assertNotFocused('@autocomplete-input')
+                    ->assertMissing('@autocomplete-dropdown')
                     ;
         });
     }
@@ -56,14 +48,25 @@ class AutocompleteTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->with('@page', function ($page) {
-                        $page->click('input')
-                            ->assertVisible('@dropdown')
-                            ->keys('input', '{escape}')
-                            ->assertNotFocused('input')
-                            ->assertMissing('@dropdown')
-                            ;
-                    })
+                    ->click('@autocomplete-input')
+                    ->assertVisible('@autocomplete-dropdown')
+                    ->keys('@autocomplete-input', '{escape}')
+                    ->assertNotFocused('@autocomplete-input')
+                    ->assertMissing('@autocomplete-dropdown')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function dropdown_shows_list_of_results()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->assertVisible('@autocomplete-dropdown')
+                    ->keys('@autocomplete-input', '{escape}')
+                    ->assertNotFocused('@autocomplete-input')
+                    ->assertMissing('@autocomplete-dropdown')
                     ;
         });
     }
