@@ -39,7 +39,7 @@
         function autocomplete() {
             return {
                 showDropdown: false,
-                value: @entangle($attributes - > wire('model')),
+                value: @entangle($attributes->wire('model')),
                 results: @entangle($resultsProperty),
                 selectAction: '{{ $selectAction }}',
                 focusIndex: null,
