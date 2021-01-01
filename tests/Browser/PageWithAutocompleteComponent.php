@@ -44,13 +44,12 @@ class PageWithAutocompleteComponent extends Component
 
     public function render()
     {
-        return
-<<<'HTML'
-<div dusk="page">
-    <x-lwc::autocomplete wire:model="input" select-action="select" results-property="results" />
+        return <<<'HTML'
+            <div dusk="page">
+                <x-lwc::autocomplete wire:model="input" select-action="select" results-property="results" />
 
-    <div dusk="result-output">{{ $selected }}</div>
-</div>
-HTML;
+                <div dusk="result-output">{{ $selected }}</div>
+            </div>
+            HTML;
     }
 }
