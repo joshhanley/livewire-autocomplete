@@ -3,7 +3,7 @@
 ])
 <div x-data="autocomplete()" x-on:click.away="open = false">
     <input
-        x-model="value"
+        x-model.debounce.300ms="value"
         x-on:focus="open = true"
         x-on:keydown.escape.prevent="open = false; event.target.blur()"
         x-on:keydown.arrow-up.prevent="focusPrevious()"

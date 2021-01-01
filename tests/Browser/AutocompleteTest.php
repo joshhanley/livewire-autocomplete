@@ -261,8 +261,6 @@ class AutocompleteTest extends TestCase
                     ->assertHasClass('@result-1', 'bg-blue-500')
                     ->assertClassMissing('@result-2', 'bg-blue-500')
                     ->waitForLivewire()->type('@autocomplete-input', 'b')
-                    //Wait for debounce
-                    ->pause(300)
                     ->assertClassMissing('@result-0', 'bg-blue-500')
                     ->assertClassMissing('@result-1', 'bg-blue-500')
                     ;
