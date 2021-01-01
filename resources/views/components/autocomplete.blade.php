@@ -6,6 +6,7 @@
         x-model="value"
         x-on:focus="open = true"
         x-on:keydown.escape.prevent="open = false; event.target.blur()"
+        x-on:keydown.arrow-up.prevent="focusPrevious()"
         x-on:keydown.arrow-down.prevent="focusNext()"
         class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
         type="text"
@@ -78,6 +79,16 @@
 
             focusFirst() {
                 this.focusIndex = 0
+            },
+
+            focusPrevious() {
+                if(this.hasNoResults()) return this.clearFocus()
+
+                if(this.hasNoFocus()) return
+
+                if(this.focusIsAtStart()) return this.clearFocus();
+
+                this.focusIndex--
             },
 
             focusNext() {

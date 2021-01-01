@@ -136,4 +136,58 @@ class AutocompleteTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function up_arrow_clears_focus_if_first_option_is_focused_in_dropdown()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertMissingClass('@result-1', 'bg-blue-500')
+                    ->assertMissingClass('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{ARROW_UP}')
+                    ->assertMissingClass('@result-0', 'bg-blue-500')
+                    ->assertMissingClass('@result-1', 'bg-blue-500')
+                    ->assertMissingClass('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function up_arrow_focuses_previous_option_if_there_is_another_option_before_current_in_dropdown()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertMissingClass('@result-0', 'bg-blue-500')
+                    ->assertHasClass('@result-1', 'bg-blue-500')
+                    ->assertMissingClass('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{ARROW_UP}')
+                    ->assertHasClass('@result-0', 'bg-blue-500')
+                    ->assertMissingClass('@result-1', 'bg-blue-500')
+                    ->assertMissingClass('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function up_arrow_focuses_nothing_if_nothing_currently_focused_in_dropdown()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->assertMissingClass('@result-0', 'bg-blue-500')
+                    ->assertMissingClass('@result-1', 'bg-blue-500')
+                    ->assertMissingClass('@result-2', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{ARROW_UP}')
+                    ->assertMissingClass('@result-0', 'bg-blue-500')
+                    ->assertMissingClass('@result-1', 'bg-blue-500')
+                    ->assertMissingClass('@result-2', 'bg-blue-500')
+                    ;
+        });
+    }
 }
