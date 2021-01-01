@@ -21,9 +21,12 @@ class PageWithAutocompleteComponent extends Component
     public function select($index)
     {
         $this->selected = $this->results[$index] ?? null;
+        $this->input = $this->selected;
+
+        $this->calculateResults();
     }
 
-    public function updatedInput()
+    public function calculateResults()
     {
         $this->results = Collection::wrap($this->results)
             ->filter(function ($result) {
@@ -31,6 +34,11 @@ class PageWithAutocompleteComponent extends Component
             })
             ->values()
             ->toArray();
+    }
+
+    public function updatedInput()
+    {
+        $this->calculateResults();
     }
 
     public function render()
