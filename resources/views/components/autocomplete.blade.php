@@ -1,6 +1,7 @@
 @props([
 'selectAction',
 'resultsProperty',
+'resultComponent' => null,
 ])
 <div x-data="autocomplete()" x-on:click.away="close()">
     <input
@@ -28,7 +29,13 @@
                 x-on:mouseenter="focusIndex = {{ $key }}"
                 :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
                 dusk="result-{{ $key }}">
-                {{ $result }}
+                @if ($resultComponent)
+                    <x-dynamic-component :component="$resultComponent" :model="$result" />
+                @else
+                    <div>
+                        {{ $result }}
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>
