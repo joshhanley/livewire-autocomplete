@@ -60,4 +60,55 @@ class AutocompleteDatabaseTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function ensure_results_count_gets_updated_so_focus_cant_go_off_the_end_of_results()
+    {
+        Item::create(['name' => 'test1']);
+        Item::create(['name' => 'test2']);
+        Item::create(['name' => 'test3']);
+        Item::create(['name' => 'other1']);
+        Item::create(['name' => 'other2']);
+
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, DatabaseResultsAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->waitForLivewire()->type('@autocomplete-input', 'o')
+                    ->assertSeeInOrder('@autocomplete-dropdown', [
+                        'other1',
+                        'other2',
+                        ])
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertHasClass('@result-1', 'bg-blue-500')
+                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                    ->assertHasClass('@result-1', 'bg-blue-500')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function results_dropdown_is_not_shown_if_there_are_no_results_found()
+    {
+        Item::create(['name' => 'test1']);
+        Item::create(['name' => 'test2']);
+        Item::create(['name' => 'test3']);
+        Item::create(['name' => 'other1']);
+        Item::create(['name' => 'other2']);
+
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, DatabaseResultsAutocompleteComponent::class)
+                    ->assertMissing('@autocomplete-dropdown')
+                    ->waitForLivewire()->type('@autocomplete-input', 'o')
+                    ->assertSeeInOrder('@autocomplete-dropdown', [
+                        'other1',
+                        'other2',
+                        ])
+                    ->assertVisible('@autocomplete-dropdown')
+                    ->waitForLivewire()->type('@autocomplete-input', 'a')
+                    ->assertMissing('@autocomplete-dropdown')
+                    ;
+        });
+    }
 }

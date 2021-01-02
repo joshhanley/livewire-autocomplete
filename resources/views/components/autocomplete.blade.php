@@ -3,7 +3,7 @@
 'resultsProperty',
 'resultComponent' => null,
 ])
-<div x-data="autocomplete()" x-on:click.away="close()">
+<div x-data="autocomplete()" x-init="init()" x-on:click.away="close()">
     <input
         x-model.debounce.300ms="value"
         x-on:focus="showDropdown = true"
@@ -22,7 +22,7 @@
         type="text"
         dusk="autocomplete-input" />
 
-    <div x-show="showDropdown" x-on:click="selectItem()" x-on:mouseleave="focusIndex = null" dusk="autocomplete-dropdown" x-cloak>
+    <div x-show="showDropdown && hasResults()" x-on:click="selectItem()" x-on:mouseleave="focusIndex = null" dusk="autocomplete-dropdown" x-cloak>
         @foreach ($this->$resultsProperty as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
@@ -53,6 +53,10 @@
                 resultsCount: null,
                 shiftIsPressed: false,
                 selectOnTab: true,
+
+                init() {
+                    this.$watch('results', () => this.clearResultsCount())
+                },
 
                 show() {
                     this.showDropdown = true

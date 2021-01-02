@@ -51,7 +51,7 @@ class DatabaseResultsAutocompleteComponent extends Component
             <div dusk="page">
                 <x-lwc::autocomplete wire:model="itemName" select-action="select" result-component="item-row" results-property="items" />
 
-                <div dusk="result-output">{{ $selected }}</div>
+                <div dusk="result-output">{{ $selectedItem }}</div>
             </div>
             HTML;
     }
