@@ -26,6 +26,11 @@ class PageWithAutocompleteComponent extends Component
         $this->calculateResults();
     }
 
+    public function clear()
+    {
+        $this->reset('selected', 'input');
+    }
+
     public function calculateResults()
     {
         $this->results = Collection::wrap($this->results)
@@ -46,7 +51,7 @@ class PageWithAutocompleteComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwc::autocomplete wire:model="input" select-action="select" results-property="results" />
+                <x-lwc::autocomplete wire:model="input" select-action="select" clear-action="clear" selected-property="selected" results-property="results" />
 
                 <div dusk="result-output">{{ $selected }}</div>
             </div>
