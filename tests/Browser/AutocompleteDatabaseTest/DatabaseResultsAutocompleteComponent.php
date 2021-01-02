@@ -21,12 +21,17 @@ class DatabaseResultsAutocompleteComponent extends Component
         $this->getItems();
     }
 
-    public function select($index)
+    public function selectItem($index)
     {
         $this->selectedItem = $this->items[$index] ?? null;
         $this->itemName = $this->selectedItem->name ?? null;
 
         $this->getItems();
+    }
+
+    public function clearItem()
+    {
+        $this->reset('itemName', 'selectedItem');
     }
 
     public function getItems()
@@ -49,7 +54,7 @@ class DatabaseResultsAutocompleteComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwc::autocomplete wire:model="itemName" select-action="select" result-component="item-row" results-property="items" />
+                <x-lwc::autocomplete wire:model="itemName" select-action="selectItem" clear-action="clearItem" selected-property="selectedItem" result-component="item-row" results-property="items" />
 
                 <div dusk="result-output">{{ $selectedItem }}</div>
             </div>

@@ -100,6 +100,7 @@ class AutocompleteDatabaseTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, DatabaseResultsAutocompleteComponent::class)
                     ->assertMissing('@autocomplete-dropdown')
+                    ->click('@autocomplete-input')
                     ->waitForLivewire()->type('@autocomplete-input', 'o')
                     ->assertSeeInOrder('@autocomplete-dropdown', [
                         'other1',
@@ -108,6 +109,46 @@ class AutocompleteDatabaseTest extends TestCase
                     ->assertVisible('@autocomplete-dropdown')
                     ->waitForLivewire()->type('@autocomplete-input', 'a')
                     ->assertMissing('@autocomplete-dropdown')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function selected_item_can_be_cleared()
+    {
+        Item::create(['name' => 'test1']);
+        Item::create(['name' => 'test2']);
+        Item::create(['name' => 'test3']);
+        Item::create(['name' => 'other1']);
+        Item::create(['name' => 'other2']);
+
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, DatabaseResultsAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->click('@result-1')
+                    ->assertValue('@autocomplete-input', 'test2')
+                    ->assertSeeIn('@result-output', '"id":2')
+                    ->waitForLivewire()->click('@clear')
+                    ->assertValue('@autocomplete-input', '')
+                    ->assertSeeNothingIn('@result-output')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function clear_button_cant_be_pressed_if_nothing_selected()
+    {
+        Item::create(['name' => 'test1']);
+        Item::create(['name' => 'test2']);
+        Item::create(['name' => 'test3']);
+        Item::create(['name' => 'other1']);
+        Item::create(['name' => 'other2']);
+
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, DatabaseResultsAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->assertMissing('@clear')
+                    // ->waitForLivewire()->click('@clear')
                     ;
         });
     }
