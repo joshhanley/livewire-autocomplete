@@ -152,4 +152,25 @@ class AutocompleteDatabaseTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function input_cannot_be_focused_when_item_is_selected()
+    {
+        Item::create(['name' => 'test1']);
+        Item::create(['name' => 'test2']);
+        Item::create(['name' => 'test3']);
+        Item::create(['name' => 'other1']);
+        Item::create(['name' => 'other2']);
+
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, DatabaseResultsAutocompleteComponent::class)
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->click('@result-1')
+                    ->assertValue('@autocomplete-input', 'test2')
+                    ->assertNotFocused('@autocomplete-input')
+                    ->click('@autocomplete-input')
+                    ->assertNotFocused('@autocomplete-input')
+                    ;
+        });
+    }
 }

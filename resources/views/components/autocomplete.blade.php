@@ -23,7 +23,9 @@
             x-on:input.debounce.300ms="clearFocus()"
             class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
             type="text"
-            dusk="autocomplete-input" />
+            dusk="autocomplete-input"
+            @if ($this->getPropertyValue($selectedProperty)) disabled @endif
+        />
 
         <div x-on:click="clearItem()" class="absolute right-0 inset-y-0 flex items-center">
             @if ($this->getPropertyValue($selectedProperty))
