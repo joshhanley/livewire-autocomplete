@@ -4,6 +4,7 @@
 'resultsProperty' => $attributes->wire('results-property'),
 'selectedProperty' => $attributes->wire('selected-property'),
 'resultComponent' => null,
+'searchAttribute' => null,
 ])
 
 @php
@@ -17,7 +18,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
     value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
     results: @entangle($resultsProperty),
     selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
-    })" x-init="init()" x-on:click.away="close()">
+    searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }}
+    })" x-init="init($dispatch)" x-on:click.away="close()">
     <div class="relative">
         <input
             x-model.debounce.300ms="value"
@@ -98,7 +100,10 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 shiftIsPressed: false,
                 selectOnTab: true,
 
-                init() {
+                init($dispatch) {
+                    this.$watch('value', value => $dispatch('client-input', value))
+                    this.$watch('selected', selected => $dispatch('client-selected', selected))
+
                     this.$watch('results', () => this.clearResultsCount())
                 },
 
@@ -209,16 +214,12 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 input($dispatch) {
                     this.clearFocus()
-                    $dispatch('client-input', this.value)
                 },
 
                 selectItem($dispatch) {
                     if (this.hasFocus()) {
-                        console.log(this.results)
                         this.selected = this.results[this.focusIndex]
-                        this.value = this.selected
-                        console.log(this.selected)
-                        $dispatch('client-selected', this.results[this.focusIndex])
+                        this.value = this.searchAttribute ? this.selected[this.searchAttribute] : this.selected
                     }
 
                     this.close()
@@ -226,8 +227,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 clearItem($dispatch) {
                     this.selected = null
-                    this.value = this.selected
-                    $dispatch('client-selected', this.selected)
+                    this.value = null
                 }
             }
         }
