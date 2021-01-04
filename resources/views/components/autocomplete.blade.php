@@ -11,11 +11,13 @@
 $attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property'])
 @endphp
 
+{{-- @dd(get_defined_vars()) --}}
+
 <div x-data="autocomplete({
-    value: @entangle($inputProperty),
+    value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
     results: @entangle($resultsProperty),
-    selected: @entangle($selectedProperty),
-})" x-init="init()" x-on:click.away="close()">
+    selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
+    })" x-init="init()" x-on:click.away="close()">
     <div class="relative">
         <input
             x-model.debounce.300ms="value"
@@ -25,21 +27,22 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
             x-on:keyup.shift.window="shift(false)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
             x-on:blur.window="shift(false)" {{-- Clear shift on window blur otherwise can't select --}}
             x-on:keydown.escape.prevent="showDropdown = false; event.target.blur()"
-            x-on:keydown.enter.stop.prevent="selectItem(); event.target.blur()"
+            x-on:keydown.enter.stop.prevent="selectItem($dispatch); event.target.blur()"
             x-on:keydown.arrow-up.prevent="focusPrevious()"
             x-on:keydown.arrow-down.prevent="focusNext()"
             x-on:keydown.home.prevent="focusFirst()"
             x-on:keydown.end.prevent="focusLast()"
-            x-on:input.debounce.300ms="clearFocus()"
+            x-on:input.debounce.300ms="input($dispatch)"
             class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
             type="text"
             dusk="autocomplete-input"
-            @if ($this->getPropertyValue($selectedProperty)) disabled @endif
+            x-bind:disabled="selected"
+            {{-- @if ($this->getPropertyValue($selectedProperty)) disabled @endif --}}
         />
 
-        <div x-on:click="clearItem()" class="absolute right-0 inset-y-0 flex items-center">
-            @if ($this->getPropertyValue($selectedProperty))
-                <button type="button" class="group focus:outline-none" dusk="clear">
+        <div x-on:click="clearItem($dispatch)" class="absolute right-0 inset-y-0 flex items-center">
+            {{-- @if ($this->getPropertyValue($selectedProperty)) --}}
+                <button x-show="selected" type="button" class="group focus:outline-none" dusk="clear" x-cloak>
                     {{-- @if ($clear)
                         {{ $clear }}
                         @else --}}
@@ -52,11 +55,12 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                         {{--
                     @endif --}}
                 </button>
-            @endif
+                {{--
+            @endif --}}
         </div>
     </div>
 
-    <div x-show="showDropdown && hasResults()" x-on:click="selectItem()" x-on:mouseleave="focusIndex = null" class="relative" dusk="autocomplete-dropdown" x-cloak>
+    <div x-show="showDropdown && hasResults()" x-on:click="selectItem($dispatch)" x-on:mouseleave="focusIndex = null" class="relative" dusk="autocomplete-dropdown" x-cloak>
         <div wire:loading.delay.class.remove="hidden" class="hidden absolute inset-0 flex items-center justify-center" dusk="autocomplete-loading">
             <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
             <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -203,14 +207,27 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     this.focusIndex++
                 },
 
-                selectItem() {
-                    if (this.hasFocus()) this.selected = this.results[this.focusIndex]
+                input($dispatch) {
+                    this.clearFocus()
+                    $dispatch('client-input', this.value)
+                },
+
+                selectItem($dispatch) {
+                    if (this.hasFocus()) {
+                        console.log(this.results)
+                        this.selected = this.results[this.focusIndex]
+                        this.value = this.selected
+                        console.log(this.selected)
+                        $dispatch('client-selected', this.results[this.focusIndex])
+                    }
 
                     this.close()
                 },
 
-                clearItem() {
-                    this.selected = null;
+                clearItem($dispatch) {
+                    this.selected = null
+                    this.value = this.selected
+                    $dispatch('client-selected', this.selected)
                 }
             }
         }
