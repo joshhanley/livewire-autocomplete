@@ -1,10 +1,20 @@
 @props([
+/** Assign required wire attributes to local properties */
+'inputProperty' => $attributes->wire('input-property'),
+'resultsProperty' => $attributes->wire('results-property'),
+'selectedProperty' => $attributes->wire('selected-property'),
 'resultComponent' => null,
 ])
+
+@php
+/** Remove all wire attributes that are assigned to local properties from the attribute bag */
+$attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property'])
+@endphp
+
 <div x-data="autocomplete({
-    value: @entangle($attributes->wire('input-property')),
-    results: @entangle($attributes->wire('results-property')),
-    selected: @entangle($attributes->wire('selected-property')),
+    value: @entangle($inputProperty),
+    results: @entangle($resultsProperty),
+    selected: @entangle($selectedProperty),
 })" x-init="init()" x-on:click.away="close()">
     <div class="relative">
         <input
@@ -24,11 +34,11 @@
             class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
             type="text"
             dusk="autocomplete-input"
-            @if ($this->getPropertyValue($attributes->wire('selected-property'))) disabled @endif
+            @if ($this->getPropertyValue($selectedProperty)) disabled @endif
         />
 
         <div x-on:click="clearItem()" class="absolute right-0 inset-y-0 flex items-center">
-            @if ($this->getPropertyValue($attributes->wire('selected-property')))
+            @if ($this->getPropertyValue($selectedProperty))
                 <button type="button" class="group focus:outline-none" dusk="clear">
                     {{-- @if ($clear)
                         {{ $clear }}
@@ -47,7 +57,7 @@
     </div>
 
     <div x-show="showDropdown && hasResults()" x-on:click="selectItem()" x-on:mouseleave="focusIndex = null" dusk="autocomplete-dropdown" x-cloak>
-        @foreach ($this->getPropertyValue($attributes->wire('results-property')) as $key => $result)
+        @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
                 x-on:mouseenter="focusIndex = {{ $key }}"
