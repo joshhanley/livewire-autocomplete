@@ -18,23 +18,16 @@ class PageWithAutocompleteComponent extends Component
 
     public $selected;
 
-    public function select($index)
-    {
-        $this->selected = $this->results[$index] ?? null;
-        $this->input = $this->selected;
-
-        $this->calculateResults();
-    }
-
-    public function clear()
-    {
-        $this->reset('selected', 'input');
-    }
-
     public function calculateResults()
     {
+        $this->reset('results');
+
         $this->results = Collection::wrap($this->results)
             ->filter(function ($result) {
+                if (!$this->input) {
+                    return true;
+                }
+
                 return str_contains($result, $this->input);
             })
             ->values()
@@ -43,7 +36,13 @@ class PageWithAutocompleteComponent extends Component
 
     public function updatedInput()
     {
-        $this->reset('results');
+        $this->calculateResults();
+    }
+
+    public function updatedSelected()
+    {
+        $this->input = $this->selected ?? null;
+
         $this->calculateResults();
     }
 
@@ -51,7 +50,11 @@ class PageWithAutocompleteComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwc::autocomplete wire:model="input" select-action="select" clear-action="clear" selected-property="selected" results-property="results" />
+                <x-lwc::autocomplete
+                    wire:input-property="input"
+                    wire:selected-property="selected"
+                    wire:results-property="results"
+                    />
 
                 <div dusk="result-output">{{ $selected }}</div>
             </div>

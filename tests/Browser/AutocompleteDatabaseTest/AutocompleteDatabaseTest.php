@@ -127,7 +127,7 @@ class AutocompleteDatabaseTest extends TestCase
                     ->click('@autocomplete-input')
                     ->waitForLivewire()->click('@result-1')
                     ->assertValue('@autocomplete-input', 'test2')
-                    ->assertSeeIn('@result-output', '"id":2')
+                    ->assertSeeIn('@result-output', 'ID:2')
                     ->waitForLivewire()->click('@clear')
                     ->assertValue('@autocomplete-input', '')
                     ->assertSeeNothingIn('@result-output')

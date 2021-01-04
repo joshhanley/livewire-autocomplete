@@ -1,8 +1,4 @@
 @props([
-'selectAction',
-'clearAction',
-'selectedProperty',
-'resultsProperty',
 'resultComponent' => null,
 ])
 <div x-data="autocomplete()" x-init="init()" x-on:click.away="close()">
@@ -24,11 +20,11 @@
             class="w-full px-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
             type="text"
             dusk="autocomplete-input"
-            @if ($this->getPropertyValue($selectedProperty)) disabled @endif
+            @if ($this->getPropertyValue($attributes->wire('selected-property'))) disabled @endif
         />
 
         <div x-on:click="clearItem()" class="absolute right-0 inset-y-0 flex items-center">
-            @if ($this->getPropertyValue($selectedProperty))
+            @if ($this->getPropertyValue($attributes->wire('selected-property')))
                 <button type="button" class="group focus:outline-none" dusk="clear">
                     {{-- @if ($clear)
                         {{ $clear }}
@@ -47,7 +43,7 @@
     </div>
 
     <div x-show="showDropdown && hasResults()" x-on:click="selectItem()" x-on:mouseleave="focusIndex = null" dusk="autocomplete-dropdown" x-cloak>
-        @foreach ($this->$resultsProperty as $key => $result)
+        @foreach ($this->getPropertyValue($attributes->wire('results-property')) as $key => $result)
             <div
                 wire:key="result-{{ $key }}"
                 x-on:mouseenter="focusIndex = {{ $key }}"
@@ -70,10 +66,9 @@
         function autocomplete() {
             return {
                 showDropdown: false,
-                value: @entangle($attributes->wire('model')),
-                results: @entangle($resultsProperty),
-                selectAction: '{{ $selectAction }}',
-                clearAction: '{{ $clearAction }}',
+                value: @entangle($attributes->wire('input-property')),
+                results: @entangle($attributes->wire('results-property')),
+                selected: @entangle($attributes->wire('selected-property')),
                 focusIndex: null,
                 resultsCount: null,
                 shiftIsPressed: false,
@@ -189,14 +184,13 @@
                 },
 
                 selectItem() {
-                    if (this.hasFocus()) this.$wire.call(this.selectAction, this.focusIndex, this.key)
+                    if (this.hasFocus()) this.selected = this.results[this.focusIndex]
 
                     this.close()
                 },
 
                 clearItem() {
-                    console.log(this.clearAction)
-                    this.$wire.call(this.clearAction, this.key)
+                    this.selected = null;
                 }
             }
         }

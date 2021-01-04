@@ -16,22 +16,14 @@ class DatabaseResultsAutocompleteComponent extends Component
 
     public $selectedItem;
 
+    public $rules = [
+        'items.*.id' => '',
+        'selectedItem' => ''
+    ];
+
     public function mount()
     {
         $this->getItems();
-    }
-
-    public function selectItem($index)
-    {
-        $this->selectedItem = $this->items[$index] ?? null;
-        $this->itemName = $this->selectedItem->name ?? null;
-
-        $this->getItems();
-    }
-
-    public function clearItem()
-    {
-        $this->reset('itemName', 'selectedItem');
     }
 
     public function getItems()
@@ -50,13 +42,24 @@ class DatabaseResultsAutocompleteComponent extends Component
         $this->getItems();
     }
 
+    public function updatedSelectedItem($selected)
+    {
+        $this->selectedItem = Item::find($selected['id'] ?? null);
+        $this->itemName = $this->selectedItem->name ?? null;
+    }
+
     public function render()
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwc::autocomplete wire:model="itemName" select-action="selectItem" clear-action="clearItem" selected-property="selectedItem" result-component="item-row" results-property="items" />
+                <x-lwc::autocomplete
+                    wire:input-property="itemName"
+                    wire:selected-property="selectedItem"
+                    wire:results-property="items"
+                    result-component="item-row"
+                    />
 
-                <div dusk="result-output">{{ $selectedItem }}</div>
+                <div dusk="result-output">@if($selectedItem)ID:{{ $selectedItem->id }} - Name:{{ $selectedItem->name }}@endif</div>
             </div>
             HTML;
     }
