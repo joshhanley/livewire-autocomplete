@@ -1,7 +1,11 @@
 @props([
 'resultComponent' => null,
 ])
-<div x-data="autocomplete()" x-init="init()" x-on:click.away="close()">
+<div x-data="autocomplete({
+    value: @entangle($attributes->wire('input-property')),
+    results: @entangle($attributes->wire('results-property')),
+    selected: @entangle($attributes->wire('selected-property')),
+})" x-init="init()" x-on:click.away="close()">
     <div class="relative">
         <input
             x-model.debounce.300ms="value"
@@ -63,12 +67,10 @@
 
 @once
     <script>
-        function autocomplete() {
+        function autocomplete(config) {
             return {
                 showDropdown: false,
-                value: @entangle($attributes->wire('input-property')),
-                results: @entangle($attributes->wire('results-property')),
-                selected: @entangle($attributes->wire('selected-property')),
+                ...config,
                 focusIndex: null,
                 resultsCount: null,
                 shiftIsPressed: false,
