@@ -291,15 +291,12 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                     ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
-                    ->assertSeeIn('@result-output', 'john')
-                    ->click('@autocomplete-input')
                     ->assertClassMissing('@result-0', 'bg-blue-500')
+                    ->assertClassMissing('@result-1', 'bg-blue-500')
+                    ->assertClassMissing('@result-2', 'bg-blue-500')
                     ->keys('@autocomplete-input', '{ENTER}')
                     ->pause(300)
-                    ->assertSeeIn('@result-output', 'john')
+                    ->assertSeeNothingIn('@result-output')
                     ;
         });
     }
@@ -444,9 +441,10 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                     ->click('@autocomplete-input')
-                    ->waitForLivewire()->click('@result-1')
-                    ->assertSeeIn('@result-output', 'john')
-                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->type('@autocomplete-input', 'john')
+                    ->assertSeeIn('@autocomplete-dropdown', 'john')
+                    ->assertDontSeeIn('@autocomplete-dropdown', 'bob')
+                    ->assertDontSeeIn('@autocomplete-dropdown', 'bill')
                     // Need to press keys to trigger input events livewire requires
                     ->waitForLivewire()->keys('@autocomplete-input', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}')
                     ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
