@@ -18,6 +18,7 @@ class DatabaseResultsAutocompleteComponent extends Component
 
     public $rules = [
         'items.*.id' => '',
+        'items.*.name' => '',
         'selectedItem' => ''
     ];
 
@@ -57,6 +58,7 @@ class DatabaseResultsAutocompleteComponent extends Component
                     wire:selected-property="selectedItem"
                     wire:results-property="items"
                     result-component="item-row"
+                    search-attribute="name"
                     />
 
                 <div dusk="result-output">@if($selectedItem)ID:{{ $selectedItem->id }} - Name:{{ $selectedItem->name }}@endif</div>
