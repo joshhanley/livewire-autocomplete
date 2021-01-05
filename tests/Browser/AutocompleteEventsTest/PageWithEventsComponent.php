@@ -18,6 +18,8 @@ class PageWithEventsComponent extends Component
 
     public $selected;
 
+    public $options;
+
     public function calculateResults()
     {
         $this->reset('results');
@@ -56,10 +58,13 @@ class PageWithEventsComponent extends Component
                         wire:input-property="input"
                         wire:selected-property="selected"
                         wire:results-property="results"
+                        wire:options-property="options"
                         />
                 </div>
 
                 <div dusk="result-output">{{ $selected }}</div>
+
+                <div dusk="options">{{ $options }}</div>
 
                 <div
                     x-data="{ selected: null, input: null }"
@@ -75,6 +80,9 @@ class PageWithEventsComponent extends Component
                     <div>
                         Alpine Selected: <span dusk="alpine-selected" x-text="selected"></span>
                     </div>
+                    <button dusk="alpine-clear" x-on:click="$dispatch('item-clear')">Alpine Clear</button>
+                    <button dusk="alpine-set" x-on:click="$dispatch('item-set', 'bob')">Alpine Clear</button>
+                    <button dusk="alpine-options" x-on:click="$dispatch('item-set-options', 'filter')">Alpine Options</button>
                 </div>
             </div>
             HTML;

@@ -66,4 +66,54 @@ class AutocompleteEventsTest extends TestCase
                     ;
         });
     }
+
+    /** @test */
+    public function selected_is_cleared_when_clear_event_received()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithEventsComponent::class)
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->click('@result-2')
+                    ->assertSeeIn('@result-output', 'bill')
+                    ->assertValue('@autocomplete-input', 'bill')
+                    ->assertSeeIn('@alpine-input', 'bill')
+                    ->assertSeeIn('@alpine-selected', 'bill')
+                    ->waitForLivewire()->click('@alpine-clear')
+                    ->assertSeeNothingIn('@result-output')
+                    ->assertValue('@autocomplete-input', '')
+                    ->assertSeeNothingIn('@alpine-input')
+                    ->assertSeeNothingIn('@alpine-selected')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function selected_is_set_when_set_event_received()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithEventsComponent::class)
+                    ->assertSeeNothingIn('@result-output')
+                    ->assertValue('@autocomplete-input', '')
+                    ->assertSeeNothingIn('@alpine-input')
+                    ->assertSeeNothingIn('@alpine-selected')
+                    ->waitForLivewire()->click('@alpine-set')
+                    ->assertSeeIn('@result-output', 'bob')
+                    ->assertValue('@autocomplete-input', 'bob')
+                    ->assertSeeIn('@alpine-input', 'bob')
+                    ->assertSeeIn('@alpine-selected', 'bob')
+                    ;
+        });
+    }
+
+    /** @test */
+    public function options_are_set_when_set_options_event_received()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithEventsComponent::class)
+                    ->assertSeeNothingIn('@options')
+                    ->waitForLivewire()->click('@alpine-options')
+                    ->assertSeeIn('@options', 'filter')
+                    ;
+        });
+    }
 }
