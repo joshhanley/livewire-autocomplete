@@ -42,6 +42,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
             type="text"
             dusk="autocomplete-input"
             x-bind:disabled="selected"
+            x-spread="inputListeners()"
             {{-- @if ($this->getPropertyValue($selectedProperty)) disabled @endif --}}
         />
 
@@ -220,19 +221,36 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 selectItem($dispatch) {
                     if (this.hasFocus()) {
-                        this.selected = this.results[this.focusIndex]
-                        this.value = this.searchAttribute ? this.selected[this.searchAttribute] : this.selected
-                        $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
-                        $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
+                        this.setSelected($dispatch, this.results[this.focusIndex])
                     }
 
                     this.close()
+                },
+
+                setSelected($dispatch, selected) {
+                    this.selected = selected
+                    this.value = this.searchAttribute ? selected[this.searchAttribute] : selected
+                    $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
+                    $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
 
                 clearItem($dispatch) {
                     this.selected = null
                     this.value = null
                     $dispatch((this.name ?? 'autocomplete') + '-cleared')
+                },
+
+                inputListeners() {
+                    return {
+                        ['x-on:' + (this.name ?? 'autocomplete') + '-clear.window'](event) {
+                            console.log(this)
+                            console.log(this.$el.__x.getDispatchFunction(event.target))
+                            this.clearItem(this.$el.__x.getDispatchFunction(event.target))
+                        },
+                        ['x-on:' + (this.name ?? 'autocomplete') + '-set.window'](event) {
+                            this.setSelected(this.$el.__x.getDispatchFunction(event.target), event.detail)
+                        }
+                    }
                 }
             }
         }
