@@ -4,13 +4,14 @@
 'inputProperty' => $attributes->wire('input-property'),
 'resultsProperty' => $attributes->wire('results-property'),
 'selectedProperty' => $attributes->wire('selected-property'),
+'optionsProperty' => $attributes->wire('options-property'),
 'resultComponent' => null,
 'searchAttribute' => null,
 ])
 
 @php
 /** Remove all wire attributes that are assigned to local properties from the attribute bag */
-$attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property'])
+$attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property', 'wire:options-property'])
 @endphp
 
 {{-- @dd(get_defined_vars()) --}}
@@ -20,6 +21,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
     value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
     results: @entangle($resultsProperty),
     selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
+    options: {!! $optionsProperty->value ? "\$wire.entangle('" . $optionsProperty . "')" : 'null' !!},
     searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }}
     })" x-init="init($dispatch)" x-on:click.away="close()">
     <div class="relative">
@@ -234,6 +236,10 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
 
+                setOptions(options) {
+                    this.options = options
+                },
+
                 clearItem($dispatch) {
                     this.selected = null
                     this.value = null
@@ -249,6 +255,9 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                         },
                         ['x-on:' + (this.name ?? 'autocomplete') + '-set.window'](event) {
                             this.setSelected(this.$el.__x.getDispatchFunction(event.target), event.detail)
+                        },
+                        ['x-on:' + (this.name ?? 'autocomplete') + '-set-options.window'](event) {
+                            this.setOptions(event.detail)
                         }
                     }
                 }
