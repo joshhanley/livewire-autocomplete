@@ -1,4 +1,5 @@
 @props([
+'name' => null,
 /** Assign required wire attributes to local properties */
 'inputProperty' => $attributes->wire('input-property'),
 'resultsProperty' => $attributes->wire('results-property'),
@@ -15,6 +16,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 {{-- @dd(get_defined_vars()) --}}
 
 <div x-data="autocomplete({
+    name: {{ json_encode($name) }},
     value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
     results: @entangle($resultsProperty),
     selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
@@ -36,7 +38,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
             x-on:keydown.end.prevent="focusLast()"
             x-on:input.debounce.300ms="input($dispatch)"
             class="w-full pl-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
-            x-bind:class="[selected ? 'pr-10' : 'pr-4']"
+            x-bind:class="[selected ? 'pr-9' : 'pr-4']"
             type="text"
             dusk="autocomplete-input"
             x-bind:disabled="selected"
@@ -102,8 +104,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 selectOnTab: true,
 
                 init($dispatch) {
-                    this.$watch('value', value => $dispatch('client-input', value))
-                    this.$watch('selected', selected => $dispatch('client-selected', selected))
+                    this.$watch('value', value => $dispatch((this.name ?? 'autocomplete') + '-input', value))
+                    this.$watch('selected', selected => $dispatch((this.name ?? 'autocomplete') + '-selected', selected))
 
                     this.$watch('results', () => this.clearResultsCount())
                 },
