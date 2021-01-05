@@ -18,7 +18,7 @@ class AutocompleteLoadingTest extends TestCase
                     ->assertMissing('@autocomplete-loading')
                     ->type('@autocomplete-input', 'b')
                     // Wait for loading indicator to show up
-                    ->pause(500)
+                    ->pause(700)
                     ->assertVisible('@autocomplete-loading')
                     ;
         });
