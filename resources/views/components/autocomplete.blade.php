@@ -26,7 +26,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
         <input
             x-model.debounce.300ms="value"
             x-on:focus="showDropdown = true"
-            x-on:keydown.tab="tab()"
+            x-on:keydown.tab="tab($dispatch)"
             x-on:keydown.shift.window="shift(true)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
             x-on:keyup.shift.window="shift(false)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
             x-on:blur.window="shift(false)" {{-- Clear shift on window blur otherwise can't select --}}
@@ -104,9 +104,6 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 selectOnTab: true,
 
                 init($dispatch) {
-                    this.$watch('value', value => $dispatch((this.name ?? 'autocomplete') + '-input', value))
-                    this.$watch('selected', selected => $dispatch((this.name ?? 'autocomplete') + '-selected', selected))
-
                     this.$watch('results', () => this.clearResultsCount())
                 },
 
@@ -126,10 +123,10 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     return !this.isShown()
                 },
 
-                tab() {
+                tab($dispatch) {
                     if (this.shiftIsPressed) return this.close()
 
-                    if (this.selectOnTab) return this.selectItem()
+                    if (this.selectOnTab) return this.selectItem($dispatch)
 
                     return this.close()
                 },
@@ -217,12 +214,16 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 input($dispatch) {
                     this.clearFocus()
+
+                    $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
 
                 selectItem($dispatch) {
                     if (this.hasFocus()) {
                         this.selected = this.results[this.focusIndex]
                         this.value = this.searchAttribute ? this.selected[this.searchAttribute] : this.selected
+                        $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
+                        $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                     }
 
                     this.close()
@@ -231,6 +232,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 clearItem($dispatch) {
                     this.selected = null
                     this.value = null
+                    $dispatch((this.name ?? 'autocomplete') + '-cleared')
                 }
             }
         }
