@@ -70,7 +70,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
         </div>
     </div>
 
-    <div x-show="showDropdown && hasResults()" x-on:click="selectItem($dispatch)" x-on:mouseleave="focusIndex = null" class="relative" dusk="autocomplete-dropdown" x-cloak>
+    <div x-show="showDropdown && hasResults()" x-on:click="selectItem($dispatch)" x-on:mouseleave="mouseLeave()" class="relative" dusk="autocomplete-dropdown" x-cloak>
         <div wire:loading.delay.class.remove="hidden" class="hidden absolute inset-0 flex items-center justify-center" dusk="autocomplete-loading">
             <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
             <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -146,6 +146,9 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     if (this.isHidden()) return
 
                     this.hide()
+
+                    if (this.autoselect) return this.focusIndex = 0;
+
                     this.clearFocus();
                 },
 
@@ -204,6 +207,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                     if (this.hasNoFocus()) return
 
+                    if (this.focusIsAtStart() && this.autoselect) return
+
                     if (this.focusIsAtStart()) return this.clearFocus();
 
                     this.focusIndex--
@@ -217,6 +222,12 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     if (this.focusIsAtEnd()) return
 
                     this.focusIndex++
+                },
+
+                mouseLeave() {
+                    if (this.autoselect) return
+
+                    this.focusIndex = null
                 },
 
                 input($dispatch) {
