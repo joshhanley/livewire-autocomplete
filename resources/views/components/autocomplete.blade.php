@@ -111,7 +111,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 init($dispatch) {
                     this.$watch('results', () => this.clearResultsCount())
 
-                    if (this.autoselect) this.focusFirst()
+                    this.resetFocus()
                 },
 
                 show() {
@@ -147,12 +147,12 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                     this.hide()
 
-                    if (this.autoselect) return this.focusIndex = 0;
-
-                    this.clearFocus();
+                    this.resetFocus();
                 },
 
-                clearFocus() {
+                resetFocus() {
+                    if (this.autoselect) return this.focusIndex = 0
+
                     this.focusIndex = null
                 },
 
@@ -203,19 +203,17 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 },
 
                 focusPrevious() {
-                    if (this.hasNoResults()) return this.clearFocus()
+                    if (this.hasNoResults()) return this.resetFocus()
 
                     if (this.hasNoFocus()) return
 
-                    if (this.focusIsAtStart() && this.autoselect) return
-
-                    if (this.focusIsAtStart()) return this.clearFocus();
+                    if (this.focusIsAtStart()) return this.resetFocus();
 
                     this.focusIndex--
                 },
 
                 focusNext() {
-                    if (this.hasNoResults()) return this.clearFocus()
+                    if (this.hasNoResults()) return this.resetFocus()
 
                     if (this.hasNoFocus()) return this.focusFirst()
 
@@ -227,11 +225,11 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 mouseLeave() {
                     if (this.autoselect) return
 
-                    this.focusIndex = null
+                    this.resetFocus()
                 },
 
                 input($dispatch) {
-                    this.clearFocus()
+                    this.resetFocus()
 
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
