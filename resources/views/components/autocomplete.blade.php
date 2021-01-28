@@ -7,6 +7,7 @@
 'optionsProperty' => $attributes->wire('options-property'),
 'resultComponent' => null,
 'searchAttribute' => null,
+'autoselect' => null
 ])
 
 @php
@@ -22,7 +23,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
     results: @entangle($resultsProperty),
     selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
     options: {!! $optionsProperty->value ? "\$wire.entangle('" . $optionsProperty . "')" : 'null' !!},
-    searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }}
+    searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }},
+    autoselect: {{ $autoselect ? 'true' : 'false' }}
     })" x-init="init($dispatch)" x-on:click.away="close()">
     <div class="relative">
         <input
@@ -108,6 +110,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 init($dispatch) {
                     this.$watch('results', () => this.clearResultsCount())
+
+                    if (this.autoselect) this.focusFirst()
                 },
 
                 show() {
