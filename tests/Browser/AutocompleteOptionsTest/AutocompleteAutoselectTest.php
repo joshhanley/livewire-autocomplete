@@ -93,4 +93,18 @@ class AutocompleteAutoselectTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function on_autoselect_if_no_results_clear_input_on_selection()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutoselectOptionComponent::class, '?autoselect=true')
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->type('@autocomplete-input', 'steve')
+                ->assertMissing('@autocomplete-dropdown')
+                ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                ->assertValue('@autocomplete-input', '')
+                ;
+        });
+    }
 }

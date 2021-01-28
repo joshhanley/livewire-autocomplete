@@ -235,8 +235,11 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 },
 
                 selectItem($dispatch) {
-                    if (this.hasFocus()) {
+                    if (this.hasFocus() && this.hasResults()) {
+                        console.log(this.focusIndex)
                         this.setSelected($dispatch, this.results[this.focusIndex])
+                    } else {
+                        if (this.autoselect) this.value = null
                     }
 
                     this.close()
