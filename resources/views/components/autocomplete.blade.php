@@ -131,7 +131,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 },
 
                 escape() {
-                    if (this.autoselect) this.value = null
+                    if (this.autoselect) this.resetValue()
 
                     this.hide()
                 },
@@ -160,6 +160,10 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     if (this.autoselect) return this.focusIndex = 0
 
                     this.focusIndex = null
+                },
+
+                resetValue() {
+                    this.value = null
                 },
 
                 hasResults() {
@@ -245,7 +249,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                         console.log(this.focusIndex)
                         this.setSelected($dispatch, this.results[this.focusIndex])
                     } else {
-                        if (this.autoselect) this.value = null
+                        if (this.autoselect) this.resetValue()
                     }
 
                     this.close()
@@ -264,7 +268,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 clearItem($dispatch) {
                     this.selected = null
-                    this.value = null
+                    this.resetValue()
                     $dispatch((this.name ?? 'autocomplete') + '-cleared')
                 },
 
