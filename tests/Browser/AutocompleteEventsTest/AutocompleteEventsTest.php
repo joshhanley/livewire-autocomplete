@@ -68,6 +68,22 @@ class AutocompleteEventsTest extends TestCase
     }
 
     /** @test */
+    public function event_is_dispatched_when_input_is_reset()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithEventsComponent::class, '?autoselect=true')
+                    ->assertSeeNothingIn('@alpine-input')
+                    ->click('@autocomplete-input')
+                    ->waitForLivewire()->type('@autocomplete-input', 'b')
+                    ->assertSeeIn('@alpine-input', 'b')
+                    ->waitForLivewire()->keys('@autocomplete-input', '{ESCAPE}')
+                    ->assertValue('@alpine-input', '')
+                    ->assertDontSeeIn('@alpine-input', 'b')
+                    ;
+        });
+    }
+
+    /** @test */
     public function selected_is_cleared_when_clear_event_received()
     {
         $this->browse(function (Browser $browser) {

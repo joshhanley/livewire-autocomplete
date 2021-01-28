@@ -34,8 +34,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
             x-on:keydown.shift.window="shift(true)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
             x-on:keyup.shift.window="shift(false)" {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
             x-on:blur.window="shift(false)" {{-- Clear shift on window blur otherwise can't select --}}
-            x-on:keydown.escape.prevent="escape(); event.target.blur()"
-            x-on:keydown.enter.stop.prevent="selectItem($dispatch); event.target.blur()"
+            x-on:keydown.escape.prevent="escape($dispatch); event.target.blur()"
+            x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()"
             x-on:keydown.arrow-up.prevent="focusPrevious()"
             x-on:keydown.arrow-down.prevent="focusNext()"
             x-on:keydown.home.prevent="focusFirst()"
@@ -130,8 +130,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     return !this.isShown()
                 },
 
-                escape() {
-                    if (this.autoselect) this.resetValue()
+                escape($dispatch) {
+                    if (this.autoselect) this.resetValue($dispatch)
 
                     this.hide()
                 },
@@ -142,6 +142,10 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     if (this.selectOnTab) return this.selectItem($dispatch)
 
                     return this.close()
+                },
+
+                enter($dispatch) {
+                    this.selectItem($dispatch)
                 },
 
                 shift(isPressed) {
@@ -162,8 +166,10 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                     this.focusIndex = null
                 },
 
-                resetValue() {
+                resetValue($dispatch) {
                     this.value = null
+
+                    this.input($dispatch)
                 },
 
                 hasResults() {
@@ -249,7 +255,9 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                         console.log(this.focusIndex)
                         this.setSelected($dispatch, this.results[this.focusIndex])
                     } else {
-                        if (this.autoselect) this.resetValue()
+                        if (this.autoselect) {
+                            this.resetValue($dispatch)
+                        }
                     }
 
                     this.close()
@@ -268,7 +276,7 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
 
                 clearItem($dispatch) {
                     this.selected = null
-                    this.resetValue()
+                    this.resetValue($dispatch)
                     $dispatch((this.name ?? 'autocomplete') + '-cleared')
                 },
 

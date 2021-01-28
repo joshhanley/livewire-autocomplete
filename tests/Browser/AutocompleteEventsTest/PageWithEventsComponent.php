@@ -2,7 +2,6 @@
 
 namespace LivewireAutocomplete\Tests\Browser\AutocompleteEventsTest;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
@@ -11,7 +10,7 @@ class PageWithEventsComponent extends Component
     public $results = [
         'bob',
         'john',
-        'bill'
+        'bill',
     ];
 
     public $input = '';
@@ -20,20 +19,25 @@ class PageWithEventsComponent extends Component
 
     public $options;
 
+    public $autoselect = false;
+
+    protected $queryString = ['autoselect' => ['except' => false]];
+
     public function calculateResults()
     {
         $this->reset('results');
 
         $this->results = Collection::wrap($this->results)
             ->filter(function ($result) {
-                if (!$this->input) {
+                if (! $this->input) {
                     return true;
                 }
 
                 return str_contains($result, $this->input);
             })
             ->values()
-            ->toArray();
+            ->toArray()
+        ;
     }
 
     public function updatedInput()
@@ -59,6 +63,7 @@ class PageWithEventsComponent extends Component
                         wire:selected-property="selected"
                         wire:results-property="results"
                         wire:options-property="options"
+                        :autoselect="$autoselect"
                         />
                 </div>
 
