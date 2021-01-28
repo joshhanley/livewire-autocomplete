@@ -131,6 +131,8 @@ $attributes = $attributes->except(['wire:input-property', 'wire:results-property
                 },
 
                 escape() {
+                    if (this.autoselect) this.value = null
+
                     this.hide()
                 },
 
