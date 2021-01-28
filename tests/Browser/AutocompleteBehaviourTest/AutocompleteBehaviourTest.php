@@ -13,8 +13,8 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->assertPresent('@autocomplete-input')
-                    ;
+                ->assertPresent('@autocomplete-input')
+                ;
         });
     }
 
@@ -23,10 +23,10 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->assertMissing('@autocomplete-dropdown')
-                    ->click('@autocomplete-input')
-                    ->assertVisible('@autocomplete-dropdown')
-                    ;
+                ->assertMissing('@autocomplete-dropdown')
+                ->click('@autocomplete-input')
+                ->assertVisible('@autocomplete-dropdown')
+                ;
         });
     }
 
@@ -35,12 +35,12 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertVisible('@autocomplete-dropdown')
-                    ->clickAtXPath('//body')
-                    ->assertNotFocused('@autocomplete-input')
-                    ->assertMissing('@autocomplete-dropdown')
-                    ;
+                ->click('@autocomplete-input')
+                ->assertVisible('@autocomplete-dropdown')
+                ->clickAtXPath('//body')
+                ->assertNotFocused('@autocomplete-input')
+                ->assertMissing('@autocomplete-dropdown')
+                ;
         });
     }
 
@@ -49,12 +49,12 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertVisible('@autocomplete-dropdown')
-                    ->keys('@autocomplete-input', '{escape}')
-                    ->assertNotFocused('@autocomplete-input')
-                    ->assertMissing('@autocomplete-dropdown')
-                    ;
+                ->click('@autocomplete-input')
+                ->assertVisible('@autocomplete-dropdown')
+                ->keys('@autocomplete-input', '{escape}')
+                ->assertNotFocused('@autocomplete-input')
+                ->assertMissing('@autocomplete-dropdown')
+                ;
         });
     }
 
@@ -63,12 +63,12 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertSeeIn('@autocomplete-dropdown', 'bob')
-                    ->assertSeeIn('@autocomplete-dropdown', 'john')
-                    ->assertSeeIn('@autocomplete-dropdown', 'bill')
-                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
-                    ;
+                ->click('@autocomplete-input')
+                ->assertSeeIn('@autocomplete-dropdown', 'bob')
+                ->assertSeeIn('@autocomplete-dropdown', 'john')
+                ->assertSeeIn('@autocomplete-dropdown', 'bill')
+                ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
+                ;
         });
     }
 
@@ -77,12 +77,12 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
-                    ->waitForLivewire()->type('@autocomplete-input', 'b')
-                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'bill'])
-                    ->assertDontSeeIn('@autocomplete-dropdown', 'john')
-                    ;
+                ->click('@autocomplete-input')
+                ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
+                ->waitForLivewire()->type('@autocomplete-input', 'b')
+                ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'bill'])
+                ->assertDontSeeIn('@autocomplete-dropdown', 'john')
+                ;
         });
     }
 
@@ -91,15 +91,15 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -108,13 +108,13 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertHasClass('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -123,18 +123,18 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -143,16 +143,16 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{ARROW_UP}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_UP}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -161,17 +161,17 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertHasClass('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{ARROW_UP}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_UP}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -180,15 +180,15 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{ARROW_UP}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_UP}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -197,27 +197,27 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    // Attempt if none selected
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{HOME}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->click('@autocomplete-input')
+                // Attempt if none selected
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{HOME}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
 
-                    // Attempt if one further down the list is selected
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{HOME}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                // Attempt if one further down the list is selected
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{HOME}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -226,27 +226,27 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    // Attempt if none selected
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{END}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
+                ->click('@autocomplete-input')
+                // Attempt if none selected
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{END}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
 
-                    // Attempt if one further up the list is selected
-                    ->keys('@autocomplete-input', '{ARROW_UP}')
-                    ->keys('@autocomplete-input', '{ARROW_UP}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{END}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ;
+                // Attempt if one further up the list is selected
+                ->keys('@autocomplete-input', '{ARROW_UP}')
+                ->keys('@autocomplete-input', '{ARROW_UP}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{END}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -255,16 +255,16 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertHasClass('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->waitForLivewire()->type('@autocomplete-input', 'b')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->waitForLivewire()->type('@autocomplete-input', 'b')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ;
         });
     }
 
@@ -273,15 +273,15 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertHasClass('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
-                    ->assertSeeIn('@result-output', 'john')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                ->assertSeeIn('@result-output', 'john')
+                ;
         });
     }
 
@@ -290,14 +290,14 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{ENTER}')
-                    ->pause(300)
-                    ->assertSeeNothingIn('@result-output')
-                    ;
+                ->click('@autocomplete-input')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ENTER}')
+                ->pause(300)
+                ->assertSeeNothingIn('@result-output')
+                ;
         });
     }
 
@@ -306,17 +306,17 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{ARROW_DOWN}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
-                    ->assertSeeIn('@result-output', 'bob')
-                    ->assertMissing('@autocomplete-dropdown')
-                    ->click('@autocomplete-input')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                ->assertSeeIn('@result-output', 'bob')
+                ->assertMissing('@autocomplete-dropdown')
+                ->click('@autocomplete-input')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ;
         });
     }
 
@@ -325,14 +325,14 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{END}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
-                    ->assertSeeIn('@result-output', 'bill')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{END}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
+                ->assertSeeIn('@result-output', 'bill')
+                ;
         });
     }
 
@@ -341,14 +341,14 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{END}')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
-                    ->assertSeeIn('@result-output', 'bill')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{END}')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
+                ->assertSeeIn('@result-output', 'bill')
+                ;
         });
     }
 
@@ -357,15 +357,15 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->keys('@autocomplete-input', '{HOME}')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->keys('@autocomplete-input', '{SHIFT}', '{TAB}')
-                    ->pause(300)
-                    ->assertDontSeeIn('@result-output', 'bob')
-                    ;
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{HOME}')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{SHIFT}', '{TAB}')
+                ->pause(300)
+                ->assertDontSeeIn('@result-output', 'bob')
+                ;
         });
     }
 
@@ -374,20 +374,20 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->mouseover('@result-1')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertHasClass('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ->mouseover('@result-2')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertHasClass('@result-2', 'bg-blue-500')
-                    ->mouseover('@result-0')
-                    ->assertHasClass('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->mouseover('@result-1')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->mouseover('@result-2')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertHasClass('@result-2', 'bg-blue-500')
+                ->mouseover('@result-0')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -396,17 +396,17 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->mouseover('@result-1')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertHasClass('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    //Empty mouseover simulates mouseout by mousing over body
-                    ->mouseover('')
-                    ->assertClassMissing('@result-0', 'bg-blue-500')
-                    ->assertClassMissing('@result-1', 'bg-blue-500')
-                    ->assertClassMissing('@result-2', 'bg-blue-500')
-                    ;
+                ->click('@autocomplete-input')
+                ->mouseover('@result-1')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                //Empty mouseover simulates mouseout by mousing over body
+                ->mouseover('')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ;
         });
     }
 
@@ -415,10 +415,10 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->waitForLivewire()->click('@result-1')
-                    ->assertSeeIn('@result-output', 'john')
-                    ;
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->click('@result-1')
+                ->assertSeeIn('@result-output', 'john')
+                ;
         });
     }
 
@@ -427,10 +427,10 @@ class AutocompleteBehaviourTest extends TestCase
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->waitForLivewire()->click('@result-1')
-                    ->assertValue('@autocomplete-input', 'john')
-                    ;
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->click('@result-1')
+                ->assertValue('@autocomplete-input', 'john')
+                ;
         });
     }
 
@@ -440,17 +440,17 @@ class AutocompleteBehaviourTest extends TestCase
         // This is a bug in livewire/livewire#763, this test triggers it without work around
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
-                    ->click('@autocomplete-input')
-                    ->waitForLivewire()->type('@autocomplete-input', 'john')
-                    ->assertSeeIn('@autocomplete-dropdown', 'john')
-                    ->assertDontSeeIn('@autocomplete-dropdown', 'bob')
-                    ->assertDontSeeIn('@autocomplete-dropdown', 'bill')
-                    // Need to press keys to trigger input events livewire requires
-                    ->waitForLivewire()->keys('@autocomplete-input', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}')
-                    ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
-                    ->waitForLivewire()->click('@result-2')
-                    ->assertSeeIn('@result-output', 'bill')
-                    ;
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->type('@autocomplete-input', 'john')
+                ->assertSeeIn('@autocomplete-dropdown', 'john')
+                ->assertDontSeeIn('@autocomplete-dropdown', 'bob')
+                ->assertDontSeeIn('@autocomplete-dropdown', 'bill')
+                // Need to press keys to trigger input events livewire requires
+                ->waitForLivewire()->keys('@autocomplete-input', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}')
+                ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
+                ->waitForLivewire()->click('@result-2')
+                ->assertSeeIn('@result-output', 'bill')
+                ;
         });
     }
 }
