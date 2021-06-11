@@ -90,15 +90,11 @@
         x-transition:leave-start="transform opacity-100 scale-y-100"
         x-transition:leave-end="transform opacity-0 scale-y-90"
         dusk="autocomplete-dropdown"
-        x-cloak
-    >
+        x-cloak>
     <div
         class="relative max-h-56 overflow-y-auto rounded-md border border-gray-300 bg-white shadow">
-            <div
-                wire:loading.delay.class.remove="hidden"
-                class="hidden absolute inset-0 flex items-center justify-center"
-                dusk="autocomplete-loading"
-            >
+            <div wire:loading.delay.class.remove="hidden"
+                class="hidden absolute inset-0 flex items-center justify-center" dusk="autocomplete-loading">
                 <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
                 <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 24 24">
