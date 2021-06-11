@@ -14,18 +14,18 @@
 
 @php
     /** Remove all wire attributes that are assigned to local properties from the attribute bag */
-    $attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property', 'wire:options-property'])
+    $attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property', 'wire:options-property']);
 @endphp
 
 <div
     x-data="autocomplete({
         name: {{ json_encode($name) }},
-        value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
+        value: {!! $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
         results: @entangle($resultsProperty),
         selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
         options: {!! $optionsProperty->value ? "\$wire.entangle('" . $optionsProperty . "')" : 'null' !!},
         searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }},
-        autoselect: {{ $autoselect ? 'true' : 'false' }}
+        autoselect: {{ $autoselect ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
     x-on:click.away="close()"
