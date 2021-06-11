@@ -121,4 +121,35 @@ class AutocompleteAutoselectTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function on_autoselect_click_away_clears_input_text()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutoselectOptionComponent::class, '?autoselect=true')
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->type('@autocomplete-input', 'steve')
+                ->waitForLivewire()->clickAtXPath('//body')
+                ->assertValue('@autocomplete-input', '')
+                ;
+        });
+    }
+
+    /** @test */
+    public function on_autoselect_click_away_does_not_clear_selected_text()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutoselectOptionComponent::class, '?autoselect=true')
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->click('@result-0')
+                ->assertValue('@autocomplete-input', 'bob')
+                ->clickAtXPath('//body')
+                ->assertValue('@autocomplete-input', 'bob')
+                ;
+        });
+    }
 }

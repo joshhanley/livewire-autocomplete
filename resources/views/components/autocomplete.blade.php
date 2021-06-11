@@ -30,7 +30,7 @@
         autoselect: {{ $autoselect ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
-    x-on:click.away="close()"
+    x-on:click.away="away($dispatch)"
 >
     <div class="relative">
         <input
@@ -177,6 +177,12 @@
 
                 shouldShow() {
                     return this.showDropdown
+                },
+
+                away($dispatch) {
+                    if (this.autoselect && !this.selected) this.resetValue($dispatch)
+
+                    this.close()
                 },
 
                 escape($dispatch) {
