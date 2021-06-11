@@ -101,7 +101,9 @@ class AutocompleteAutoselectTest extends TestCase
             Livewire::visit($browser, PageWithAutoselectOptionComponent::class, '?autoselect=true')
                 ->click('@autocomplete-input')
                 ->waitForLivewire()->type('@autocomplete-input', 'steve')
-                ->assertMissing('@autocomplete-dropdown')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->assertValue('@autocomplete-input', 'steve')
                 ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
                 ->assertValue('@autocomplete-input', '')
                 ;
@@ -114,8 +116,10 @@ class AutocompleteAutoselectTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutoselectOptionComponent::class, '?autoselect=true')
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->waitForLivewire()->type('@autocomplete-input', 'steve')
-                ->assertMissing('@autocomplete-dropdown')
+                ->assertValue('@autocomplete-input', 'steve')
                 ->waitForLivewire()->keys('@autocomplete-input', '{ESCAPE}')
                 ->assertValue('@autocomplete-input', '')
                 ;

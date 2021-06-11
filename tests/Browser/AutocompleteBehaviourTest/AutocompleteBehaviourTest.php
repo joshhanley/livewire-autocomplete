@@ -25,6 +25,8 @@ class AutocompleteBehaviourTest extends TestCase
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->assertMissing('@autocomplete-dropdown')
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertVisible('@autocomplete-dropdown')
                 ;
         });
@@ -36,8 +38,12 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertVisible('@autocomplete-dropdown')
                 ->clickAtXPath('//body')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertNotFocused('@autocomplete-input')
                 ->assertMissing('@autocomplete-dropdown')
                 ;
@@ -50,8 +56,12 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertVisible('@autocomplete-dropdown')
                 ->keys('@autocomplete-input', '{escape}')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertNotFocused('@autocomplete-input')
                 ->assertMissing('@autocomplete-dropdown')
                 ;
@@ -64,6 +74,8 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertSeeIn('@autocomplete-dropdown', 'bob')
                 ->assertSeeIn('@autocomplete-dropdown', 'john')
                 ->assertSeeIn('@autocomplete-dropdown', 'bill')
@@ -78,6 +90,8 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'john', 'bill'])
                 ->waitForLivewire()->type('@autocomplete-input', 'b')
                 ->assertSeeInOrder('@autocomplete-dropdown', ['bob', 'bill'])
@@ -312,6 +326,8 @@ class AutocompleteBehaviourTest extends TestCase
                 ->assertClassMissing('@result-1', 'bg-blue-500')
                 ->assertClassMissing('@result-2', 'bg-blue-500')
                 ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->assertSeeIn('@result-output', 'bob')
                 ->assertMissing('@autocomplete-dropdown')
                 ->click('@autocomplete-input')
@@ -375,6 +391,8 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->mouseover('@result-1')
                 ->assertClassMissing('@result-0', 'bg-blue-500')
                 ->assertHasClass('@result-1', 'bg-blue-500')
@@ -397,6 +415,8 @@ class AutocompleteBehaviourTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, PageWithAutocompleteComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
                 ->mouseover('@result-1')
                 ->assertClassMissing('@result-0', 'bg-blue-500')
                 ->assertHasClass('@result-1', 'bg-blue-500')
