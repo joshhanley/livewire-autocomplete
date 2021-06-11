@@ -6,6 +6,7 @@
 'selectedProperty' => $attributes->wire('selected-property'),
 'optionsProperty' => $attributes->wire('options-property'),
 'resultComponent' => null,
+'resultsPlaceholder' => 'Start typing to search...',
 'searchAttribute' => null,
 'autoselect' => null,
 'inline' => null,

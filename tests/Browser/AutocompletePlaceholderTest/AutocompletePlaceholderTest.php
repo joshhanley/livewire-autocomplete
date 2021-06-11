@@ -14,8 +14,10 @@ class AutocompletePlaceholderTest extends TestCase
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, AutocompleteWithPlaceholderComponent::class)
                 ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(101)
                 ->assertVisible('@autocomplete-dropdown')
-                ->assertSeeIn('@autocomplete-dropdown', 'Start typing to search11')
+                ->assertSeeIn('@autocomplete-dropdown', 'Start typing to search')
                 ;
         });
     }
