@@ -117,9 +117,9 @@
                                 dusk="result-{{ $key }}"
                             >
                                 @if ($resultComponent)
-                                    <x-dynamic-component :component="$resultComponent" :model="$result"/>
+                                    <x-dynamic-component class="px-3 py-2" :component="$resultComponent" :model="$result"/>
                                 @else
-                                    <div>
+                                    <div class="px-3 py-2">
                                         {{ $result }}
                                     </div>
                                 @endif
