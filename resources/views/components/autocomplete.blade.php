@@ -7,6 +7,7 @@
 'optionsProperty' => $attributes->wire('options-property'),
 'resultComponent' => null,
 'resultsPlaceholder' => 'Start typing to search...',
+'noResults' => 'There were no results found',
 'searchAttribute' => null,
 'autoselect' => null,
 'inline' => null,
@@ -105,27 +106,37 @@
                     {{-- @endif --}}
                 </div>
             @else
-                <div 
-                    wire:key="{{ $name }}-results" 
-                    x-on:click.stop="selectItem($dispatch)"
-                    class="divide-y divide-transparent cursor-pointer">
-                    @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
-                        <div
-                            wire:key="result-{{ $key }}"
-                            x-on:mouseenter="focusIndex = {{ $key }}"
-                            :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
-                            dusk="result-{{ $key }}"
-                        >
-                            @if ($resultComponent)
-                                <x-dynamic-component :component="$resultComponent" :model="$result"/>
-                            @else
-                                <div>
-                                    {{ $result }}
-                                </div>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
+                @if (count($this->getPropertyValue($resultsProperty)))
+                    <div wire:key="{{ $name }}-results" x-on:click.stop="selectItem($dispatch)"
+                        class="divide-y divide-transparent cursor-pointer">
+                        @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
+                            <div
+                                wire:key="result-{{ $key }}"
+                                x-on:mouseenter="focusIndex = {{ $key }}"
+                                :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
+                                dusk="result-{{ $key }}"
+                            >
+                                @if ($resultComponent)
+                                    <x-dynamic-component :component="$resultComponent" :model="$result"/>
+                                @else
+                                    <div>
+                                        {{ $result }}
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div wire:key="{{ $name }}-no-results">
+                        {{-- @if ($noResultsComponent)
+                            <x-dynamic-component class="px-3 py-2" :component="$noResultsComponent"/>
+                        @else --}}
+                            <div class="px-3 py-2">
+                                {{ $noResults }}
+                            </div>
+                        {{-- @endif --}}
+                    </div>
+                @endif
             @endif
         </div>
     </div>
