@@ -91,8 +91,8 @@
         x-transition:leave-end="transform opacity-0 scale-y-90"
         dusk="autocomplete-dropdown"
         x-cloak>
-    <div
-        class="relative max-h-56 overflow-y-auto rounded-md border border-gray-300 bg-white shadow">
+        <div
+            class="relative max-h-56 overflow-y-auto rounded-md border border-gray-300 bg-white shadow">
             <div wire:loading.delay.class.remove="hidden"
                 class="hidden absolute inset-0 flex items-center justify-center" dusk="autocomplete-loading">
                 <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
