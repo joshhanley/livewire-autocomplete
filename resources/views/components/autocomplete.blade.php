@@ -8,6 +8,7 @@
 'resultComponent' => null,
 'searchAttribute' => null,
 'autoselect' => null,
+'inline' => null,
 'minLength' => 0,
 ])
 
@@ -80,8 +81,14 @@
 
     <div
         x-show="shouldShow()"
+        class="{{ $inline ? 'block relative' : 'absolute z-30' }} mt-0.5 px-2 w-full"
         x-on:mouseleave="mouseLeave()"
-        class="relative"
+        x-transition:enter="transition ease-out duration-100 origin-top"
+        x-transition:enter-start="transform opacity-0 scale-y-90"
+        x-transition:enter-end="transform opacity-100 scale-y-100"
+        x-transition:leave="transition ease-in duration-75 origin-top"
+        x-transition:leave-start="transform opacity-100 scale-y-100"
+        x-transition:leave-end="transform opacity-0 scale-y-90"
         dusk="autocomplete-dropdown"
         x-cloak
     >
