@@ -1,10 +1,10 @@
 <?php
 
-namespace LivewireAutocomplete\Tests\Browser\AutocompletePlaceholderTest;
+namespace LivewireAutocomplete\Tests\Browser\AutocompletePromptsTest;
 
 use Livewire\Component;
 
-class AutocompleteWithPlaceholderComponent extends Component
+class AutocompletePromptsComponent extends Component
 {
     public $results = [];
 
@@ -20,7 +20,6 @@ class AutocompleteWithPlaceholderComponent extends Component
                     wire:input-property="input"
                     wire:selected-property="selected"
                     wire:results-property="results"
-                    results-placeholder="Start typing to search..."
                     />
 
                 <div dusk="result-output">{{ $selected }}</div>
