@@ -17,39 +17,44 @@
 
 {{-- @dd(get_defined_vars()) --}}
 
-<div x-data="autocomplete({
-    name: {{ json_encode($name) }},
-    value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
-    results: @entangle($resultsProperty),
-    selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
-    options: {!! $optionsProperty->value ? "\$wire.entangle('" . $optionsProperty . "')" : 'null' !!},
-    searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }},
-    autoselect: {{ $autoselect ? 'true' : 'false' }}
-        })" x-init="init($dispatch)" x-on:click.away="close()">
+<div
+    x-data="autocomplete({
+        name: {{ json_encode($name) }},
+        value: {!!  $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
+        results: @entangle($resultsProperty),
+        selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
+        options: {!! $optionsProperty->value ? "\$wire.entangle('" . $optionsProperty . "')" : 'null' !!},
+        searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }},
+        autoselect: {{ $autoselect ? 'true' : 'false' }}
+        })"
+    x-init="init($dispatch)"
+    x-on:click.away="close()"
+>
     <div class="relative">
         <input
-                x-model.debounce.300ms="value"
-                x-on:focus="showDropdown = true"
-                x-on:keydown.tab="tab($dispatch)"
-                x-on:keydown.shift.window="shift(true)"
-                {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
-                x-on:keyup.shift.window="shift(false)"
-                {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
-                x-on:blur.window="shift(false)" {{-- Clear shift on window blur otherwise can't select --}}
-                x-on:keydown.escape.prevent="escape($dispatch); event.target.blur()"
-                x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()"
-                x-on:keydown.arrow-up.prevent="focusPrevious()"
-                x-on:keydown.arrow-down.prevent="focusNext()"
-                x-on:keydown.home.prevent="focusFirst()"
-                x-on:keydown.end.prevent="focusLast()"
-                x-on:input.debounce.300ms="input($dispatch)"
-                class="w-full pl-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
-                x-bind:class="[selected ? 'pr-9' : 'pr-4']"
-                type="text"
-                dusk="autocomplete-input"
-                x-bind:disabled="selected"
-                x-spread="inputListeners()"
-                {{-- @if ($this->getPropertyValue($selectedProperty)) disabled @endif --}}
+            x-model.debounce.300ms="value"
+            x-on:focus="showDropdown = true"
+            x-on:keydown.tab="tab($dispatch)"
+            x-on:keydown.shift.window="shift(true)"
+            {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
+            x-on:keyup.shift.window="shift(false)"
+            {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
+            x-on:blur.window="shift(false)"
+            {{-- Clear shift on window blur otherwise can't select --}}
+            x-on:keydown.escape.prevent="escape($dispatch); event.target.blur()"
+            x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()"
+            x-on:keydown.arrow-up.prevent="focusPrevious()"
+            x-on:keydown.arrow-down.prevent="focusNext()"
+            x-on:keydown.home.prevent="focusFirst()"
+            x-on:keydown.end.prevent="focusLast()"
+            x-on:input.debounce.300ms="input($dispatch)"
+            class="w-full pl-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
+            x-bind:class="[selected ? 'pr-9' : 'pr-4']"
+            type="text"
+            dusk="autocomplete-input"
+            x-bind:disabled="selected"
+            x-spread="inputListeners()"
+            {{-- @if ($this->getPropertyValue($selectedProperty)) disabled @endif --}}
         />
 
         <div x-on:click="clearItem($dispatch)" class="absolute right-0 inset-y-0 flex items-center">
@@ -72,10 +77,19 @@
         </div>
     </div>
 
-    <div x-show="showDropdown && hasResults()" x-on:click="selectItem($dispatch)" x-on:mouseleave="mouseLeave()"
-         class="relative" dusk="autocomplete-dropdown" x-cloak>
-        <div wire:loading.delay.class.remove="hidden" class="hidden absolute inset-0 flex items-center justify-center"
-             dusk="autocomplete-loading">
+    <div
+        x-show="showDropdown && hasResults()"
+        x-on:click="selectItem($dispatch)"
+        x-on:mouseleave="mouseLeave()"
+        class="relative"
+        dusk="autocomplete-dropdown"
+        x-cloak
+    >
+        <div
+            wire:loading.delay.class.remove="hidden"
+            class="hidden absolute inset-0 flex items-center justify-center"
+            dusk="autocomplete-loading"
+        >
             <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
             <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg"
                  fill="none" viewBox="0 0 24 24">
@@ -87,10 +101,11 @@
 
         @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
             <div
-                    wire:key="result-{{ $key }}"
-                    x-on:mouseenter="focusIndex = {{ $key }}"
-                    :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
-                    dusk="result-{{ $key }}">
+                wire:key="result-{{ $key }}"
+                x-on:mouseenter="focusIndex = {{ $key }}"
+                :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
+                dusk="result-{{ $key }}"
+            >
                 @if ($resultComponent)
                     <x-dynamic-component :component="$resultComponent" :model="$result"/>
                 @else
