@@ -41,6 +41,7 @@ This autocomplete component is a blade component design to be used within a Live
         'inline' => true,
         'inline_styles' => 'relative',
         'overlay_styles' => 'absolute z-30',
+        'result_focus_styles' => 'bg-blue-500',
     ]"
     :components="[
         'input' => 'my-input',
@@ -85,6 +86,8 @@ Then individual options and components can be passed into each instance of the c
 **inline_styles** the styles to use when displaying the dropdown inline.
 
 **overlay_styles** the styles to use when displaying the dropdown as an overlay.
+
+**result_focus_styles** the styles to use on a result row when it has focus.
 
 
 ### Components

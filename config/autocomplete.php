@@ -9,6 +9,7 @@ return [
         'inline' => false,
         'inline_styles' => 'relative',
         'overlay_styles' => 'absolute z-30',
+        'result_focus_styles' => 'bg-blue-500',
     ],
 
     'components' => [
