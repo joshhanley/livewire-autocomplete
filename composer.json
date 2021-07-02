@@ -31,6 +31,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "joshhanley/livewire-dusk-testbench": "^0.1.0"
+        "joshhanley/livewire-dusk-testbench": "^0.1.0",
+        "spatie/laravel-ray": "^1.19"
     }
 }
