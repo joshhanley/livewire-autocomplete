@@ -76,15 +76,15 @@ Then individual options and components can be passed into each instance of the c
 
 **text** this is set to `text` by default but can be mapped to a different property on an array or model (e.g. `name`)
 
-**allow-new** `true` by default.
-- If `allow-new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
-- If `allow-new` is false, the first option is a result, which tab autoselects
+**allow_new** `true` by default.
+- If `allow_new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
+- If `allow_new` is false, the first option is a result, which tab autoselects
 
 **inline** this is a quick styling toggle between displaying the dropdown box inline or as an overlay.
 
-**inline-style** the styles to use when displaying the dropdown inline.
+**inline_styles** the styles to use when displaying the dropdown inline.
 
-**overlay-style** the styles to use when displaying the dropdown as an overlay.
+**overlay_styles** the styles to use when displaying the dropdown as an overlay.
 
 
 ### Components
@@ -97,11 +97,11 @@ Then individual options and components can be passed into each instance of the c
 
 **loading** what component to use for loading, when it's open
 
-**no-results** what component to use when there are no results found (when `allowNew = false`)
+**no_results** what component to use when there are no results found (when `allow_new = false`)
 
-**add-new-row** what component to use for the "add new" result row (when `allowNew = true`)
+**add_new_row** what component to use for the "add new" result row (when `allow_new = true`)
 
-**result-row** what component to use for each of the result rows
+**result_row** what component to use for each of the result rows
 
 ## Config
 
