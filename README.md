@@ -37,17 +37,19 @@ This autocomplete component is a blade component design to be used within a Live
     :options="[
         'id' => 'id',
         'text' => 'name',
-        'allow-new' => true,
+        'allow_new' => true,
         'inline' => true,
+        'inline_styles' => 'relative',
+        'overlay_styles' => 'absolute z-30',
     ]"
     :components="[
         'input' => 'my-input',
         'dropdown' => 'my-dropdown',
         'prompt' => 'my-prompt',
         'loading' => 'my-loading',
-        'no-results' => 'my-no-results',
-        'add-new-row' => 'my-add-new-row',
-        'result-row' => 'my-client-result-row',
+        'no_results' => 'my-no-results',
+        'add_new_row' => 'my-add-new-row',
+        'result_row' => 'my-client-result-row',
     ]"
 />
 ```
@@ -109,35 +111,8 @@ php artisan autocomplete:publish --config
 ```
 
 Default config
-```php
-<?php
 
-return [
-
-    'options' => [
-        'id' => 'id',
-        'text' => 'text',
-        'allow-new' => true,
-        'inline' => false,
-        'inline-style' => 'relative',
-        'overlay-style' => 'absolute z-30',
-    ],
-
-    'components' => [
-        'input' => 'autocomplete.input',
-        'dropdown' => 'autocomplete.dropdown',
-        'prompt' => 'autocomplete.prompt',
-        'loading' => 'autocomplete.loading',
-        'no-results' => 'autocomplete.no-results',
-        'add-new-row' => 'autocomplete.add-new-row',
-        'result-row' => 'autocomplete.result-row',
-    ],
-
-    // Set this to true if you would prefer it to use the package namespace <x-package::autocomplete />
-    'use-namespace' => false,
-
-];
-```
+https://github.com/joshhanley/livewire-autocomplete/blob/main/config/autocomplete.php
 
 ## Views
 
