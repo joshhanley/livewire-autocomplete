@@ -50,6 +50,7 @@ This autocomplete component is a blade component design to be used within a Live
         'dropdown' => 'my-dropdown',
         'prompt' => 'my-prompt',
         'loading' => 'my-loading',
+        'results_container' => 'my-results-container',
         'no_results' => 'my-no-results',
         'add_new_row' => 'my-add-new-row',
         'result_row' => 'my-client-result-row',

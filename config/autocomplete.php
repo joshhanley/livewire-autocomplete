@@ -18,6 +18,7 @@ return [
         'dropdown' => 'dropdown',
         'prompt' => 'prompt',
         'loading' => 'loading',
+        'results_container' => 'results-container',
         'no_results' => 'no-results',
         'add_new_row' => 'add-new-row',
         'result_row' => 'result-row',

@@ -67,52 +67,45 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
         x-show="shouldShow()"
         x-on:mouseleave="mouseLeave()"
         dusk="autocomplete-dropdown">
-        <div wire:loading.delay.class.remove="hidden"
-            class="hidden absolute inset-0 flex items-center justify-center" dusk="autocomplete-loading">
-            <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
-            <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-        </div>
+        <x-dynamic-component :component="$getComponent('loading')" dusk="autocomplete-loading" />
 
-        @if ($shouldShowPlaceholder($this->getPropertyValue($resultsProperty), $this->getPropertyValue($inputProperty->value)))
-            <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
-        @else
-            @if ($hasResults($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
-                <div
-                    wire:key="{{ $name }}-results"
-                    x-on:click.stop="selectItem($dispatch)"
-                    class="divide-y divide-transparent cursor-pointer">
-                    @if ($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
-                        <x-dynamic-component
-                            :component="$getComponent('add_new_row')"
-                            :input-text="$this->getPropertyValue($inputProperty)"
-                            wire:key='add-new'
-                            x-on:mouseenter="focusIndex = 0"
-                            x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
-                            dusk="add-new" />
-                    @endif
-
-                    @if ($this->getPropertyValue($resultsProperty))
-                        @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
-                            <x-dynamic-component
-                                :component="$getComponent('result_row')"
-                                :result="$result"
-                                text-attribute="{{ $getOption('text') }}"
-                                wire:key="{{ $name }}-result-{{ $key }}"
-                                x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
-                                x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }} }"
-                                dusk="result-{{ $key }}" />
-                        @endforeach
-                    @endif
-                </div>
+        <x-dynamic-component :component="$getComponent('results_container')">
+            @if ($shouldShowPlaceholder($this->getPropertyValue($resultsProperty), $this->getPropertyValue($inputProperty->value)))
+                <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
             @else
-                <x-dynamic-component :component="$getComponent('no_results')" wire:key='{{ $name }}-no-results' />
+                @if ($hasResults($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
+                    <div
+                        wire:key="{{ $name }}-results"
+                        x-on:click.stop="selectItem($dispatch)"
+                        class="divide-y divide-transparent cursor-pointer">
+                        @if ($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
+                            <x-dynamic-component
+                                :component="$getComponent('add_new_row')"
+                                :input-text="$this->getPropertyValue($inputProperty)"
+                                wire:key='add-new'
+                                x-on:mouseenter="focusIndex = 0"
+                                x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
+                                dusk="add-new" />
+                        @endif
+
+                        @if ($this->getPropertyValue($resultsProperty))
+                            @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
+                                <x-dynamic-component
+                                    :component="$getComponent('result_row')"
+                                    :result="$result"
+                                    text-attribute="{{ $getOption('text') }}"
+                                    wire:key="{{ $name }}-result-{{ $key }}"
+                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
+                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }} }"
+                                    dusk="result-{{ $key }}" />
+                            @endforeach
+                        @endif
+                    </div>
+                @else
+                    <x-dynamic-component :component="$getComponent('no_results')" wire:key='{{ $name }}-no-results' />
+                @endif
             @endif
-        @endif
+        </x-dynamic-component>
     </x-dynamic-component>
 </div>
 
