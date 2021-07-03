@@ -4,7 +4,7 @@ namespace LivewireAutocomplete\Tests\Browser\OptionsTest;
 
 use Livewire\Component;
 
-class OptionsCustomAttributesComponent extends Component
+class CustomAttributesComponent extends Component
 {
     public $results = [
         [

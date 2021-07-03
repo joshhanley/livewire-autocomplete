@@ -12,7 +12,7 @@ class OptionsTest extends TestCase
     public function custom_attribute_names_can_be_passed_in_via_options()
     {
         $this->browse(function (Browser $browser) {
-            Livewire::visit($browser, OptionsCustomAttributesComponent::class)
+            Livewire::visit($browser, CustomAttributesComponent::class)
                 ->click('@autocomplete-input')
                 ->waitForLivewire()->click('@result-1')
                 ->assertSeeIn('@input-text-output', 'john')
