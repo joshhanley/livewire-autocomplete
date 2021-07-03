@@ -45,6 +45,21 @@ class Autocomplete extends Component
         return $this->options[$option] ?? null;
     }
 
+    public function shouldShowPlaceholder($results, $inputText)
+    {
+        return ! $this->hasResults($results) && ! $this->inputIsMinLength($inputText);
+    }
+
+    public function hasResults($results)
+    {
+        return is_countable($results) && count($results) > 0;
+    }
+
+    public function inputIsMinLength($inputText)
+    {
+        return $inputText !== null && $inputText != '' && strlen($inputText) >= $this->minLength;
+    }
+
     public function getViewName()
     {
         if (config('autocomplete.use_global_namespace', false)) {

@@ -1,12 +1,11 @@
 @php
-    $inputProperty = $attributes->wire('model-text');
-    $resultsProperty = $attributes->wire('model-results');
-    $selectedProperty = $attributes->wire('model-id');
-    $focusAction = $attributes->wire('focus');
+$inputProperty = $attributes->wire('model-text');
+$resultsProperty = $attributes->wire('model-results');
+$selectedProperty = $attributes->wire('model-id');
+$focusAction = $attributes->wire('focus');
 
-
-    /** Remove all wire attributes that are assigned to local properties from the attribute bag */
-    $attributes = $attributes->whereDoesntStartWith('wire:');
+/** Remove all wire attributes that are assigned to local properties from the attribute bag */
+$attributes = $attributes->whereDoesntStartWith('wire:');
 @endphp
 
 <div
@@ -23,8 +22,7 @@
         loadOnceOnFocus: {{ $getOption('load_once_on_focus') ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
-    x-on:click.away="away($dispatch)"
->
+    x-on:click.away="away($dispatch)">
     <div class="relative">
         <input
             x-model.debounce.300ms="value"
@@ -48,8 +46,7 @@
             type="text"
             dusk="autocomplete-input"
             x-bind:disabled="selected"
-            x-spread="inputListeners()"
-        />
+            x-spread="inputListeners()" />
 
         <div x-on:click="clearItem($dispatch)" class="absolute right-0 inset-y-0 flex items-center">
             <button x-show="selected" type="button" class="group focus:outline-none" dusk="clear" x-cloak>
@@ -88,60 +85,58 @@
                 </svg>
             </div>
 
-            @if ((is_countable($this->getPropertyValue($resultsProperty)) && count($this->getPropertyValue($resultsProperty)) == 0) && ($this->getPropertyValue($inputProperty->value) == null || $this->getPropertyValue($inputProperty->value) == '' || strlen($this->getPropertyValue($inputProperty->value)) < $minLength))
+            @if ($shouldShowPlaceholder($this->getPropertyValue($resultsProperty), $this->getPropertyValue($inputProperty->value)))
                 <div wire:key="{{ $name }}-placeholder">
                     {{-- @if ($placeholderComponent)
                         <x-dynamic-component class="px-3 py-2" :component="$placeholderComponent"/>
                     @else --}}
-                        <div class="px-3 py-2">
-                            {{ $resultsPlaceholder }}
-                        </div>
+                    <div class="px-3 py-2">
+                        {{ $resultsPlaceholder }}
+                    </div>
                     {{-- @endif --}}
                 </div>
             @else
-                @if ((is_countable($this->getPropertyValue($resultsProperty)) && count($this->getPropertyValue($resultsProperty))) || $getOption('allow_new'))
+                @if ($hasResults($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
                     <div wire:key="{{ $name }}-results" x-on:click.stop="selectItem($dispatch)"
                         class="divide-y divide-transparent cursor-pointer">
-                        @if($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
+                        @if ($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
                             <div
                                 wire:key='add-new'
                                 x-on:mouseenter="focusIndex = 0"
                                 :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
-                                dusk="add-new"
-                                >
+                                dusk="add-new">
                                 <div class="px-3 py-2">
                                     Add new "{{ $this->getPropertyValue($inputProperty) }}"
                                 </div>
                             </div>
                         @endif
 
-                    @if ($this->getPropertyValue($resultsProperty))
-                        @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
-                            <div
-                                wire:key="result-{{ $key }}"
-                                x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
-                                :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}}"
-                                dusk="result-{{ $key }}"
-                            >
-                                @if ($resultComponent)
-                                    <x-dynamic-component class="px-3 py-2" :component="$resultComponent" :model="$result"/>
-                                @else
-                                    <div class="px-3 py-2">
-                                        {{ $result[$getOption('text')] ?? $result }}
-                                    </div>
-                                @endif
-                            </div>
-                        @endforeach
-                    @endif
+                        @if ($this->getPropertyValue($resultsProperty))
+                            @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
+                                <div
+                                    wire:key="result-{{ $key }}"
+                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
+                                    :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}}"
+                                    dusk="result-{{ $key }}">
+                                    @if ($resultComponent)
+                                        <x-dynamic-component class="px-3 py-2" :component="$resultComponent" :model="$result" />
+                                    @else
+                                        <div class="px-3 py-2">
+                                            {{ $result[$getOption('text')] ?? $result }}
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 @else
                     <div wire:key="{{ $name }}-no-results">
                         {{-- @if ($noResultsComponent)
                             <x-dynamic-component class="px-3 py-2" :component="$noResultsComponent"/>
                         @else --}}
-                            <div class="px-3 py-2">
-                                {{ $noResults }}
-                            </div>
+                        <div class="px-3 py-2">
+                            {{ $noResults }}
+                        </div>
                         {{-- @endif --}}
                     </div>
                 @endif
@@ -260,7 +255,7 @@
 
                     this.resultsCount = this.results.length
 
-                    if(this.allowNew && this.value.length > 0) this.resultsCount++
+                    if (this.allowNew && this.value.length > 0) this.resultsCount++
 
                     return this.resultsCount
                 },
@@ -323,7 +318,7 @@
 
                 selectItem($dispatch) {
                     if (this.hasFocus() && this.hasResults()) {
-                        if(!this.allowNew || this.value.length === 0 || this.focusIndex !== 0)
+                        if (!this.allowNew || this.value.length === 0 || this.focusIndex !== 0)
                             this.setSelected($dispatch, this.results[this.focusIndex])
                     } else {
                         if (this.autoSelect) {
