@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LivewireAutocomplete\\": "src/LivewireAutocomplete/"
+            "LivewireAutocomplete\\": "src/"
         }
     },
     "autoload-dev": {
