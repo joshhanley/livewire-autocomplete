@@ -17,7 +17,6 @@ class Autocomplete extends Component
     public $resultsPlaceholder;
     public $noResults;
     public $searchAttribute;
-    public $autoselect;
     public $inline;
     public $minLength;
 
@@ -28,7 +27,6 @@ class Autocomplete extends Component
         $resultsPlaceholder = 'Start typing to search...',
         $noResults = 'There were no results found',
         $searchAttribute = null,
-        $autoselect = null,
         $inline = null,
         $minLength = 0
     ) {
@@ -38,7 +36,6 @@ class Autocomplete extends Component
         $this->resultsPlaceholder = $resultsPlaceholder;
         $this->noResults = $noResults;
         $this->searchAttribute = $searchAttribute;
-        $this->autoselect = $autoselect;
         $this->inline = $inline;
         $this->minLength = $minLength;
     }
