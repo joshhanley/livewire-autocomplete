@@ -5,6 +5,7 @@ return [
     'options' => [
         'id' => 'id',
         'text' => 'text',
+        'auto_select' => true,
         'allow_new' => true,
         'inline' => false,
         'inline_styles' => 'relative',

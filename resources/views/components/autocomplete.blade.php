@@ -16,7 +16,7 @@
         selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
-        autoselect: {{ $autoselect ? 'true' : 'false' }},
+        autoSelect: {{ $getOption('auto_select') ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
     x-on:click.away="away($dispatch)"
@@ -169,13 +169,13 @@
                 },
 
                 away($dispatch) {
-                    if (this.autoselect && !this.selected) this.resetValue($dispatch)
+                    if (this.autoSelect && !this.selected) this.resetValue($dispatch)
 
                     this.close()
                 },
 
                 escape($dispatch) {
-                    if (this.autoselect) this.resetValue($dispatch)
+                    if (this.autoSelect) this.resetValue($dispatch)
 
                     this.hide()
                 },
@@ -205,7 +205,7 @@
                 },
 
                 resetFocus() {
-                    if (this.autoselect) return this.focusIndex = 0
+                    if (this.autoSelect) return this.focusIndex = 0
 
                     this.focusIndex = null
                 },
@@ -279,7 +279,7 @@
                 },
 
                 mouseLeave() {
-                    if (this.autoselect) return
+                    if (this.autoSelect) return
 
                     this.resetFocus()
                 },
@@ -294,7 +294,7 @@
                     if (this.hasFocus() && this.hasResults()) {
                         this.setSelected($dispatch, this.results[this.focusIndex])
                     } else {
-                        if (this.autoselect) {
+                        if (this.autoSelect) {
                             this.resetValue($dispatch)
                         }
                     }

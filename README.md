@@ -37,6 +37,7 @@ This autocomplete component is a blade component design to be used within a Live
     :options="[
         'id' => 'id',
         'text' => 'name',
+        'auto_select' => true,
         'allow_new' => true,
         'inline' => true,
         'inline_styles' => 'relative',
@@ -76,6 +77,9 @@ Then individual options and components can be passed into each instance of the c
 **id** this is set to `id` by default but can be mapped to a different property on an array or model (e.g. `slug`)
 
 **text** this is set to `text` by default but can be mapped to a different property on an array or model (e.g. `name`)
+
+**auto_select** `true` by default.
+- If is true, there will always be a highlighted result and enter or tab will auto select that result.
 
 **allow_new** `true` by default.
 - If `allow_new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
