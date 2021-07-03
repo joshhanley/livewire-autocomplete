@@ -58,7 +58,9 @@ class PageWithAutoselectOptionComponent extends Component
                     wire:model-text="input"
                     wire:model-id="selected"
                     wire:model-results="results"
-                    :autoselect="$this->autoselect"
+                    :options="[
+                        'auto_select' => true,
+                    ]"
                     />
 
                 <div dusk="result-output">{{ $selected }}</div>

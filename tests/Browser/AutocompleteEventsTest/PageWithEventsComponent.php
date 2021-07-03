@@ -60,7 +60,9 @@ class PageWithEventsComponent extends Component
                         wire:model-text="input"
                         wire:model-id="selected"
                         wire:model-results="results"
-                        :autoselect="$autoselect"
+                        :options="[
+                            'auto_select' => $autoselect,
+                        ]"
                         />
                 </div>
 
