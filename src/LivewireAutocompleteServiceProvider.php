@@ -38,7 +38,7 @@ class LivewireAutocompleteServiceProvider extends ServiceProvider
 
     }
 
-    public function loadViews($path, $namespace, $useGlobalNamespace = false)
+    protected function loadViews($path, $namespace, $useGlobalNamespace = false)
     {
         $this->callAfterResolving('view', function ($view) use ($path, $namespace, $useGlobalNamespace) {
             if (isset($this->app->config['view']['paths']) &&
