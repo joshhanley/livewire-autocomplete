@@ -3,6 +3,7 @@
 namespace LivewireAutocomplete\Tests\Browser;
 
 use LivewireAutocomplete\LivewireAutocompleteServiceProvider;
+use LivewireAutocomplete\Tests\TestServiceProvider;
 use LivewireDuskTestbench\TestCase as LivewireDuskTestbenchTestCase;
 
 class TestCase extends LivewireDuskTestbenchTestCase
@@ -11,6 +12,7 @@ class TestCase extends LivewireDuskTestbenchTestCase
 
     public $packageProviders = [
         LivewireAutocompleteServiceProvider::class,
+        TestServiceProvider::class,
     ];
 
     public function configureViewsDirectory()
