@@ -11,6 +11,7 @@ class Autocomplete extends Component
     public $selectedProperty;
 
     public $options;
+    public $components;
 
     public $name;
     public $resultComponent;
@@ -22,6 +23,7 @@ class Autocomplete extends Component
 
     public function __construct(
         $options = [],
+        $components = [],
         $name = null,
         $resultComponent = null,
         $resultsPlaceholder = 'Start typing to search...',
@@ -31,6 +33,7 @@ class Autocomplete extends Component
         $minLength = 0
     ) {
         $this->options = array_merge(config('autocomplete.options', []), $options);
+        $this->components = array_merge(config('autocomplete.components', []), $components);
         $this->name = $name;
         $this->resultComponent = $resultComponent;
         $this->resultsPlaceholder = $resultsPlaceholder;
@@ -43,6 +46,21 @@ class Autocomplete extends Component
     public function getOption($option)
     {
         return $this->options[$option] ?? null;
+    }
+
+    public function getComponent($componentKey)
+    {
+        if (! isset($this->components[$componentKey])) {
+            return null;
+        }
+
+        $componentName = $this->components[$componentKey];
+
+        if (config('autocomplete.use_global_namespace')) {
+            return $componentName;
+        }
+
+        return 'lwc::' . $componentName;
     }
 
     public function shouldShowPlaceholder($results, $inputText)
