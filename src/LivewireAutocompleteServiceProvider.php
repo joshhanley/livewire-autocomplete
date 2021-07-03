@@ -4,6 +4,7 @@ namespace LivewireAutocomplete;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use LivewireAutocomplete\Components\Autocomplete;
 
 class LivewireAutocompleteServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,12 @@ class LivewireAutocompleteServiceProvider extends ServiceProvider
         ], [$this->name, $this->name . '-views']);
 
         $this->loadViews(__DIR__ . '/../resources/views', $this->namespace, config($this->name . '.use_global_namespace', false));
+
+        if(config($this->name . '.use_global_namespace', false)) {
+            Blade::component(Autocomplete::class, null);
+        } else {
+            Blade::componentNamespace('LivewireAutocomplete\\Components', $this->namespace);
+        }
 
     }
 

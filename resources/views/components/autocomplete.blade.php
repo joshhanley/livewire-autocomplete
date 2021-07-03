@@ -1,22 +1,12 @@
-@props([
-'name' => null,
-/** Assign required wire attributes to local properties */
-'inputProperty' => $attributes->wire('input-property'),
-'resultsProperty' => $attributes->wire('results-property'),
-'selectedProperty' => $attributes->wire('selected-property'),
-'optionsProperty' => $attributes->wire('options-property'),
-'resultComponent' => null,
-'resultsPlaceholder' => 'Start typing to search...',
-'noResults' => 'There were no results found',
-'searchAttribute' => null,
-'autoselect' => null,
-'inline' => null,
-'minLength' => 0,
-])
-
 @php
+    $inputProperty = $attributes->wire('input-property');
+    $resultsProperty = $attributes->wire('results-property');
+    $selectedProperty = $attributes->wire('selected-property');
+    $optionsProperty = $attributes->wire('options-property');
+
+
     /** Remove all wire attributes that are assigned to local properties from the attribute bag */
-    $attributes = $attributes->except(['wire:input-property', 'wire:results-property', 'wire:selected-property', 'wire:options-property']);
+    $attributes = $attributes->whereDoesntStartWith('wire:');
 @endphp
 
 <div
