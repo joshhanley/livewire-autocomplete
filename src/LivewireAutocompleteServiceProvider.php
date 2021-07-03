@@ -2,6 +2,7 @@
 
 namespace LivewireAutocomplete;
 
+use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use LivewireAutocomplete\Components\Autocomplete;
@@ -56,5 +57,24 @@ class LivewireAutocompleteServiceProvider extends ServiceProvider
                 ? $view->addLocation($path)
                 : $view->addNamespace($namespace, $path);
         });
+    }
+
+    /**
+     * Override the defalt mergeConfigFrom and make use of array_replace_recursive instead
+     * for making sure nested arrays are merged correctly.
+     *
+     * @param string $path
+     * @param string $key
+     */
+    protected function mergeConfigFrom($path, $key)
+    {
+        if (! ($this->app instanceof CachesConfiguration && $this->app->configurationIsCached())) {
+            $config = $this->app->make('config');
+
+            $config->set($key, array_replace_recursive(
+                require $path,
+                $config->get($key, [])
+            ));
+        }
     }
 }
