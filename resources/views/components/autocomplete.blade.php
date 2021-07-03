@@ -87,13 +87,9 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
 
             @if ($shouldShowPlaceholder($this->getPropertyValue($resultsProperty), $this->getPropertyValue($inputProperty->value)))
                 <div wire:key="{{ $name }}-placeholder">
-                    {{-- @if ($placeholderComponent)
-                        <x-dynamic-component class="px-3 py-2" :component="$placeholderComponent"/>
-                    @else --}}
                     <div class="px-3 py-2">
                         {{ $resultsPlaceholder }}
                     </div>
-                    {{-- @endif --}}
                 </div>
             @else
                 @if ($hasResults($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
@@ -131,13 +127,9 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                     </div>
                 @else
                     <div wire:key="{{ $name }}-no-results">
-                        {{-- @if ($noResultsComponent)
-                            <x-dynamic-component class="px-3 py-2" :component="$noResultsComponent"/>
-                        @else --}}
                         <div class="px-3 py-2">
                             {{ $noResults }}
                         </div>
-                        {{-- @endif --}}
                     </div>
                 @endif
             @endif
