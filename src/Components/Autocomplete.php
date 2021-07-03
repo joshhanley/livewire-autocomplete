@@ -33,7 +33,7 @@ class Autocomplete extends Component
         $minLength = 0
     ) {
         $this->options = array_merge(config('autocomplete.options', []), $options);
-        $this->components = array_merge(config('autocomplete.components', []), $components);
+        $this->components = $components;
         $this->name = $name;
         $this->resultComponent = $resultComponent;
         $this->resultsPlaceholder = $resultsPlaceholder;
@@ -50,11 +50,15 @@ class Autocomplete extends Component
 
     public function getComponent($componentKey)
     {
-        if (! isset($this->components[$componentKey])) {
-            return null;
+        if (isset($this->components[$componentKey])) {
+            return $this->components[$componentKey];
         }
 
-        $componentName = $this->components[$componentKey];
+        $componentName = config('autocomplete.components.' . $componentKey, null);
+
+        if (is_null($componentName)) {
+            return;
+        }
 
         if (config('autocomplete.use_global_namespace')) {
             return $componentName;
