@@ -1,8 +1,7 @@
 <?php
 
-namespace LivewireAutocomplete\Tests\Browser\OptionsAttributesTest;
+namespace LivewireAutocomplete\Tests\Browser\OptionsTest;
 
-use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class OptionsCustomAttributesComponent extends Component
