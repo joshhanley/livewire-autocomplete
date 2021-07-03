@@ -71,7 +71,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                             <x-dynamic-component
                                 :component="$getComponent('add_new_row')"
                                 :input-text="$this->getPropertyValue($inputProperty)"
-                                wire:key='add-new'
+                                wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
                                 x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
                                 dusk="add-new" />
