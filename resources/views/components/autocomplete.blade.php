@@ -8,57 +8,52 @@ $focusAction = $attributes->wire('focus');
 $attributes = $attributes->whereDoesntStartWith('wire:');
 @endphp
 
-<div
+<x-dynamic-component
+    :component="$getComponent('outer_container')"
     x-data="autocomplete({
-        name: {{ json_encode($name) }},
-        value: {!! $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
-        results: @entangle($resultsProperty),
-        selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
-        focusAction: {!! "'" . $focusAction->value . "'" ?? 'null' !!},
+        name: '{{ $name }}',
+        value: $wire.entangle('{{ $inputProperty->value }}'),
+        results: $wire.entangle('{{ $resultsProperty->value }}'),
+        selected: $wire.entangle('{{ $selectedProperty->value }}'),
+        focusAction: '{{ $focusAction->value ?? null }}',
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
         autoSelect: {{ $getOption('auto_select') ? 'true' : 'false' }},
         allowNew: {{ $getOption('allow_new') ? 'true' : 'false' }},
         loadOnceOnFocus: {{ $getOption('load_once_on_focus') ? 'true' : 'false' }},
-        })"
+    })"
     x-init="init($dispatch)"
-    x-on:click.away="away($dispatch)"
-    class="relative">
-    <div class="relative">
-        <input
-            x-model.debounce.300ms="value"
-            x-on:focus="inputFocus()"
-            x-on:keydown.tab="tab($dispatch)"
-            x-on:keydown.shift.window="shift(true)"
-            {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
-            x-on:keyup.shift.window="shift(false)"
-            {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
-            x-on:blur.window="shift(false)"
-            {{-- Clear shift on window blur otherwise can't select --}}
-            x-on:keydown.escape.prevent="escape($dispatch); event.target.blur()"
-            x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()"
-            x-on:keydown.arrow-up.prevent="focusPrevious()"
-            x-on:keydown.arrow-down.prevent="focusNext()"
-            x-on:keydown.home.prevent="focusFirst()"
-            x-on:keydown.end.prevent="focusLast()"
-            x-on:input.debounce.300ms="input($dispatch)"
-            class="w-full pl-4 py-2 rounded border border-cool-gray-200 shadow-inner leading-5 text-cool-gray-900 placeholder-cool-gray-400"
-            x-bind:class="[selected ? 'pr-9' : 'pr-4']"
-            type="text"
-            dusk="autocomplete-input"
-            x-bind:disabled="selected"
-            x-spread="inputListeners()" />
+    x-on:click.away="away($dispatch)">
+    <x-dynamic-component
+        :component="$getComponent('input')"
+        x-model.debounce.300ms="value"
+        x-on:focus="inputFocus()"
+        x-on:keydown.tab="tab($dispatch)"
+        x-on:keydown.shift.window="shift(true)"
+        {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
+        x-on:keyup.shift.window="shift(false)"
+        {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
+        x-on:blur.window="shift(false)"
+        {{-- Clear shift on window blur otherwise can't select --}}
+        x-on:keydown.escape.prevent="escape($dispatch); event.target.blur()"
+        x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()"
+        x-on:keydown.arrow-up.prevent="focusPrevious()"
+        x-on:keydown.arrow-down.prevent="focusNext()"
+        x-on:keydown.home.prevent="focusFirst()"
+        x-on:keydown.end.prevent="focusLast()"
+        x-on:input.debounce.300ms="input($dispatch)"
+        x-spread="inputListeners()"
+        dusk="autocomplete-input" />
 
-        <div x-on:click="clearItem($dispatch)" class="absolute right-0 inset-y-0 flex items-center">
-            <button x-show="selected" type="button" class="group focus:outline-none" dusk="clear" x-cloak>
-                <div class="mr-3">
-                    <svg class="h-5 w-5 border-2 border-gray-300 rounded group-focus:border-blue-400 bg-white text-gray-700 fill-current transition-transform ease-in-out duration-100 transform hover:scale-105 hover:text-black"
-                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"></path>
-                    </svg>
-                </div>
-            </button>
-        </div>
+    <div x-on:click="clearItem($dispatch)" class="absolute right-0 inset-y-0 flex items-center">
+        <button x-show="selected" type="button" class="group focus:outline-none" dusk="clear" x-cloak>
+            <div class="mr-3">
+                <svg class="h-5 w-5 border-2 border-gray-300 rounded group-focus:border-blue-400 bg-white text-gray-700 fill-current transition-transform ease-in-out duration-100 transform hover:scale-105 hover:text-black"
+                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"></path>
+                </svg>
+            </div>
+        </button>
     </div>
 
     <x-dynamic-component
@@ -107,7 +102,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
             @endif
         </x-dynamic-component>
     </x-dynamic-component>
-</div>
+</x-dynamic-component>
 
 @once
     <script>
