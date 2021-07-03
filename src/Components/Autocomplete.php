@@ -10,6 +10,8 @@ class Autocomplete extends Component
     public $resultsProperty;
     public $selectedProperty;
 
+    public $options;
+
     public $name;
     public $resultComponent;
     public $resultsPlaceholder;
@@ -19,8 +21,18 @@ class Autocomplete extends Component
     public $inline;
     public $minLength;
 
-    public function __construct($name = null, $resultComponent = null, $resultsPlaceholder = 'Start typing to search...', $noResults = 'There were no results found', $searchAttribute = null, $autoselect = null, $inline = null, $minLength = 0)
-    {
+    public function __construct(
+        $options = [],
+        $name = null,
+        $resultComponent = null,
+        $resultsPlaceholder = 'Start typing to search...',
+        $noResults = 'There were no results found',
+        $searchAttribute = null,
+        $autoselect = null,
+        $inline = null,
+        $minLength = 0
+    ) {
+        $this->options = array_merge(config('autocomplete.options', []), $options);
         $this->name = $name;
         $this->resultComponent = $resultComponent;
         $this->resultsPlaceholder = $resultsPlaceholder;
@@ -29,6 +41,11 @@ class Autocomplete extends Component
         $this->autoselect = $autoselect;
         $this->inline = $inline;
         $this->minLength = $minLength;
+    }
+
+    public function getOption($option)
+    {
+        return $this->options[$option] ?? null;
     }
 
     public function getViewName()
