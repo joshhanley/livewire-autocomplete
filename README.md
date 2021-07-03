@@ -48,11 +48,13 @@ This autocomplete component is a blade component design to be used within a Live
     :components="[
         'input' => 'my-input',
         'dropdown' => 'my-dropdown',
-        'prompt' => 'my-prompt',
         'outer_container' => 'my-outer-container',
         'results_container' => 'my-results-container',
+        'clear_button' => 'my-clear-button',
+        'prompt' => 'my-prompt',
         'loading' => 'my-loading',
         'no_results' => 'my-no-results',
+        'results_list' => 'my-results-list',
         'add_new_row' => 'my-add-new-row',
         'result_row' => 'my-client-result-row',
     ]"
