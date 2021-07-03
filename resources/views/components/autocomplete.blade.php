@@ -1,7 +1,7 @@
 @php
-    $inputProperty = $attributes->wire('input-property');
-    $resultsProperty = $attributes->wire('results-property');
-    $selectedProperty = $attributes->wire('selected-property');
+    $inputProperty = $attributes->wire('model-text');
+    $resultsProperty = $attributes->wire('model-results');
+    $selectedProperty = $attributes->wire('model-id');
     $optionsProperty = $attributes->wire('options-property');
 
 

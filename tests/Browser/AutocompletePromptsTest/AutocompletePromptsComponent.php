@@ -17,9 +17,9 @@ class AutocompletePromptsComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 <x-lwc::autocomplete
-                    wire:input-property="input"
-                    wire:selected-property="selected"
-                    wire:results-property="results"
+                    wire:model-text="input"
+                    wire:model-id="selected"
+                    wire:model-results="results"
                     />
 
                 <div dusk="result-output">{{ $selected }}</div>

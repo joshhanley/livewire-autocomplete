@@ -54,9 +54,9 @@ class DatabaseResultsAutocompleteComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 <x-lwc::autocomplete
-                    wire:input-property="itemName"
-                    wire:selected-property="selectedItem"
-                    wire:results-property="items"
+                    wire:model-text="itemName"
+                    wire:model-id="selectedItem"
+                    wire:model-results="items"
                     result-component="item-row"
                     search-attribute="name"
                     />

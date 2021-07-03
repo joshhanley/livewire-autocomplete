@@ -59,9 +59,9 @@ class PageWithEventsComponent extends Component
                 <div>
                     <x-lwc::autocomplete
                         name="item"
-                        wire:input-property="input"
-                        wire:selected-property="selected"
-                        wire:results-property="results"
+                        wire:model-text="input"
+                        wire:model-id="selected"
+                        wire:model-results="results"
                         wire:options-property="options"
                         :autoselect="$autoselect"
                         />
