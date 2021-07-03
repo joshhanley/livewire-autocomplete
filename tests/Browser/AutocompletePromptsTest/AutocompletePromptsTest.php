@@ -32,7 +32,7 @@ class AutocompletePromptsTest extends TestCase
                 ->pause(101)
                 ->assertVisible('@autocomplete-dropdown')
                 ->waitForLivewire()->type('@autocomplete-input', 'a')
-                ->assertSeeIn('@autocomplete-dropdown', 'There were no results found')
+                ->assertSeeIn('@autocomplete-dropdown', 'No results found')
                 ;
         });
     }
