@@ -14,7 +14,8 @@
         value: {!! $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
         results: @entangle($resultsProperty),
         selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
-        searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }},
+        idAttribute: '{{ $getOption('id') }}',
+        searchAttribute: '{{ $getOption('text') }}',
         autoselect: {{ $autoselect ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
@@ -108,7 +109,7 @@
                                     <x-dynamic-component class="px-3 py-2" :component="$resultComponent" :model="$result"/>
                                 @else
                                     <div class="px-3 py-2">
-                                        {{ $result }}
+                                        {{ $result[$getOption('text')] ?? $result }}
                                     </div>
                                 @endif
                             </div>
@@ -302,8 +303,8 @@
                 },
 
                 setSelected($dispatch, selected) {
-                    this.selected = selected
-                    this.value = this.searchAttribute ? selected[this.searchAttribute] : selected
+                    this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
+                    this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
                     $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },

@@ -2,9 +2,6 @@
 
 namespace LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest\Models\Item;
 
@@ -19,7 +16,7 @@ class DatabaseResultsAutocompleteComponent extends Component
     public $rules = [
         'items.*.id' => '',
         'items.*.name' => '',
-        'selectedItem' => ''
+        'selectedItem' => '',
     ];
 
     public function mount()
@@ -45,7 +42,7 @@ class DatabaseResultsAutocompleteComponent extends Component
 
     public function updatedSelectedItem($selected)
     {
-        $this->selectedItem = Item::find($selected['id'] ?? null);
+        $this->selectedItem = Item::find($selected ?? null);
         $this->itemName = $this->selectedItem->name ?? null;
     }
 
@@ -57,6 +54,9 @@ class DatabaseResultsAutocompleteComponent extends Component
                     wire:model-text="itemName"
                     wire:model-id="selectedItem"
                     wire:model-results="items"
+                    :options="[
+                        'text' => 'name',
+                    ]"
                     result-component="item-row"
                     search-attribute="name"
                     />
