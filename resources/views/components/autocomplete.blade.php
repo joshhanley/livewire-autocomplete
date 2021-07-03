@@ -86,11 +86,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
             </div>
 
             @if ($shouldShowPlaceholder($this->getPropertyValue($resultsProperty), $this->getPropertyValue($inputProperty->value)))
-                <div wire:key="{{ $name }}-placeholder">
-                    <div class="px-3 py-2">
-                        {{ $resultsPlaceholder }}
-                    </div>
-                </div>
+                <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
             @else
                 @if ($hasResults($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
                     <div wire:key="{{ $name }}-results" x-on:click.stop="selectItem($dispatch)"
@@ -99,7 +95,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                             <div
                                 wire:key='add-new'
                                 x-on:mouseenter="focusIndex = 0"
-                                :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
+                                x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
                                 dusk="add-new">
                                 <div class="px-3 py-2">
                                     Add new "{{ $this->getPropertyValue($inputProperty) }}"
@@ -109,28 +105,20 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
 
                         @if ($this->getPropertyValue($resultsProperty))
                             @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
-                                <div
-                                    wire:key="result-{{ $key }}"
+                                <x-dynamic-component
+                                    :component="$getComponent('result_row')"
+                                    :result="$result"
+                                    text-attribute="{{ $getOption('text') }}"
+                                    wire:key="{{ $name }}-result-{{ $key }}"
                                     x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
-                                    :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}}"
-                                    dusk="result-{{ $key }}">
-                                    @if ($resultComponent)
-                                        <x-dynamic-component class="px-3 py-2" :component="$resultComponent" :model="$result" />
-                                    @else
-                                        <div class="px-3 py-2">
-                                            {{ $result[$getOption('text')] ?? $result }}
-                                        </div>
-                                    @endif
-                                </div>
+                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }} }"
+                                    dusk="result-{{ $key }}" />
+
                             @endforeach
                         @endif
                     </div>
                 @else
-                    <div wire:key="{{ $name }}-no-results">
-                        <div class="px-3 py-2">
-                            {{ $noResults }}
-                        </div>
-                    </div>
+                    <x-dynamic-component :component="$getComponent('no_results')" wire:key='{{ $name }}-no-results' />
                 @endif
             @endif
         </div>
