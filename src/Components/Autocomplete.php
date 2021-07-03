@@ -9,7 +9,6 @@ class Autocomplete extends Component
     public $inputProperty;
     public $resultsProperty;
     public $selectedProperty;
-    public $optionsProperty;
 
     public $name;
     public $resultComponent;

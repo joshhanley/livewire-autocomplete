@@ -17,8 +17,6 @@ class PageWithEventsComponent extends Component
 
     public $selected;
 
-    public $options;
-
     public $autoselect = false;
 
     protected $queryString = ['autoselect' => ['except' => false]];
@@ -62,14 +60,11 @@ class PageWithEventsComponent extends Component
                         wire:model-text="input"
                         wire:model-id="selected"
                         wire:model-results="results"
-                        wire:options-property="options"
                         :autoselect="$autoselect"
                         />
                 </div>
 
                 <div dusk="result-output">{{ $selected }}</div>
-
-                <div dusk="options">{{ $options }}</div>
 
                 <div
                     x-data="{ selected: null, input: null }"
@@ -87,7 +82,6 @@ class PageWithEventsComponent extends Component
                     </div>
                     <button dusk="alpine-clear" x-on:click="$dispatch('item-clear')">Alpine Clear</button>
                     <button dusk="alpine-set" x-on:click="$dispatch('item-set', 'bob')">Alpine Clear</button>
-                    <button dusk="alpine-options" x-on:click="$dispatch('item-set-options', 'filter')">Alpine Options</button>
                 </div>
             </div>
             HTML;

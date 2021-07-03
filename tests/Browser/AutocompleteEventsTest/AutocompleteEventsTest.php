@@ -120,16 +120,4 @@ class AutocompleteEventsTest extends TestCase
                     ;
         });
     }
-
-    /** @test */
-    public function options_are_set_when_set_options_event_received()
-    {
-        $this->browse(function (Browser $browser) {
-            Livewire::visit($browser, PageWithEventsComponent::class)
-                    ->assertSeeNothingIn('@options')
-                    ->waitForLivewire()->click('@alpine-options')
-                    ->assertSeeIn('@options', 'filter')
-                    ;
-        });
-    }
 }

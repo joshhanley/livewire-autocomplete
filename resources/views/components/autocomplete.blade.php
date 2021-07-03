@@ -2,7 +2,6 @@
     $inputProperty = $attributes->wire('model-text');
     $resultsProperty = $attributes->wire('model-results');
     $selectedProperty = $attributes->wire('model-id');
-    $optionsProperty = $attributes->wire('options-property');
 
 
     /** Remove all wire attributes that are assigned to local properties from the attribute bag */
@@ -15,7 +14,6 @@
         value: {!! $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
         results: @entangle($resultsProperty),
         selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
-        options: {!! $optionsProperty->value ? "\$wire.entangle('" . $optionsProperty . "')" : 'null' !!},
         searchAttribute: {{ "'" . $searchAttribute . "'" ?? 'null' }},
         autoselect: {{ $autoselect ? 'true' : 'false' }},
         })"
@@ -310,10 +308,6 @@
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
 
-                setOptions(options) {
-                    this.options = options
-                },
-
                 clearItem($dispatch) {
                     this.selected = null
                     this.resetValue($dispatch)
@@ -327,9 +321,6 @@
                         },
                         ['x-on:' + (this.name ?? 'autocomplete') + '-set.window'](event) {
                             this.setSelected(this.$el.__x.getDispatchFunction(event.target), event.detail)
-                        },
-                        ['x-on:' + (this.name ?? 'autocomplete') + '-set-options.window'](event) {
-                            this.setOptions(event.detail)
                         }
                     }
                 }
