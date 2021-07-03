@@ -2,6 +2,7 @@
     $inputProperty = $attributes->wire('model-text');
     $resultsProperty = $attributes->wire('model-results');
     $selectedProperty = $attributes->wire('model-id');
+    $focusAction = $attributes->wire('focus');
 
 
     /** Remove all wire attributes that are assigned to local properties from the attribute bag */
@@ -14,10 +15,12 @@
         value: {!! $inputProperty->value ? " \$wire.entangle('" . $inputProperty . "')" : 'null' !!},
         results: @entangle($resultsProperty),
         selected: {!! $selectedProperty->value ? "\$wire.entangle('" . $selectedProperty . "')" : 'null' !!},
+        focusAction: {!! "'" . $focusAction->value . "'" ?? 'null' !!},
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
         autoSelect: {{ $getOption('auto_select') ? 'true' : 'false' }},
         allowNew: {{ $getOption('allow_new') ? 'true' : 'false' }},
+        loadOnceOnFocus: {{ $getOption('load_once_on_focus') ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
     x-on:click.away="away($dispatch)"
@@ -25,7 +28,7 @@
     <div class="relative">
         <input
             x-model.debounce.300ms="value"
-            x-on:focus="showDropdown = true"
+            x-on:focus="inputFocus()"
             x-on:keydown.tab="tab($dispatch)"
             x-on:keydown.shift.window="shift(true)"
             {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
@@ -85,7 +88,7 @@
                 </svg>
             </div>
 
-            @if (count($this->getPropertyValue($resultsProperty)) == 0 && ($this->getPropertyValue($inputProperty->value) == null || $this->getPropertyValue($inputProperty->value) == '' || strlen($this->getPropertyValue($inputProperty->value)) < $minLength))
+            @if ((is_countable($this->getPropertyValue($resultsProperty)) && count($this->getPropertyValue($resultsProperty)) == 0) && ($this->getPropertyValue($inputProperty->value) == null || $this->getPropertyValue($inputProperty->value) == '' || strlen($this->getPropertyValue($inputProperty->value)) < $minLength))
                 <div wire:key="{{ $name }}-placeholder">
                     {{-- @if ($placeholderComponent)
                         <x-dynamic-component class="px-3 py-2" :component="$placeholderComponent"/>
@@ -96,7 +99,7 @@
                     {{-- @endif --}}
                 </div>
             @else
-                @if (count($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
+                @if ((is_countable($this->getPropertyValue($resultsProperty)) && count($this->getPropertyValue($resultsProperty))) || $getOption('allow_new'))
                     <div wire:key="{{ $name }}-results" x-on:click.stop="selectItem($dispatch)"
                         class="divide-y divide-transparent cursor-pointer">
                         @if($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
@@ -112,6 +115,7 @@
                             </div>
                         @endif
 
+                    @if ($this->getPropertyValue($resultsProperty))
                         @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
                             <div
                                 wire:key="result-{{ $key }}"
@@ -128,6 +132,7 @@
                                 @endif
                             </div>
                         @endforeach
+                    @endif
                     </div>
                 @else
                     <div wire:key="{{ $name }}-no-results">
@@ -180,6 +185,14 @@
 
                 shouldShow() {
                     return this.showDropdown
+                },
+
+                inputFocus() {
+                    if (this.focusAction && !this.value) this.$wire.call(this.focusAction)
+
+                    if (this.loadOnceOnFocus) this.focusAction = null
+
+                    this.show()
                 },
 
                 away($dispatch) {

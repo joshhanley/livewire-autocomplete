@@ -39,6 +39,7 @@ This autocomplete component is a blade component design to be used within a Live
         'text' => 'name',
         'auto_select' => true,
         'allow_new' => true,
+        'load_once_on_focus' => true,
         'inline' => true,
         'inline_styles' => 'relative',
         'overlay_styles' => 'absolute z-30',
@@ -84,6 +85,9 @@ Then individual options and components can be passed into each instance of the c
 **allow_new** `true` by default.
 - If `allow_new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
 - If `allow_new` is false, the first option is a result, which tab autoselects
+
+**load_once_on_focus** `true` by default.
+- If is true, and there is a `wire:focus` binding, then the action will only be called on the first focus of the input box. This essentially allows deferring of loading results until it is needed.
 
 **inline** this is a quick styling toggle between displaying the dropdown box inline or as an overlay.
 

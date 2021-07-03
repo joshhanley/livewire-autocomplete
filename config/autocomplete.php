@@ -7,6 +7,7 @@ return [
         'text' => 'text',
         'auto_select' => true,
         'allow_new' => true,
+        'load_once_on_focus' => true,
         'inline' => false,
         'inline_styles' => 'relative',
         'overlay_styles' => 'absolute z-30',
