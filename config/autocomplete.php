@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'options' => [
         'id' => 'id',
         'text' => 'text',
@@ -15,16 +14,15 @@ return [
     ],
 
     'components' => [
-        'input' => 'autocomplete.input',
-        'dropdown' => 'autocomplete.dropdown',
-        'prompt' => 'autocomplete.prompt',
-        'loading' => 'autocomplete.loading',
-        'no_results' => 'autocomplete.no-results',
-        'add_new_row' => 'autocomplete.add-new-row',
-        'result_row' => 'autocomplete.result-row',
+        'input' => 'input',
+        'dropdown' => 'dropdown',
+        'prompt' => 'prompt',
+        'loading' => 'loading',
+        'no_results' => 'no-results',
+        'add_new_row' => 'add-new-row',
+        'result_row' => 'result-row',
     ],
 
     // Set this to true if you would prefer it to use the global namespace <x-autocomplete />
     'use_global_namespace' => false,
-
 ];
