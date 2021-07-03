@@ -92,15 +92,13 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                     <div wire:key="{{ $name }}-results" x-on:click.stop="selectItem($dispatch)"
                         class="divide-y divide-transparent cursor-pointer">
                         @if ($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
-                            <div
+                            <x-dynamic-component
+                                :component="$getComponent('add_new_row')"
+                                :input-text="$this->getPropertyValue($inputProperty)"
                                 wire:key='add-new'
                                 x-on:mouseenter="focusIndex = 0"
                                 x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
-                                dusk="add-new">
-                                <div class="px-3 py-2">
-                                    Add new "{{ $this->getPropertyValue($inputProperty) }}"
-                                </div>
-                            </div>
+                                dusk="add-new" />
                         @endif
 
                         @if ($this->getPropertyValue($resultsProperty))
