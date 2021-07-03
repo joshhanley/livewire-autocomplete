@@ -20,7 +20,7 @@ class Autocomplete extends Component
     public $inline;
     public $minLength;
 
-    public function __construct($name = null, $resultComponent =  null, $resultsPlaceholder = 'Start typing to search...', $noResults = 'There were no results found', $searchAttribute = null, $autoselect = null, $inline = null, $minLength = 0)
+    public function __construct($name = null, $resultComponent = null, $resultsPlaceholder = 'Start typing to search...', $noResults = 'There were no results found', $searchAttribute = null, $autoselect = null, $inline = null, $minLength = 0)
     {
         $this->name = $name;
         $this->resultComponent = $resultComponent;
@@ -34,7 +34,7 @@ class Autocomplete extends Component
 
     public function getViewName()
     {
-        if(config('autocomplete.use_global_namespace', false)) {
+        if (config('autocomplete.use_global_namespace', false)) {
             return 'components.autocomplete';
         }
 
