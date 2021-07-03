@@ -17,6 +17,7 @@
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
         autoSelect: {{ $getOption('auto_select') ? 'true' : 'false' }},
+        allowNew: {{ $getOption('allow_new') ? 'true' : 'false' }},
         })"
     x-init="init($dispatch)"
     x-on:click.away="away($dispatch)"
@@ -95,14 +96,27 @@
                     {{-- @endif --}}
                 </div>
             @else
-                @if (count($this->getPropertyValue($resultsProperty)))
+                @if (count($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
                     <div wire:key="{{ $name }}-results" x-on:click.stop="selectItem($dispatch)"
                         class="divide-y divide-transparent cursor-pointer">
+                        @if($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
+                            <div
+                                wire:key='add-new'
+                                x-on:mouseenter="focusIndex = 0"
+                                :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
+                                dusk="add-new"
+                                >
+                                <div class="px-3 py-2">
+                                    Add new "{{ $this->getPropertyValue($inputProperty) }}"
+                                </div>
+                            </div>
+                        @endif
+
                         @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
                             <div
                                 wire:key="result-{{ $key }}"
-                                x-on:mouseenter="focusIndex = {{ $key }}"
-                                :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $key }}}"
+                                x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
+                                :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}}"
                                 dusk="result-{{ $key }}"
                             >
                                 @if ($resultComponent)
@@ -231,7 +245,11 @@
                 totalResults() {
                     if (this.resultsCount) return this.resultsCount //Use memoised count
 
-                    return this.resultsCount = this.results.length
+                    this.resultsCount = this.results.length
+
+                    if(this.allowNew && this.value.length > 0) this.resultsCount++
+
+                    return this.resultsCount
                 },
 
                 hasFocus() {
@@ -292,7 +310,8 @@
 
                 selectItem($dispatch) {
                     if (this.hasFocus() && this.hasResults()) {
-                        this.setSelected($dispatch, this.results[this.focusIndex])
+                        if(!this.allowNew || this.value.length === 0 || this.focusIndex !== 0)
+                            this.setSelected($dispatch, this.results[this.focusIndex])
                     } else {
                         if (this.autoSelect) {
                             this.resetValue($dispatch)
