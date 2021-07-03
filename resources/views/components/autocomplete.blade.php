@@ -61,7 +61,7 @@
 
     <div
         x-show="shouldShow()"
-        class="{{ $inline ? 'block relative' : 'absolute z-30' }} mt-0.5 px-2 w-full"
+        class="{{ $getOption('inline') ? $getOption('inline_styles') : $getOption('overlay_styles') }} mt-0.5 px-2 w-full"
         x-on:mouseleave="mouseLeave()"
         x-transition:enter="transition ease-out duration-100 origin-top"
         x-transition:enter-start="transform opacity-0 scale-y-90"
@@ -102,7 +102,7 @@
                             <div
                                 wire:key="result-{{ $key }}"
                                 x-on:mouseenter="focusIndex = {{ $key }}"
-                                :class="{ 'bg-blue-500' : focusIndex == {{ $key }}}"
+                                :class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $key }}}"
                                 dusk="result-{{ $key }}"
                             >
                                 @if ($resultComponent)
