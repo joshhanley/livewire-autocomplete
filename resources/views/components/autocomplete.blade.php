@@ -31,7 +31,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
         x-on:keydown.tab="tab($dispatch)"
         x-on:keydown.shift.window="shift(true)"
         {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
-        x-on:keyup.shift.window="shift(false)"
+        x-on:keyup.shift.window.debounce.300ms="shift(false)"
         {{-- Detect shift on window otherwise shift+tab from another field not recognised --}}
         x-on:blur.window="shift(false)"
         {{-- Clear shift on window blur otherwise can't select --}}

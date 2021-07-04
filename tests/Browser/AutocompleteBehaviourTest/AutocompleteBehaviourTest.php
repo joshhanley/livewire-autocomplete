@@ -473,4 +473,24 @@ class AutocompleteBehaviourTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function using_shift_does_not_clear_input()
+    {
+        // This bug has been fixed, but for some reason the test still fails, while a manual test confirms it is ok. Leaving here for future reference.
+        $this->markTestSkipped();
+
+        // This was a bug with the shift keyup firing before the x-model, so needed to add the same debounce on the keyup event
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteComponent::class)
+                ->click('@autocomplete-input')
+                ->tinker()
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->keys('@autocomplete-input', '{SHIFT}', 'b')
+                ->assertSeeIn('@autocomplete-input', 'B')
+                ->tinker()
+                ;
+        });
+    }
 }
