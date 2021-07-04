@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4|^8.0",
+        "livewire/livewire": "^2.3.6"
     },
     "autoload": {
         "psr-4": {

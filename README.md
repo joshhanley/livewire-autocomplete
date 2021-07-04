@@ -6,7 +6,7 @@ An autocomplete select component designed for use with Livewire that allows you 
 
 - Laravel ^7.0.0
 - Livewire ^2.3.6
-- Alpine ^2.8.1
+- Alpine ^2.8.1|^3.0.6 (must have Livewire ^2.5.0)
 
 ## Installation
 
