@@ -4,9 +4,9 @@ An autocomplete select component designed for use with Livewire that allows you 
 
 ## Requirements
 
-- Laravel ^7.0.0
+- Laravel ^7.0.0 | ^8.0.0
 - Livewire ^2.3.6
-- Alpine ^2.8.1|^3.0.6 (must have Livewire ^2.5.0)
+- Alpine ^2.8.1 | ^3.0.6 (must have Livewire ^2.5.0)
 
 ## Installation
 
