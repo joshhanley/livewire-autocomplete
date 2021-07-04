@@ -8,7 +8,7 @@ use LivewireDuskTestbench\TestCase as LivewireDuskTestbenchTestCase;
 
 class TestCase extends LivewireDuskTestbenchTestCase
 {
-    // public $withoutUI = true;
+    public $withoutUI = true;
 
     public $packageProviders = [
         LivewireAutocompleteServiceProvider::class,
