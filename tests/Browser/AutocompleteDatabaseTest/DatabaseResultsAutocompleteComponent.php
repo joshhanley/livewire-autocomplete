@@ -50,7 +50,7 @@ class DatabaseResultsAutocompleteComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwc::autocomplete
+                <x-lwa::autocomplete
                     wire:model-text="itemName"
                     wire:model-id="selectedItem"
                     wire:model-results="items"

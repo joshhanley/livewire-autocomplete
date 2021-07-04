@@ -10,7 +10,7 @@ use LivewireAutocomplete\Components\Autocomplete;
 class LivewireAutocompleteServiceProvider extends ServiceProvider
 {
     public $name = 'autocomplete';
-    public $namespace = 'lwc';
+    public $namespace = 'lwa';
 
     public function register()
     {
@@ -22,6 +22,9 @@ class LivewireAutocompleteServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        config()->set('autocomplete.name', $this->name);
+        config()->set('autocomplete.namespace', $this->namespace);
+
         $this->publishes([
             __DIR__ . '/../config/' . $this->name . '.php' => config_path($this->name . '.php'),
         ], [$this->name, $this->name . '-config']);

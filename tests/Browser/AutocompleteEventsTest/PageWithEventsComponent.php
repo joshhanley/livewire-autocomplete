@@ -55,7 +55,7 @@ class PageWithEventsComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 <div>
-                    <x-lwc::autocomplete
+                    <x-lwa::autocomplete
                         name="item"
                         wire:model-text="input"
                         wire:model-id="selected"

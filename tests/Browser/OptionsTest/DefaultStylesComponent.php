@@ -35,7 +35,7 @@ class DefaultStylesComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwc::autocomplete
+                <x-lwa::autocomplete
                     wire:model-text="inputText"
                     wire:model-id="selectedSlug"
                     wire:model-results="results"

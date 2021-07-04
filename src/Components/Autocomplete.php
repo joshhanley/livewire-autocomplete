@@ -41,7 +41,7 @@ class Autocomplete extends Component
             return $componentName;
         }
 
-        return 'lwc::' . $componentName;
+        return config('autocomplete.namespace') . '::' . $componentName;
     }
 
     public function shouldShowPlaceholder($results, $inputText)
@@ -65,7 +65,7 @@ class Autocomplete extends Component
             return 'components.autocomplete';
         }
 
-        return 'lwc::components.autocomplete';
+        return config('autocomplete.namespace') . '::components.autocomplete';
     }
 
     public function render()
