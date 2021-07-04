@@ -63,14 +63,15 @@ class AutocompleteAutoselectTest extends TestCase
             Livewire::visit($browser, PageWithAutoselectOptionComponent::class, '?autoselect=true')
                 ->click('@autocomplete-input')
                 //Have to mouseover or mouseleave won't fire
-                ->mouseover('@result-1')
-                ->assertClassMissing('@result-0', 'bg-blue-500')
-                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->mouseover('@result-0')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
                 ->assertClassMissing('@result-2', 'bg-blue-500')
-                //Empty mouseover simulates mouseout by mousing over body
-                ->mouseover('')
-                ->assertClassMissing('@result-0', 'bg-blue-500')
-                ->assertHasClass('@result-1', 'bg-blue-500')
+
+                //Mousing over the input is outside the dropdown, so the result should remain highlighted
+                ->mouseover('@autocomplete-input')
+                ->assertHasClass('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
                 ->assertClassMissing('@result-2', 'bg-blue-500')
                 ;
         });
