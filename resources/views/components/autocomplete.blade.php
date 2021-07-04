@@ -26,6 +26,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
     x-on:click.away="away($dispatch)">
     <x-dynamic-component
         :component="$getComponent('input')"
+        {{ $attributes }}
         x-model.debounce.300ms="value"
         x-on:focus="inputFocus()"
         x-on:keydown.tab="tab($dispatch)"
