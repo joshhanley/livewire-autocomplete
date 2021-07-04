@@ -29,6 +29,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
     x-on:click.away="away($dispatch)">
     <x-dynamic-component
         :component="$getComponent('input')"
+        name="{{ $name }}"
         {{ $attributes }}
         x-model.debounce.300ms="value"
         x-on:focus="inputFocus()"
