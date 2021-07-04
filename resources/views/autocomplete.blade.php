@@ -322,6 +322,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
                 setSelected($dispatch, selected) {
                     this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
                     this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
+                    $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
                     $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
