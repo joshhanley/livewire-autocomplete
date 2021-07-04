@@ -9,6 +9,10 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
 
 $inputValue = $this->getPropertyValue($inputProperty->value);
 $resultsValue = $this->getPropertyValue($resultsProperty->value);
+$autoSelect = filter_var($getOption('auto_select'), FILTER_VALIDATE_BOOLEAN);
+$allowNew = filter_var($getOption('allow_new'), FILTER_VALIDATE_BOOLEAN);
+$loadOnceOnFocus = filter_var($getOption('load_once_on_focus'), FILTER_VALIDATE_BOOLEAN);
+$loadOnceOnFocus = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 @endphp
 
 <x-dynamic-component
@@ -21,9 +25,9 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
         focusAction: '{{ $focusAction->value ?? null }}',
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
-        autoSelect: {{ $getOption('auto_select') === true ? 'true' : 'false' }},
-        allowNew: {{ $getOption('allow_new') === true ? 'true' : 'false' }},
-        loadOnceOnFocus: {{ $getOption('load_once_on_focus') ? 'true' : 'false' }},
+        autoSelect: {{ $autoSelect ? 'true' : 'false' }},
+        allowNew: {{ $allowNew ? 'true' : 'false' }},
+        loadOnceOnFocus: {{ $loadOnceOnFocus ? 'true' : 'false' }},
     })"
     x-init="init($dispatch)"
     x-on:click.away="away($dispatch)">
@@ -58,7 +62,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
 
     <x-dynamic-component
         :component="$getComponent('dropdown')"
-        :class="$getOption('inline') ? $getOption('inline_styles') : $getOption('overlay_styles')"
+        :class="$inline ? $getOption('inline_styles') : $getOption('overlay_styles')"
         x-show="shouldShow()"
         x-on:mouseleave="mouseLeave()"
         dusk="autocomplete-dropdown">
@@ -68,11 +72,11 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
             @if ($shouldShowPlaceholder($resultsValue, $inputValue))
                 <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
             @else
-                @if ($hasResults($resultsValue) || $getOption('allow_new') === true)
+                @if ($hasResults($resultsValue) || $allowNew)
                     <x-dynamic-component :component="$getComponent('results_list')"
                         wire:key="{{ $name }}-results-list"
                         x-on:click.stop="selectItem($dispatch)">
-                        @if ($getOption('allow_new') === true && strlen($inputValue) > 0)
+                        @if ($allowNew && strlen($inputValue) > 0)
                             <x-dynamic-component
                                 :component="$getComponent('add_new_row')"
                                 :input-text="$inputValue"
@@ -90,8 +94,8 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
                                     :result="$result"
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
-                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') === true && strlen($inputValue) > 0 ? $key + 1 : $key }}"
-                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') === true && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
+                                    x-on:mouseenter="focusIndex = {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }}"
+                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
                                     x-ref="result-{{ $key }}"
                                     dusk="result-{{ $key }}" />
                             @endforeach
