@@ -215,7 +215,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
                 totalResults() {
                     if (this.resultsCount) return this.resultsCount //Use memoised count
 
-                    this.resultsCount = this.results.length
+                    this.resultsCount = this.results ? this.results.length : 0
 
                     if (this.allowNew && this.value.length > 0) this.resultsCount++
 
