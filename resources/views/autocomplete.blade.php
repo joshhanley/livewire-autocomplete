@@ -52,6 +52,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         x-on:keydown.end.prevent="focusLast()"
         x-on:input.debounce.300ms="input($dispatch)"
         x-spread="inputListeners()"
+        x-bind="inputListeners()"
         dusk="autocomplete-input" />
 
     <x-dynamic-component
@@ -337,13 +338,25 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     $dispatch((this.name ?? 'autocomplete') + '-cleared')
                 },
 
+                dispatch(el, name, detail = {}) {
+                    el.dispatchEvent(
+                        new CustomEvent(name, {
+                            detail,
+                            bubbles: true,
+                            // Allows events to pass the shadow DOM barrier.
+                            composed: true,
+                            cancelable: true,
+                        })
+                    )
+                },
+
                 inputListeners() {
                     return {
                         ['x-on:' + (this.name ?? 'autocomplete') + '-clear.window'](event) {
-                            this.clearItem(this.$el.__x.getDispatchFunction(event.target))
+                            this.clearItem(this.dispatch.bind(this.dispatch, event.target))
                         },
                         ['x-on:' + (this.name ?? 'autocomplete') + '-set.window'](event) {
-                            this.setSelected(this.$el.__x.getDispatchFunction(event.target), event.detail)
+                            this.setSelected(this.dispatch.bind(this.dispatch, event.target), event.detail)
                         }
                     }
                 }
