@@ -271,7 +271,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
 
                     let scrollEl
 
-                    if (this.allowNew) {
+                    if (this.allowNew && this.value !== null && this.value.length !== 0) {
                         if (this.focusIndex === 0) {
                             scrollEl = this.$refs['add-new']
                         } else {
