@@ -1,11 +1,11 @@
 {
-    "name": "josh/livewire-autocomplete",
+    "name": "joshhanley/livewire-autocomplete",
     "description": "An autocomplete dropdown for Livewire",
     "license": "MIT",
     "authors": [
         {
             "name": "Josh Hanley",
-            "email": "josh@hitsystems.com.au"
+            "email": "josh@joshhanley.com.au"
         }
     ],
     "require": {
