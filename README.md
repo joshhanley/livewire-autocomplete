@@ -30,6 +30,7 @@ This autocomplete component is a blade component design to be used within a Live
 
 ```html
 <x-autocomplete
+    name="my-autocomplete"
     wire:model-id="clientId"
     wire:model-text="clientName"
     wire:model-results="clients"
@@ -46,17 +47,17 @@ This autocomplete component is a blade component design to be used within a Live
         'result_focus_styles' => 'bg-blue-500',
     ]"
     :components="[
-        'input' => 'my-input',
-        'dropdown' => 'my-dropdown',
         'outer_container' => 'my-outer-container',
-        'results_container' => 'my-results-container',
+        'input' => 'my-input',
         'clear_button' => 'my-clear-button',
-        'prompt' => 'my-prompt',
+        'dropdown' => 'my-dropdown',
         'loading' => 'my-loading',
-        'no_results' => 'my-no-results',
+        'results_container' => 'my-results-container',
+        'prompt' => 'my-prompt',
         'results_list' => 'my-results-list',
         'add_new_row' => 'my-add-new-row',
         'result_row' => 'my-client-result-row',
+        'no_results' => 'my-no-results',
     ]"
 />
 ```
@@ -104,19 +105,58 @@ Then individual options and components can be passed into each instance of the c
 
 ### Components
 
-**input** what component to use for the input element
+See [views](#views) below for publishing to customise
 
-**dropdown** what component to use for the dropdown box
+- **outer_container** surrounds the whole autocomplete input and dropdown
 
-**prompt** what component to use for the prompt shown in the empty box, when it's open (when `wire:focus` not set and `results = null`)
+- **input** is the input element
 
-**loading** what component to use for loading, when it's open
+- **clear_button** is the clear button for clearing an existing selection
 
-**no_results** what component to use when there are no results found (when `allow_new = false`)
+- **dropdown** is the dropdown box
 
-**add_new_row** what component to use for the "add new" result row (when `allow_new = true`)
+- **loading** is the loading contents, shown when livewire is loading
 
-**result_row** what component to use for each of the result rows
+- **results_container** surrounds the prompt, results, and no results components
+
+- **prompt** is the prompt shown in the empty box, when it's open (when `wire:focus` not set and `results = null`)
+
+- **results_list** surrounds only the add new row and the result rows
+
+- **add_new_row** is the "add new" result prompt row (when `allow_new = true`)
+
+- **result_row** is the component to use for each of the result rows
+
+- **no_results** is when there are no results found (when `allow_new = false`)
+
+
+**Structure**
+
+Below is the structure of how all the components are laid out, so you know which components to customise (if desired)
+
+```html
+<outer_container>
+    <input />
+
+    <clear_button />
+
+    <dropdown>
+        <loading />
+
+        <results_container>
+            <prompt />
+
+            <results_list>
+                <add_new_row />
+
+                <result_row />
+            </results_list>
+
+            <no_results />
+        </results_container>
+    </dropdown>
+</outer_container>
+```
 
 ## Config
 
@@ -125,16 +165,20 @@ Config can be published using
 php artisan autocomplete:publish --config
 ```
 
-Default config
+**Default Config**
 
 https://github.com/joshhanley/livewire-autocomplete/blob/main/config/autocomplete.php
 
 ## Views
 
-Views can be published to your `resources/views/vendor/package/autocomplete` using
+Views (component views) can be published to your `resources/views/vendor/package/autocomplete` using
 ```bash
 php artisan autocomplete:publish --views
 ```
+
+**Default Views**
+
+https://github.com/joshhanley/livewire-autocomplete/tree/main/resources/views/components
 
 ## Styles
 
