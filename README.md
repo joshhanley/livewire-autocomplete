@@ -26,6 +26,10 @@ Then include the scripts by putting this tag inside your app layout after `<live
 
 This autocomplete component is a blade component design to be used within a Livewire component. It won't work as a standalone component, without Livewire.
 
+## Demo App
+
+The source code for a demo of this Livewire Autocomplete component can be found here here https://github.com/joshhanley/livewire-autocomplete-demo
+
 ## Example API
 
 ```html
