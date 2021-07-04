@@ -13,7 +13,7 @@ class Autocomplete extends Component
     public function __construct(
         $name = 'autocomplete',
         $options = [],
-        $components = [],
+        $components = []
     ) {
         $this->name = $name;
         $this->options = array_merge(config('autocomplete.options', []), $options);
