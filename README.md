@@ -13,7 +13,7 @@ An autocomplete select component designed for use with Livewire that allows you 
 To install the package run
 
 ```bash
-composer require joshhanley/autocomplete
+composer require joshhanley/livewire-autocomplete
 ```
 
 Then include the scripts by putting this tag inside your app layout after `<livewire:scripts />` or you can push it to your scripts stack.
