@@ -281,6 +281,8 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
                         scrollEl = this.$refs['result-' + this.focusIndex]
                     }
 
+                    if (scrollEl === undefined)
+                        return console.warn('"result-' + this.focusIndex + '" could not be found. Check you have @{{ $attributes }} in your result_row component.')
 
                     scrollEl.scrollIntoView({
                         behavior: 'smooth',
