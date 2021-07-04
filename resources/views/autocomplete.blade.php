@@ -12,7 +12,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
 $autoSelect = filter_var($getOption('auto_select'), FILTER_VALIDATE_BOOLEAN);
 $allowNew = filter_var($getOption('allow_new'), FILTER_VALIDATE_BOOLEAN);
 $loadOnceOnFocus = filter_var($getOption('load_once_on_focus'), FILTER_VALIDATE_BOOLEAN);
-$loadOnceOnFocus = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
+$inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 @endphp
 
 <x-dynamic-component
