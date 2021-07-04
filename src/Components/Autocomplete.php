@@ -6,40 +6,20 @@ use Illuminate\View\Component;
 
 class Autocomplete extends Component
 {
-    public $inputProperty;
-    public $resultsProperty;
-    public $selectedProperty;
-
+    public $name;
     public $options;
     public $components;
-
-    public $name;
-    public $resultComponent;
-    public $resultsPlaceholder;
-    public $noResults;
-    public $searchAttribute;
-    public $inline;
     public $minLength;
 
     public function __construct(
+        $name = 'autocomplete',
         $options = [],
         $components = [],
-        $name = 'autocomplete',
-        $resultComponent = null,
-        $resultsPlaceholder = 'Start typing to search...',
-        $noResults = 'There were no results found',
-        $searchAttribute = null,
-        $inline = null,
         $minLength = 0
     ) {
+        $this->name = $name;
         $this->options = array_merge(config('autocomplete.options', []), $options);
         $this->components = $components;
-        $this->name = $name;
-        $this->resultComponent = $resultComponent;
-        $this->resultsPlaceholder = $resultsPlaceholder;
-        $this->noResults = $noResults;
-        $this->searchAttribute = $searchAttribute;
-        $this->inline = $inline;
         $this->minLength = $minLength;
     }
 
