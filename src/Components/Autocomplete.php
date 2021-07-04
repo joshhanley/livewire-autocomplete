@@ -24,7 +24,7 @@ class Autocomplete extends Component
     public function __construct(
         $options = [],
         $components = [],
-        $name = null,
+        $name = 'autocomplete',
         $resultComponent = null,
         $resultsPlaceholder = 'Start typing to search...',
         $noResults = 'There were no results found',
