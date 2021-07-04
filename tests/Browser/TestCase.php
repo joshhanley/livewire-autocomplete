@@ -17,6 +17,6 @@ class TestCase extends LivewireDuskTestbenchTestCase
 
     public function configureViewsDirectory()
     {
-        $this->viewsDirectory = __DIR__.'/views';
+        $this->viewsDirectory = __DIR__ . '/views';
     }
 }
