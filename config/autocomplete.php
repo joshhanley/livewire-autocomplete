@@ -4,13 +4,13 @@ return [
     'options' => [
         'id' => 'id',
         'text' => 'text',
-        'auto_select' => true,
-        'allow_new' => true,
-        'load_once_on_focus' => true,
+        'auto-select' => true,
+        'allow-new' => true,
+        'load-once-on-focus' => true,
         'inline' => false,
-        'inline_styles' => 'relative',
-        'overlay_styles' => 'absolute z-30',
-        'result_focus_styles' => 'bg-blue-500',
+        'inline-styles' => 'relative',
+        'overlay-styles' => 'absolute z-30',
+        'result-focus-styles' => 'bg-blue-500',
     ],
 
     'components' => [

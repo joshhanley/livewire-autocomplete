@@ -34,8 +34,8 @@ class DynamicResultRowComponent extends Component
                     wire:model-id="selectedSlug"
                     wire:model-results="results"
                     :options="[
-                        'auto_select' => true,
-                        'allow_new' => true,
+                        'auto-select' => true,
+                        'allow-new' => true,
                     ]"
                     :components="[
                         'result_row' => 'custom-row',

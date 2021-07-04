@@ -9,9 +9,9 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
 
 $inputValue = $this->getPropertyValue($inputProperty->value);
 $resultsValue = $this->getPropertyValue($resultsProperty->value);
-$autoSelect = filter_var($getOption('auto_select'), FILTER_VALIDATE_BOOLEAN);
-$allowNew = filter_var($getOption('allow_new'), FILTER_VALIDATE_BOOLEAN);
-$loadOnceOnFocus = filter_var($getOption('load_once_on_focus'), FILTER_VALIDATE_BOOLEAN);
+$autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
+$allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
+$loadOnceOnFocus = filter_var($getOption('load-once-on-focus'), FILTER_VALIDATE_BOOLEAN);
 $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 @endphp
 
@@ -62,7 +62,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
     <x-dynamic-component
         :component="$getComponent('dropdown')"
-        :class="$inline ? $getOption('inline_styles') : $getOption('overlay_styles')"
+        :class="$inline ? $getOption('inline-styles') : $getOption('overlay-styles')"
         x-show="shouldShow()"
         x-on:mouseleave="mouseLeave()"
         dusk="autocomplete-dropdown">
@@ -82,7 +82,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                                 :input-text="$inputValue"
                                 wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
-                                x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
+                                x-bind:class="{ '{{ $getOption('result-focus-styles') }}' : focusIndex == 0}"
                                 x-ref="add-new"
                                 dusk="add-new" />
                         @endif
@@ -95,7 +95,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
                                     x-on:mouseenter="focusIndex = {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }}"
-                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
+                                    x-bind:class="{ '{{ $getOption('result-focus-styles') }}' : focusIndex == {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
                                     x-ref="result-{{ $key }}"
                                     dusk="result-{{ $key }}" />
                             @endforeach

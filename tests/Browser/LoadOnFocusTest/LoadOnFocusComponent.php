@@ -61,8 +61,8 @@ class LoadOnFocusComponent extends Component
                     wire:model-results="results"
                     wire:focus="calculateResults"
                     :options="[
-                        'auto_select' => false,
-                        'load_once_on_focus' => $loadOnceOnFocus,
+                        'auto-select' => false,
+                        'load-once-on-focus' => $loadOnceOnFocus,
                     ]"
                     />
 

@@ -41,9 +41,9 @@ class CustomStylesComponent extends Component
                     wire:model-results="results"
                     :options="[
                         'inline' => $inline,
-                        'inline_styles' => 'some-inline-style',
-                        'overlay_styles' => 'some-overlay-style',
-                        'result_focus_styles' => 'some-focus-style',
+                        'inline-styles' => 'some-inline-style',
+                        'overlay-styles' => 'some-overlay-style',
+                        'result-focus-styles' => 'some-focus-style',
                     ]"
                     />
 

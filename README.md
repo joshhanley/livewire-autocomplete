@@ -38,13 +38,13 @@ This autocomplete component is a blade component design to be used within a Live
     :options="[
         'id' => 'id',
         'text' => 'name',
-        'auto_select' => true,
-        'allow_new' => true,
-        'load_once_on_focus' => true,
+        'auto-select' => true,
+        'allow-new' => true,
+        'load-once-on-focus' => true,
         'inline' => true,
-        'inline_styles' => 'relative',
-        'overlay_styles' => 'absolute z-30',
-        'result_focus_styles' => 'bg-blue-500',
+        'inline-styles' => 'relative',
+        'overlay-styles' => 'absolute z-30',
+        'result-focus-styles' => 'bg-blue-500',
     ]"
     :components="[
         'outer_container' => 'my-outer-container',
@@ -84,23 +84,23 @@ Then individual options and components can be passed into each instance of the c
 
 - **text** this is set to `text` by default but can be mapped to a different property on an array or model (e.g. `name`)
 
-- **auto_select** `true` by default.
+- **auto-select** `true` by default.
     - If is true, there will always be a highlighted result and enter or tab will auto select that result.
 
-- **allow_new** `true` by default.
-    - If `allow_new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
-    - If `allow_new` is false, the first option is a result, which tab autoselects
+- **allow-new** `true` by default.
+    - If `allow-new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
+    - If `allow-new` is false, the first option is a result, which tab autoselects
 
-- **load_once_on_focus** `true` by default.
+- **load-once-on-focus** `true` by default.
     - If is true, and there is a `wire:focus` binding, then the action will only be called on the first focus of the input box. This essentially allows deferring of loading results until it is needed.
 
 - **inline** this is a quick styling toggle between displaying the dropdown box inline or as an overlay.
 
-- **inline_styles** the styles to use when displaying the dropdown inline.
+- **inline-styles** the styles to use when displaying the dropdown inline.
 
-- **overlay_styles** the styles to use when displaying the dropdown as an overlay.
+- **overlay-styles** the styles to use when displaying the dropdown as an overlay.
 
-- **result_focus_styles** the styles to use on a result row when it has focus.
+- **result-focus-styles** the styles to use on a result row when it has focus.
 
 
 ### Components
@@ -126,11 +126,11 @@ php artisan autocomplete:publish --components
 
 - **results_list** surrounds only the add new row and the result rows
 
-- **add_new_row** is the "add new" result prompt row (when `allow_new = true`)
+- **add_new_row** is the "add new" result prompt row (when `allow-new = true`)
 
 - **result_row** is the component to use for each of the result rows
 
-- **no_results** is when there are no results found (when `allow_new = false`)
+- **no_results** is when there are no results found (when `allow-new = false`)
 
 
 **Structure**

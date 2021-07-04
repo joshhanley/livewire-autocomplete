@@ -35,7 +35,7 @@ class ScrollIntoViewTestComponent extends Component
                     wire:model-id="selectedSlug"
                     wire:model-results="results"
                     :options="[
-                        'auto_select' => true,
+                        'auto-select' => true,
                     ]"
                     />
 
