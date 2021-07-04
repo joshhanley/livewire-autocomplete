@@ -74,6 +74,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                                 wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
                                 x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
+                                x-ref="add-new"
                                 dusk="add-new" />
                         @endif
 
@@ -86,6 +87,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                                     wire:key="{{ $name }}-result-{{ $key }}"
                                     x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
                                     x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }} }"
+                                    x-ref="result-{{ $key }}"
                                     dusk="result-{{ $key }}" />
                             @endforeach
                         @endif
@@ -113,6 +115,8 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                     this.$watch('results', () => this.clearResultsCount())
 
                     this.resetFocus()
+
+                    this.$watch('focusIndex', () => this.scrollFocusedIntoView())
                 },
 
                 show() {
@@ -255,6 +259,28 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                     if (this.focusIsAtEnd()) return
 
                     this.focusIndex++
+                },
+
+                scrollFocusedIntoView() {
+                    if (this.focusIndex === null) return;
+
+                    let scrollEl
+
+                    if (this.allowNew) {
+                        if (this.focusIndex === 0) {
+                            scrollEl = this.$refs['add-new']
+                        } else {
+                            scrollEl = this.$refs['result-' + (this.focusIndex - 1)]
+                        }
+                    } else {
+                        scrollEl = this.$refs['result-' + this.focusIndex]
+                    }
+
+
+                    scrollEl.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                    })
                 },
 
                 mouseLeave() {
