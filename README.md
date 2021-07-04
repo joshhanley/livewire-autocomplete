@@ -105,7 +105,10 @@ Then individual options and components can be passed into each instance of the c
 
 ### Components
 
-See [views](#views) below for publishing to customise
+Components can be published to your `resources/views/vendor/package/autocomplete/components` using
+```bash
+php artisan autocomplete:publish --components
+```
 
 - **outer_container** surrounds the whole autocomplete input and dropdown
 
@@ -158,6 +161,10 @@ Below is the structure of how all the components are laid out, so you know which
 </outer_container>
 ```
 
+**Default Components**
+
+https://github.com/joshhanley/livewire-autocomplete/tree/main/resources/views/components
+
 ## Config
 
 Config can be published using
@@ -169,20 +176,9 @@ php artisan autocomplete:publish --config
 
 https://github.com/joshhanley/livewire-autocomplete/blob/main/config/autocomplete.php
 
-## Views
-
-Views (component views) can be published to your `resources/views/vendor/package/autocomplete` using
-```bash
-php artisan autocomplete:publish --views
-```
-
-**Default Views**
-
-https://github.com/joshhanley/livewire-autocomplete/tree/main/resources/views/components
-
 ## Styles
 
 The default styles on this component use Tailwind, but they can be overridden by:
-- publishing the views and changing them;
+- publishing the components and changing them;
 - publishing the config and setting custom component names to use in the config; or
 - manually passing in component names to each instance of the autocomplete component through the `components` prop

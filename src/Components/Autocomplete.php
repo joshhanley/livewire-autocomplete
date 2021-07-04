@@ -62,10 +62,10 @@ class Autocomplete extends Component
     public function getViewName()
     {
         if (config('autocomplete.use_global_namespace', false)) {
-            return 'components.autocomplete';
+            return 'autocomplete';
         }
 
-        return config('autocomplete.namespace') . '::components.autocomplete';
+        return config('autocomplete.namespace') . '::autocomplete';
     }
 
     public function render()

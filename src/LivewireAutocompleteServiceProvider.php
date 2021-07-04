@@ -30,8 +30,8 @@ class LivewireAutocompleteServiceProvider extends ServiceProvider
         ], [$this->name, $this->name . '-config']);
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/' . $this->name),
-        ], [$this->name, $this->name . '-views']);
+            __DIR__ . '/../resources/views/components' => resource_path('views/vendor/' . $this->name . '/components'),
+        ], [$this->name, $this->name . '-components']);
 
         $this->loadViews(__DIR__ . '/../resources/views', $this->namespace, config($this->name . '.use_global_namespace', false));
 
