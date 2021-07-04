@@ -304,8 +304,12 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
 
                 selectItem($dispatch) {
                     if (this.hasFocus() && this.hasResults()) {
-                        if (!this.allowNew || this.value.length === 0 || this.focusIndex !== 0)
+                        if (this.allowNew && this.value !== null && this.value.length !== 0) {
+                            if (this.focusIndex !== 0)
+                                this.setSelected($dispatch, this.results[this.focusIndex - 1])
+                        } else {
                             this.setSelected($dispatch, this.results[this.focusIndex])
+                        }
                     } else {
                         if (this.autoSelect) {
                             this.resetValue($dispatch)

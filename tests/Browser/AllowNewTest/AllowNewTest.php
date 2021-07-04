@@ -99,4 +99,54 @@ class AllowNewTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function first_result_should_be_selected_when_add_new_row_not_displayed_yet()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, AddNewItemComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
+                ->assertSeeIn('@selected-slug-output', '1')
+                ->assertSeeIn('@input-text-output', 'bob')
+                ;
+        });
+    }
+
+    /** @test */
+    public function add_new_row_should_be_selected_but_nothing_happen()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, AddNewItemComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->type('@autocomplete-input', 'j')
+                ->keys('@autocomplete-input', '{TAB}')
+                // Pause to allow Livewire to run if it was going to
+                ->pause(100)
+                ->assertSeeNothingIn('@selected-slug-output')
+                ->assertSeeIn('@input-text-output', 'j')
+                ;
+        });
+    }
+
+    /** @test */
+    public function highlighted_record_should_be_selected_even_when_add_new_row_displayed()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, AddNewItemComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->type('@autocomplete-input', 'j')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->waitForLivewire()->keys('@autocomplete-input', '{TAB}')
+                ->assertSeeIn('@selected-slug-output', '2')
+                ->assertSeeIn('@input-text-output', 'j')
+                ;
+        });
+    }
 }
