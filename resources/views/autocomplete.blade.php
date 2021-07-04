@@ -21,8 +21,8 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
         focusAction: '{{ $focusAction->value ?? null }}',
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
-        autoSelect: {{ $getOption('auto_select') ? 'true' : 'false' }},
-        allowNew: {{ $getOption('allow_new') ? 'true' : 'false' }},
+        autoSelect: {{ $getOption('auto_select') === true ? 'true' : 'false' }},
+        allowNew: {{ $getOption('allow_new') === true ? 'true' : 'false' }},
         loadOnceOnFocus: {{ $getOption('load_once_on_focus') ? 'true' : 'false' }},
     })"
     x-init="init($dispatch)"
@@ -68,11 +68,11 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
             @if ($shouldShowPlaceholder($resultsValue, $inputValue))
                 <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
             @else
-                @if ($hasResults($resultsValue) || $getOption('allow_new'))
+                @if ($hasResults($resultsValue) || $getOption('allow_new') === true)
                     <x-dynamic-component :component="$getComponent('results_list')"
                         wire:key="{{ $name }}-results-list"
                         x-on:click.stop="selectItem($dispatch)">
-                        @if ($getOption('allow_new') && strlen($inputValue) > 0)
+                        @if ($getOption('allow_new') === true && strlen($inputValue) > 0)
                             <x-dynamic-component
                                 :component="$getComponent('add_new_row')"
                                 :input-text="$inputValue"
@@ -90,8 +90,8 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
                                     :result="$result"
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
-                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($inputValue) > 0 ? $key + 1 : $key }}"
-                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
+                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') === true && strlen($inputValue) > 0 ? $key + 1 : $key }}"
+                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') === true && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
                                     x-ref="result-{{ $key }}"
                                     dusk="result-{{ $key }}" />
                             @endforeach
