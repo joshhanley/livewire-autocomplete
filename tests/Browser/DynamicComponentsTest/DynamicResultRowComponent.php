@@ -38,7 +38,7 @@ class DynamicResultRowComponent extends Component
                         'allow-new' => true,
                     ]"
                     :components="[
-                        'result_row' => 'custom-row',
+                        'result-row' => 'custom-row',
                     ]"
                     />
 

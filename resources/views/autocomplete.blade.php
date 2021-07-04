@@ -16,7 +16,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 @endphp
 
 <x-dynamic-component
-    :component="$getComponent('outer_container')"
+    :component="$getComponent('outer-container')"
     x-data="autocomplete({
         name: '{{ $name }}',
         value: $wire.entangle('{{ $inputProperty->value }}'),
@@ -55,7 +55,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         dusk="autocomplete-input" />
 
     <x-dynamic-component
-        :component="$getComponent('clear_button')"
+        :component="$getComponent('clear-button')"
         x-show="selected"
         x-on:click="clearItem($dispatch)"
         dusk="clear" />
@@ -68,17 +68,17 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         dusk="autocomplete-dropdown">
         <x-dynamic-component :component="$getComponent('loading')" dusk="autocomplete-loading" />
 
-        <x-dynamic-component :component="$getComponent('results_container')">
+        <x-dynamic-component :component="$getComponent('results-container')">
             @if ($shouldShowPlaceholder($resultsValue, $inputValue))
                 <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
             @else
                 @if ($hasResults($resultsValue) || $allowNew)
-                    <x-dynamic-component :component="$getComponent('results_list')"
+                    <x-dynamic-component :component="$getComponent('results-list')"
                         wire:key="{{ $name }}-results-list"
                         x-on:click.stop="selectItem($dispatch)">
                         @if ($allowNew && strlen($inputValue) > 0)
                             <x-dynamic-component
-                                :component="$getComponent('add_new_row')"
+                                :component="$getComponent('add-new-row')"
                                 :input-text="$inputValue"
                                 wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
@@ -90,7 +90,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                         @if ($resultsValue)
                             @foreach ($resultsValue as $key => $result)
                                 <x-dynamic-component
-                                    :component="$getComponent('result_row')"
+                                    :component="$getComponent('result-row')"
                                     :result="$result"
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
@@ -102,7 +102,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                         @endif
                     </x-dynamic-component>
                 @else
-                    <x-dynamic-component :component="$getComponent('no_results')" wire:key='{{ $name }}-no-results' />
+                    <x-dynamic-component :component="$getComponent('no-results')" wire:key='{{ $name }}-no-results' />
                 @endif
             @endif
         </x-dynamic-component>
@@ -286,7 +286,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     }
 
                     if (scrollEl === undefined)
-                        return console.warn('"result-' + this.focusIndex + '" could not be found. Check you have @{{ $attributes }} in your result_row component.')
+                        return console.warn('"result-' + this.focusIndex + '" could not be found. Check you have @{{ $attributes }} in your result-row component.')
 
                     scrollEl.scrollIntoView({
                         behavior: 'smooth',

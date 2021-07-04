@@ -47,17 +47,17 @@ This autocomplete component is a blade component design to be used within a Live
         'result-focus-styles' => 'bg-blue-500',
     ]"
     :components="[
-        'outer_container' => 'my-outer-container',
+        'outer-container' => 'my-outer-container',
         'input' => 'my-input',
-        'clear_button' => 'my-clear-button',
+        'clear-button' => 'my-clear-button',
         'dropdown' => 'my-dropdown',
         'loading' => 'my-loading',
-        'results_container' => 'my-results-container',
+        'results-container' => 'my-results-container',
         'prompt' => 'my-prompt',
-        'results_list' => 'my-results-list',
-        'add_new_row' => 'my-add-new-row',
-        'result_row' => 'my-client-result-row',
-        'no_results' => 'my-no-results',
+        'results-list' => 'my-results-list',
+        'add-new-row' => 'my-add-new-row',
+        'result-row' => 'my-client-result-row',
+        'no-results' => 'my-no-results',
     ]"
 />
 ```
@@ -110,27 +110,27 @@ Components can be published to your `resources/views/vendor/package/autocomplete
 php artisan autocomplete:publish --components
 ```
 
-- **outer_container** surrounds the whole autocomplete input and dropdown
+- **outer-container** surrounds the whole autocomplete input and dropdown
 
 - **input** is the input element
 
-- **clear_button** is the clear button for clearing an existing selection
+- **clear-button** is the clear button for clearing an existing selection
 
 - **dropdown** is the dropdown box
 
 - **loading** is the loading contents, shown when livewire is loading
 
-- **results_container** surrounds the prompt, results, and no results components
+- **results-container** surrounds the prompt, results, and no results components
 
 - **prompt** is the prompt shown in the empty box, when it's open (when `wire:focus` not set and `results = null`)
 
-- **results_list** surrounds only the add new row and the result rows
+- **results-list** surrounds only the add new row and the result rows
 
-- **add_new_row** is the "add new" result prompt row (when `allow-new = true`)
+- **add-new-row** is the "add new" result prompt row (when `allow-new = true`)
 
-- **result_row** is the component to use for each of the result rows
+- **result-row** is the component to use for each of the result rows
 
-- **no_results** is when there are no results found (when `allow-new = false`)
+- **no-results** is when there are no results found (when `allow-new = false`)
 
 
 **Structure**
@@ -138,27 +138,27 @@ php artisan autocomplete:publish --components
 Below is the structure of how all the components are laid out, so you know which components to customise (if desired)
 
 ```html
-<outer_container>
+<outer-container>
     <input />
 
-    <clear_button />
+    <clear-button />
 
     <dropdown>
         <loading />
 
-        <results_container>
+        <results-container>
             <prompt />
 
-            <results_list>
-                <add_new_row />
+            <results-list>
+                <add-new-row />
 
-                <result_row />
-            </results_list>
+                <result-row />
+            </results-list>
 
-            <no_results />
-        </results_container>
+            <no-results />
+        </results-container>
     </dropdown>
-</outer_container>
+</outer-container>
 ```
 
 **Default Components**

@@ -14,17 +14,17 @@ return [
     ],
 
     'components' => [
-        'outer_container' => 'outer-container',
+        'outer-container' => 'outer-container',
         'input' => 'input',
-        'clear_button' => 'clear-button',
+        'clear-button' => 'clear-button',
         'dropdown' => 'dropdown',
         'loading' => 'loading',
-        'results_container' => 'results-container',
+        'results-container' => 'results-container',
         'prompt' => 'prompt',
-        'results_list' => 'results-list',
-        'add_new_row' => 'add-new-row',
-        'result_row' => 'result-row',
-        'no_results' => 'no-results',
+        'results-list' => 'results-list',
+        'add-new-row' => 'add-new-row',
+        'result-row' => 'result-row',
+        'no-results' => 'no-results',
     ],
 
     // Set this to true if you would prefer it to use the global namespace <x-autocomplete />
