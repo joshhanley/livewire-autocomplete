@@ -46,7 +46,7 @@ class Autocomplete extends Component
 
     public function shouldShowPlaceholder($results, $inputText)
     {
-        return ! $this->hasResults($results) && ! $this->inputIsMinLength($inputText);
+        return ! $this->hasResults($results) && ! $this->hasInputText($inputText);
     }
 
     public function hasResults($results)
@@ -54,7 +54,7 @@ class Autocomplete extends Component
         return is_countable($results) && count($results) > 0;
     }
 
-    public function inputIsMinLength($inputText)
+    public function hasInputText($inputText)
     {
         return $inputText !== null && $inputText != '';
     }
