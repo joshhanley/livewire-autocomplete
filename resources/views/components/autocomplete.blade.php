@@ -6,6 +6,9 @@ $focusAction = $attributes->wire('focus');
 
 /** Remove all wire attributes that are assigned to local properties from the attribute bag */
 $attributes = $attributes->whereDoesntStartWith('wire:');
+
+$inputValue = $this->getPropertyValue($inputProperty->value);
+$resultsValue = $this->getPropertyValue($resultsProperty->value);
 @endphp
 
 <x-dynamic-component
@@ -61,17 +64,17 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
         <x-dynamic-component :component="$getComponent('loading')" dusk="autocomplete-loading" />
 
         <x-dynamic-component :component="$getComponent('results_container')">
-            @if ($shouldShowPlaceholder($this->getPropertyValue($resultsProperty), $this->getPropertyValue($inputProperty->value)))
+            @if ($shouldShowPlaceholder($resultsValue, $inputValue))
                 <x-dynamic-component :component="$getComponent('prompt')" wire:key="{{ $name }}-prompt" />
             @else
-                @if ($hasResults($this->getPropertyValue($resultsProperty)) || $getOption('allow_new'))
+                @if ($hasResults($resultsValue) || $getOption('allow_new'))
                     <x-dynamic-component :component="$getComponent('results_list')"
                         wire:key="{{ $name }}-results-list"
                         x-on:click.stop="selectItem($dispatch)">
-                        @if ($getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0)
+                        @if ($getOption('allow_new') && strlen($inputValue) > 0)
                             <x-dynamic-component
                                 :component="$getComponent('add_new_row')"
-                                :input-text="$this->getPropertyValue($inputProperty)"
+                                :input-text="$inputValue"
                                 wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
                                 x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == 0}"
@@ -79,15 +82,15 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
                                 dusk="add-new" />
                         @endif
 
-                        @if ($this->getPropertyValue($resultsProperty))
-                            @foreach ($this->getPropertyValue($resultsProperty) as $key => $result)
+                        @if ($resultsValue)
+                            @foreach ($resultsValue as $key => $result)
                                 <x-dynamic-component
                                     :component="$getComponent('result_row')"
                                     :result="$result"
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
-                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }}"
-                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($this->getPropertyValue($inputProperty)) > 0 ? $key + 1 : $key }} }"
+                                    x-on:mouseenter="focusIndex = {{ $getOption('allow_new') && strlen($inputValue) > 0 ? $key + 1 : $key }}"
+                                    x-bind:class="{ '{{ $getOption('result_focus_styles') }}' : focusIndex == {{ $getOption('allow_new') && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
                                     x-ref="result-{{ $key }}"
                                     dusk="result-{{ $key }}" />
                             @endforeach
