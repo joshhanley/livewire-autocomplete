@@ -9,18 +9,15 @@ class Autocomplete extends Component
     public $name;
     public $options;
     public $components;
-    public $minLength;
 
     public function __construct(
         $name = 'autocomplete',
         $options = [],
         $components = [],
-        $minLength = 0
     ) {
         $this->name = $name;
         $this->options = array_merge(config('autocomplete.options', []), $options);
         $this->components = $components;
-        $this->minLength = $minLength;
     }
 
     public function getOption($option)
@@ -59,7 +56,7 @@ class Autocomplete extends Component
 
     public function inputIsMinLength($inputText)
     {
-        return $inputText !== null && $inputText != '' && strlen($inputText) >= $this->minLength;
+        return $inputText !== null && $inputText != '';
     }
 
     public function getViewName()
