@@ -64,14 +64,14 @@ This autocomplete component is a blade component design to be used within a Live
 
 ## Wire Bindings
 
-**wire:model-id** this is the property on the Livewire component that should be populated with the selected ID
+- `wire:model-id` this is the property on the Livewire component that should be populated with the selected ID
 
-**wire:model-text** this is the property on the Livewire component that should be populated with the text value of the input field
+- `wire:model-text` this is the property on the Livewire component that should be populated with the text value of the input field
 
-**wire:model-result** this is the property on the Livewire component that contains the list of results.
+- `wire:model-result` this is the property on the Livewire component that contains the list of results.
 This can be an array or collection of values, array with keys, or eloquent models
 
-**wire:focus** this is the method on the Livewire component that should be called on focus to load results into the results property
+- `wire:focus` this is the method on the Livewire component that should be called on focus to load results into the results property
 
 ## Options and Components
 
@@ -80,27 +80,27 @@ Then individual options and components can be passed into each instance of the c
 
 ### Options
 
-**id** this is set to `id` by default but can be mapped to a different property on an array or model (e.g. `slug`)
+- **id** this is set to `id` by default but can be mapped to a different property on an array or model (e.g. `slug`)
 
-**text** this is set to `text` by default but can be mapped to a different property on an array or model (e.g. `name`)
+- **text** this is set to `text` by default but can be mapped to a different property on an array or model (e.g. `name`)
 
-**auto_select** `true` by default.
-- If is true, there will always be a highlighted result and enter or tab will auto select that result.
+- **auto_select** `true` by default.
+    - If is true, there will always be a highlighted result and enter or tab will auto select that result.
 
-**allow_new** `true` by default.
-- If `allow_new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
-- If `allow_new` is false, the first option is a result, which tab autoselects
+- **allow_new** `true` by default.
+    - If `allow_new` is true, the first option will be `Add new client "Bob"`, which tab autoselects
+    - If `allow_new` is false, the first option is a result, which tab autoselects
 
-**load_once_on_focus** `true` by default.
-- If is true, and there is a `wire:focus` binding, then the action will only be called on the first focus of the input box. This essentially allows deferring of loading results until it is needed.
+- **load_once_on_focus** `true` by default.
+    - If is true, and there is a `wire:focus` binding, then the action will only be called on the first focus of the input box. This essentially allows deferring of loading results until it is needed.
 
-**inline** this is a quick styling toggle between displaying the dropdown box inline or as an overlay.
+- **inline** this is a quick styling toggle between displaying the dropdown box inline or as an overlay.
 
-**inline_styles** the styles to use when displaying the dropdown inline.
+- **inline_styles** the styles to use when displaying the dropdown inline.
 
-**overlay_styles** the styles to use when displaying the dropdown as an overlay.
+- **overlay_styles** the styles to use when displaying the dropdown as an overlay.
 
-**result_focus_styles** the styles to use on a result row when it has focus.
+- **result_focus_styles** the styles to use on a result row when it has focus.
 
 
 ### Components
