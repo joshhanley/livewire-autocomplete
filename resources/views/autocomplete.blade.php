@@ -267,7 +267,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
                 },
 
                 scrollFocusedIntoView() {
-                    if (this.focusIndex === null) return;
+                    if (!this.showDropdown || this.focusIndex === null) return;
 
                     let scrollEl
 
