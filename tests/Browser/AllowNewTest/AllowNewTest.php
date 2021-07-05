@@ -149,4 +149,38 @@ class AllowNewTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function escape_does_not_clear_the_input_when_add_new_allowed()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, AddNewItemComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->type('@autocomplete-input', 'b')
+                ->assertPresent('@add-new')
+                ->assertValue('@autocomplete-input', 'b')
+                ->keys('@autocomplete-input', '{ESCAPE}')
+                ->assertValue('@autocomplete-input', 'b')
+                ;
+        });
+    }
+
+    /** @test */
+    public function clicking_away_does_not_clear_the_input_when_add_new_allowed()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, AddNewItemComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                ->waitForLivewire()->type('@autocomplete-input', 'c')
+                ->assertPresent('@add-new')
+                ->assertValue('@autocomplete-input', 'c')
+                ->clickAtXPath('//body')
+                ->assertValue('@autocomplete-input', 'c')
+                ;
+        });
+    }
 }
