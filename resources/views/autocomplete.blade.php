@@ -158,13 +158,13 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 away($dispatch) {
-                    if (this.autoSelect && !this.selected) this.resetValue($dispatch)
+                    if (!this.allowNew && this.autoSelect && !this.selected) this.resetValue($dispatch)
 
                     this.close()
                 },
 
                 escape($dispatch) {
-                    if (this.autoSelect) this.resetValue($dispatch)
+                    if (!this.allowNew && this.autoSelect) this.resetValue($dispatch)
 
                     this.hide()
                 },
@@ -316,7 +316,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                             this.setSelected($dispatch, this.results[this.focusIndex])
                         }
                     } else {
-                        if (this.autoSelect) {
+                        if (!this.allowNew && this.autoSelect) {
                             this.resetValue($dispatch)
                         }
                     }
