@@ -150,11 +150,44 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 inputFocus() {
-                    if (this.focusAction && !this.value) this.$wire.call(this.focusAction)
+                    if (this.focusAction) {
+                        let target = this.parseOutMethodAndParams(this.focusAction)
+
+                        this.$wire.call(target.method, ...target.params)
+                    }
 
                     if (this.loadOnceOnFocus) this.focusAction = null
 
                     this.show()
+                },
+
+                parseOutMethodAndParams(rawMethod) {
+                    // Parse any escaped html entities
+                    let textArea = document.createElement('textarea');
+                    textArea.innerHTML = rawMethod;
+                    rawMethod = textArea.value;
+
+                    let method = rawMethod
+                    let params = []
+                    const methodAndParamString = method.match(/(.*?)\((.*)\)/)
+
+                    if (methodAndParamString) {
+                        // This "$event" is for use inside the livewire event handler.
+                        const $event = this.eventContext
+                        method = methodAndParamString[1]
+                        // use a function that returns it's arguments to parse and eval all params
+                        params = eval(`(function () {
+                            for (var l=arguments.length, p=new Array(l), k=0; k<l; k++) {
+                                p[k] = arguments[k];
+                            }
+                            return [].concat(p);
+                        })(${methodAndParamString[2]})`)
+                    }
+
+                    return {
+                        method,
+                        params
+                    }
                 },
 
                 away($dispatch) {

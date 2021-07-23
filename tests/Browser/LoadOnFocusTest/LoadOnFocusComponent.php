@@ -7,9 +7,10 @@ use Livewire\Component;
 
 class LoadOnFocusComponent extends Component
 {
-    protected $queryString = ['loadOnceOnFocus'];
+    protected $queryString = ['loadOnceOnFocus', 'useParameters'];
 
     public $loadOnceOnFocus = true;
+    public $useParameters = false;
 
     public $results;
 
@@ -19,9 +20,15 @@ class LoadOnFocusComponent extends Component
 
     public $calculateResultsCalledCount = 0;
 
-    public function calculateResults()
+    public $parameter1Value = '';
+    public $parameter2Value = '';
+
+    public function calculateResults($parameter1 = null, $parameter2 = null)
     {
         $this->calculateResultsCalledCount++;
+
+        $this->parameter1Value = $parameter1;
+        $this->parameter2Value = $parameter2;
 
         $results = [
             [
@@ -55,18 +62,34 @@ class LoadOnFocusComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-lwa::autocomplete
-                    wire:model-text="inputText"
-                    wire:model-id="selectedSlug"
-                    wire:model-results="results"
-                    wire:focus="calculateResults"
-                    :options="[
-                        'auto-select' => false,
-                        'load-once-on-focus' => $loadOnceOnFocus,
-                    ]"
-                    />
+                @if($useParameters)
+                    <x-lwa::autocomplete
+                        wire:model-text="inputText"
+                        wire:model-id="selectedSlug"
+                        wire:model-results="results"
+                        wire:focus="calculateResults('some-parameter', 'other-parameter')"
+                        :options="[
+                            'auto-select' => false,
+                            'load-once-on-focus' => $loadOnceOnFocus,
+                        ]"
+                        />
+                @else
+                    <x-lwa::autocomplete
+                        wire:model-text="inputText"
+                        wire:model-id="selectedSlug"
+                        wire:model-results="results"
+                        wire:focus="calculateResults"
+                        :options="[
+                            'auto-select' => false,
+                            'load-once-on-focus' => $loadOnceOnFocus,
+                        ]"
+                        />
+                @endif
 
                 <div dusk="number-times-calculate-called">{{ $calculateResultsCalledCount }}</div>
+                <div dusk="parameter-1-value">{{ $parameter1Value }}</div>
+                <div dusk="parameter-2-value">{{ $parameter2Value }}</div>
+                {{ $useParameters ? 'true' : 'false' }}
             </div>
             HTML;
     }

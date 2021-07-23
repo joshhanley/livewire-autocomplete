@@ -52,7 +52,7 @@ class LoadOnFocusTest extends TestCase
     }
 
     /** @test */
-    public function it_loads_results_on_every_focus_if_load_once_on_focus_is_set_to_true()
+    public function it_loads_results_on_every_focus_if_load_once_on_focus_is_set_to_false()
     {
         $this->browse(function (Browser $browser) {
             Livewire::visit($browser, LoadOnFocusComponent::class, '?loadOnceOnFocus=false')
@@ -66,18 +66,15 @@ class LoadOnFocusTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_load_on_focus_if_there_is_a_value_in_the_input()
+    public function it_can_call_focus_method_with_parameters()
     {
         $this->browse(function (Browser $browser) {
-            Livewire::visit($browser, LoadOnFocusComponent::class, '?loadOnceOnFocus=false')
+            Livewire::visit($browser, LoadOnFocusComponent::class, '?loadOnceOnFocus=false&useParameters=true')
+                ->assertSeeNothingIn('@parameter-1-value')
+                ->assertSeeNothingIn('@parameter-2-value')
                 ->waitForLivewire()->click('@autocomplete-input')
-                ->assertSeeIn('@number-times-calculate-called', 1)
-                ->waitForLivewire()->type('@autocomplete-input', 'b')
-                ->keys('@autocomplete-input', '{ESCAPE}')
-                ->click('@autocomplete-input')
-                // Wait for livewire request if it was going to happen (it shouldn't)
-                ->pause(100)
-                ->assertSeeIn('@number-times-calculate-called', 1)
+                ->assertSeeIn('@parameter-1-value', 'some-parameter')
+                ->assertSeeIn('@parameter-2-value', 'other-parameter')
                 ;
         });
     }
