@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "livewire/livewire": "^2.3.6"
+        "livewire/livewire": "^2.3.6|dev-master"
     },
     "autoload": {
         "psr-4": {
