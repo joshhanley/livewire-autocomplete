@@ -16,11 +16,11 @@ To install the package run
 composer require joshhanley/livewire-autocomplete
 ```
 
-Then include the scripts by putting this tag inside your app layout after `<livewire:scripts />` or you can push it to your scripts stack.
+<!-- Then include the scripts by putting this tag inside your app layout after `<livewire:scripts />` or you can push it to your scripts stack.
 
 ```html
 <x-autocomplete-scripts />
-```
+``` -->
 
 ## Usage
 
@@ -33,7 +33,7 @@ The source code for a demo of this Livewire Autocomplete component can be found 
 ## Example API
 
 ```html
-<x-autocomplete
+<x-lwa::autocomplete
     name="my-autocomplete"
     wire:model-id="clientId"
     wire:model-text="clientName"
@@ -175,6 +175,8 @@ Config can be published using
 ```bash
 php artisan autocomplete:publish --config
 ```
+
+If you wish to use the global namespace `<x-autocomplete>` instead of `<x-lwa::autocomplete>` then you can set `'use_global_namespace' => true,` in your config.
 
 **Default Config**
 
