@@ -111,7 +111,7 @@ Then individual options and components can be passed into each instance of the c
 
 Components can be published to your `resources/views/vendor/package/autocomplete/components` using
 ```bash
-php artisan autocomplete:publish --components
+php artisan vendor:publish --provider="LivewireAutocomplete\LivewireAutocompleteServiceProvider" --tag="autocomplete-components"
 ```
 
 - **outer-container** surrounds the whole autocomplete input and dropdown
@@ -173,7 +173,7 @@ https://github.com/joshhanley/livewire-autocomplete/tree/main/resources/views/co
 
 Config can be published using
 ```bash
-php artisan autocomplete:publish --config
+php artisan vendor:publish --provider="LivewireAutocomplete\LivewireAutocompleteServiceProvider" --tag="autocomplete-config"
 ```
 
 If you wish to use the global namespace `<x-autocomplete>` instead of `<x-lwa::autocomplete>` then you can set `'use_global_namespace' => true,` in your config.
