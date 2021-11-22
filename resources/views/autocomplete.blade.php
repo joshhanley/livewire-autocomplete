@@ -345,6 +345,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                         if (this.allowNew && this.value !== null && this.value.length !== 0) {
                             if (this.focusIndex !== 0)
                                 this.setSelected($dispatch, this.results[this.focusIndex - 1])
+                            else 
+                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this.value)
                         } else {
                             this.setSelected($dispatch, this.results[this.focusIndex])
                         }
