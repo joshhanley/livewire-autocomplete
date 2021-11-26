@@ -335,6 +335,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 input($dispatch) {
+                    console.log($dispatch);
                     this.resetFocus()
 
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
