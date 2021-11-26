@@ -50,6 +50,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         x-on:keydown.home.prevent="focusFirst()"
         x-on:keydown.end.prevent="focusLast()"
         x-on:input.debounce.300ms="input($dispatch, $event.target.value)"
+        x-on:{{$name ?? 'autocomplete'}}-set-input="setInput($dispatch, $event.target.value)"
         x-spread="inputListeners()"
         x-bind="inputListeners()"
         dusk="autocomplete-input" />
