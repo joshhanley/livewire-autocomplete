@@ -236,9 +236,9 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 resetValue($dispatch) {
-                    this.value = this.debouncedValue = null
+                    this.debouncedValue = null
 
-                    this.input($dispatch)
+                    this.input($dispatch, this.debouncedValue)
                 },
 
                 hasResults() {
@@ -342,7 +342,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.value = $inputValue
 
-                    $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
+                    $dispatch((this.name ?? 'autocomplete') + '-input', $inputValue)
                 },
 
                 selectItem($dispatch) {
