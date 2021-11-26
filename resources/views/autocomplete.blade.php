@@ -20,6 +20,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
     x-data="autocomplete({
         name: '{{ $name }}',
         value: $wire.entangle('{{ $inputProperty->value }}'),
+        debouncedValue: null,
         results: $wire.entangle('{{ $resultsProperty->value }}'),
         selected: $wire.entangle('{{ $selectedProperty->value }}'),
         focusAction: '{{ $focusAction->value ?? null }}',
@@ -35,6 +36,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         :component="$getComponent('input')"
         name="{{ $name }}"
         {{ $attributes }}
+        x-model="debouncedValue"
         x-on:focus="inputFocus()"
         x-on:keydown.tab="tab($dispatch)"
         x-on:keydown.shift.window="shift(true)"
