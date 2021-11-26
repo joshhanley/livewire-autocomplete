@@ -35,7 +35,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         :component="$getComponent('input')"
         name="{{ $name }}"
         {{ $attributes }}
-        x-model.debounce.300ms="value"
+        {{-- x-model.debounce.300ms="value" --}}
         x-on:focus="inputFocus()"
         x-on:keydown.tab="tab($dispatch)"
         x-on:keydown.shift.window="shift(true)"
