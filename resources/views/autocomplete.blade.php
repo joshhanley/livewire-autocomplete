@@ -127,8 +127,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.$watch('focusIndex', () => this.scrollFocusedIntoView())
 
-                    this.$watch('value', function () {
-                        console.log('this.$watch value = '. this.value);
+                    this.$watch('value', function (newValue) {
+                        console.log('this.$watch value = ' + newValue);
                     })
                 },
 
