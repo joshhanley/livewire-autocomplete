@@ -373,12 +373,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 debounceInput(newValue) {
-                    console.log('newValue = ' + newValue);
-
                     if (this.debouncedValue != newValue) {
-                        console.log('setting this.debouncedValue = ' + newValue);
+                        if (newValue === undefined) {
+                            newValue = null;
+                        }
                         this.debouncedValue = newValue;
-                        // $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                     }
                 },
 
