@@ -50,7 +50,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         x-on:keydown.arrow-down.prevent="focusNext()"
         x-on:keydown.home.prevent="focusFirst()"
         x-on:keydown.end.prevent="focusLast()"
-        x-on:input.debounce.300ms="input($event.target.value)"
+        x-on:input.debounce.300ms="input($dispatch, $event.target.value)"
         x-spread="inputListeners()"
         x-bind="inputListeners()"
         dusk="autocomplete-input" />
@@ -334,7 +334,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     this.resetFocus()
                 },
 
-                input($inputValue) {
+                input($dispatch, $inputValue) {
                     this.resetFocus()
 
                     console.log($inputValue);
