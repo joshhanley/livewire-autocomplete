@@ -129,7 +129,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.$watch('focusIndex', () => this.scrollFocusedIntoView())
 
-                    this.$watch('value', (newValue) => this.debounceInput(newValue))
+                    this.$watch('value', (newValue) => this.debounceValue(newValue))
                 },
 
                 show() {
@@ -372,7 +372,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
 
-                debounceInput(newValue) {
+                debounceValue(newValue) {
                     console.log('newValue = ' + newValue);
 
                     if (this.debounceInput != newValue) {
