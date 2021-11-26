@@ -71,7 +71,7 @@ class PageWithEventsComponent extends Component
                 <div
                     x-data="{ selected: null, input: null }"
                     dusk="alpine-output"
-                    x-on:item-input.window="input = $event.detail"
+                    x-on:item-input.window="input = $event.detail; console.log(input);"
                     x-on:item-selected.window="selected = $event.detail"
                     x-on:item-cleared.window="selected = null; input = null"
                     >
