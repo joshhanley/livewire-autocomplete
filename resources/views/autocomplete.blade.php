@@ -236,7 +236,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 resetValue($dispatch) {
-                    this.value = null
+                    this.value = this.debouncedValue = null
 
                     this.input($dispatch)
                 },
