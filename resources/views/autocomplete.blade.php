@@ -129,7 +129,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.$watch('focusIndex', () => this.scrollFocusedIntoView())
 
-                    // this.$watch('value', (newValue) => this.debounceInput(newValue))
+                    this.$watch('value', (newValue) => this.debounceInput(newValue))
                 },
 
                 show() {
@@ -236,7 +236,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 resetValue($dispatch) {
-                    this.debouncedValue = null
+                    this.value = null
 
                     this.input($dispatch)
                 },
@@ -258,7 +258,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.resultsCount = this.results ? this.results.length : 0
 
-                    if (this.allowNew && this.debouncedValue !== null && this.debouncedValue.length > 0) this.resultsCount++
+                    if (this.allowNew && this.value !== null && this.value.length > 0) this.resultsCount++
 
                     return this.resultsCount
                 },
@@ -312,7 +312,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     let scrollEl
 
-                    if (this.allowNew && this.debouncedValue !== null && this.debouncedValue.length !== 0) {
+                    if (this.allowNew && this.value !== null && this.value.length !== 0) {
                         if (this.focusIndex === 0) {
                             scrollEl = this.$refs['add-new']
                         } else {
@@ -347,11 +347,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                 selectItem($dispatch) {
                     if (this.hasFocus() && this.hasResults()) {
-                        if (this.allowNew && this.debouncedValue !== null && this.debouncedValue.length !== 0) {
+                        if (this.allowNew && this.value !== null && this.value.length !== 0) {
                             if (this.focusIndex !== 0)
                                 this.setSelected($dispatch, this.results[this.focusIndex - 1])
                             else 
-                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this.debouncedValue)
+                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this.value)
                         } else {
                             this.setSelected($dispatch, this.results[this.focusIndex])
                         }
@@ -365,11 +365,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 setSelected($dispatch, selected) {
-                    this.debouncedValue = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
+                    this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
                     this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
                     $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
                     $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
-                    $dispatch((this.name ?? 'autocomplete') + '-input', this.debouncedValue)
+                    $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
                 },
 
                 debounceInput(newValue) {
