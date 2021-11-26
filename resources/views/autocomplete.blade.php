@@ -126,6 +126,10 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     this.resetFocus()
 
                     this.$watch('focusIndex', () => this.scrollFocusedIntoView())
+
+                    this.$watch('value', function () {
+                        console.log('this.$watch value');
+                    })
                 },
 
                 show() {
@@ -361,8 +365,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 setSelected($dispatch, selected) {
+                    console.log(selected);
                     this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
+                    console.log(this.value);
                     this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
+                    console.log(this.selected);
                     $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
                     $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
