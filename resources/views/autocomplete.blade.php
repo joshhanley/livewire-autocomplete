@@ -51,7 +51,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         x-on:keydown.arrow-down.prevent="focusNext()"
         x-on:keydown.home.prevent="focusFirst()"
         x-on:keydown.end.prevent="focusLast()"
-        x-on:input.debounce.300ms="input($dispatch, $event.target.value)"
+        x-on:input.debounce.300ms="input($dispatch)"
         x-spread="inputListeners()"
         x-bind="inputListeners()"
         dusk="autocomplete-input" />
@@ -236,9 +236,9 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 resetValue($dispatch) {
-                    this.debouncedValue = ''
+                    this.debouncedValue = null
 
-                    this.input($dispatch, this.debouncedValue)
+                    this.input($dispatch)
                 },
 
                 hasResults() {
@@ -337,12 +337,12 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     this.resetFocus()
                 },
 
-                input($dispatch, $inputValue) {
+                input($dispatch) {
                     this.resetFocus()
 
-                    this.value = $inputValue
+                    this.value = this.debouncedValue
 
-                    $dispatch((this.name ?? 'autocomplete') + '-input', $inputValue)
+                    $dispatch((this.name ?? 'autocomplete') + '-input', this.debouncedValue)
                 },
 
                 selectItem($dispatch) {
