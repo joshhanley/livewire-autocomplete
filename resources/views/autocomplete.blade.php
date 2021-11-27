@@ -20,7 +20,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
     x-data="autocomplete({
         name: '{{ $name }}',
         value: $wire.entangle('{{ $inputProperty->value }}'),
-        debouncedValue: null,
+        debouncedValue: {{ $inputProperty->value }},
         results: $wire.entangle('{{ $resultsProperty->value }}'),
         selected: $wire.entangle('{{ $selectedProperty->value }}'),
         focusAction: '{{ $focusAction->value ?? null }}',
