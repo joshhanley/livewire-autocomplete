@@ -77,7 +77,7 @@ class AutocompleteEventsTest extends TestCase
                     ->waitForLivewire()->type('@autocomplete-input', 'b')
                     ->assertSeeIn('@alpine-input', 'b')
                     ->waitForLivewire()->keys('@autocomplete-input', '{ESCAPE}')
-                    ->assertValue('@alpine-input', '')
+                    ->assertSeeNothingIn('@alpine-input')
                     ->assertDontSeeIn('@alpine-input', 'b')
                     ;
         });
