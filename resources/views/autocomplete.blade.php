@@ -373,6 +373,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 debounceInput(newValue) {
+                    console.log('debounceInput newValue = ' + newValue + ' this.debouncedValue = ' + this.debouncedValue);
                     if (this.debouncedValue != newValue) {
                         if (newValue === undefined) {
                             newValue = null;
