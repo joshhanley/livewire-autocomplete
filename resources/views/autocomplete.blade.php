@@ -258,7 +258,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.resultsCount = this.results ? this.results.length : 0
 
-                    if (this.allowNew && this.value !== null && this.value.length > 0) this.resultsCount++
+                    if (this.allowNew && this.debouncedValue !== null && this.debouncedValue.length > 0) this.resultsCount++
 
                     return this.resultsCount
                 },
@@ -312,7 +312,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     let scrollEl
 
-                    if (this.allowNew && this.value !== null && this.value.length !== 0) {
+                    if (this.allowNew && this.debouncedValue !== null && this.debouncedValue.length !== 0) {
                         if (this.focusIndex === 0) {
                             scrollEl = this.$refs['add-new']
                         } else {
@@ -347,11 +347,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                 selectItem($dispatch) {
                     if (this.hasFocus() && this.hasResults()) {
-                        if (this.allowNew && this.value !== null && this.value.length !== 0) {
+                        if (this.allowNew && this.debouncedValue !== null && this.debouncedValue.length !== 0) {
                             if (this.focusIndex !== 0)
                                 this.setSelected($dispatch, this.results[this.focusIndex - 1])
                             else 
-                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this.value)
+                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this.debouncedValue)
                         } else {
                             this.setSelected($dispatch, this.results[this.focusIndex])
                         }
