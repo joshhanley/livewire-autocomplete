@@ -125,8 +125,6 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                 init($dispatch) {
 
-                    this.setDebouncedValue(this.value)
-
                     this.$watch('results', () => this.clearResultsCount())
 
                     this.resetFocus()
