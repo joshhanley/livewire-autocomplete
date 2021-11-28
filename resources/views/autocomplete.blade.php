@@ -342,8 +342,6 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 input($dispatch) {
                     this.resetFocus()
 
-                    console.log('input() ' + this.debouncedValue);
-
                     this.value = this.debouncedValue
 
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.debouncedValue)
@@ -378,14 +376,9 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 setDebouncedValue(newValue) {
-                    
-
                     if (this.debouncedValue) {
-                        console.log('setDebouncedValue already set, returning');
                         return
                     }
-
-                    console.log('setting debouncedValue ' + newValue);
 
                     this.debouncedValue = newValue;
                 },
