@@ -8,6 +8,7 @@ $focusAction = $attributes->wire('focus');
 $attributes = $attributes->whereDoesntStartWith('wire:');
 
 $inputValue = $this->getPropertyValue($inputProperty->value);
+ray($inputValue);
 $resultsValue = $this->getPropertyValue($resultsProperty->value);
 $autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
 $allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
@@ -20,7 +21,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
     x-data="autocomplete({
         name: '{{ $name }}',
         value: $wire.entangle('{{ $inputProperty->value }}'),
-        debouncedValue: '{{ $inputValue }}',
+        debouncedValue: null,
         results: $wire.entangle('{{ $resultsProperty->value }}'),
         selected: $wire.entangle('{{ $selectedProperty->value }}'),
         focusAction: '{{ $focusAction->value ?? null }}',
