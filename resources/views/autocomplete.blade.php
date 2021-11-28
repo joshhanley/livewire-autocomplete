@@ -369,6 +369,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 setSelected($dispatch, selected) {
+                    console.log('setSelected ' + selected);
                     this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
                     this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
                     $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
