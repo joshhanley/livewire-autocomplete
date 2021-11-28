@@ -377,7 +377,14 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 setDebouncedValue(newValue) {
-                    console.log('setDebouncedValue ' + newValue);
+                    
+
+                    if (this.debouncedValue) {
+                        console.log('setDebouncedValue already set, returning');
+                        return
+                    }
+
+                    console.log('setting debouncedValue ' + newValue);
 
                     this.debouncedValue = newValue;
                 },
