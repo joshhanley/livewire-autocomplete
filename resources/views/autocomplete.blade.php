@@ -124,6 +124,9 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 selectOnTab: true,
 
                 init($dispatch) {
+
+                    console.log(this.value);
+                    console.log(this.debouncedValue);
                     this.$watch('results', () => this.clearResultsCount())
 
                     this.resetFocus()
