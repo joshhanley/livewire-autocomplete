@@ -133,7 +133,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.$watch('focusIndex', () => this.scrollFocusedIntoView())
 
-                    // this.$watch('value', (newValue) => this.debounceInput(newValue))
+                    this.$watch('value', (newValue) => this.debouncedValue ??= this.value )
                 },
 
                 show() {
