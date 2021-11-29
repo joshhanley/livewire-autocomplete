@@ -8,7 +8,6 @@ $focusAction = $attributes->wire('focus');
 $attributes = $attributes->whereDoesntStartWith('wire:');
 
 $inputValue = $this->getPropertyValue($inputProperty->value);
-ray($inputValue);
 $resultsValue = $this->getPropertyValue($resultsProperty->value);
 $autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
 $allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
