@@ -131,6 +131,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.$watch('focusIndex', () => this.scrollFocusedIntoView())
 
+                    this.debouncedValue = this.value
+
                     this.$watch('value', (newValue) => this.setDebouncedValue(newValue) )
                 },
 
