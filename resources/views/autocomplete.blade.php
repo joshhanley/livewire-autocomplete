@@ -54,6 +54,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         x-on:input.debounce.300ms="input($dispatch)"
         x-spread="inputListeners()"
         x-bind="inputListeners()"
+        x-ref="input"
         dusk="autocomplete-input" />
 
     <x-dynamic-component
@@ -377,7 +378,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                 },
 
                 setDecoupledValue(newValue) {
-                    if (this.decoupledValue) {
+                    if (this.$refs.input === document.activeElement) {
                         return
                     }
 
