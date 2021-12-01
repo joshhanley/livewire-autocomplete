@@ -528,4 +528,37 @@ class AutocompleteBehaviourTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function pre_selected_value_is_shown_in_input()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithPreSelectedValueComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                
+                ->assertValue('@autocomplete-input', 'bob')
+                ->assertSeeIn('@result-output', 0)
+                ;
+        });
+    }
+
+    /** @test */
+    public function pre_selected_value_can_be_changed_from_other_backend_actions()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithPreSelectedValueComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                
+                ->assertValue('@autocomplete-input', 'bob')
+                ->assertSeeIn('@result-output', 0)
+                ->waitForLivewire()->click('@change-selected')
+                ->assertValue('@autocomplete-input', 'john')
+                ->assertSeeIn('@result-output', 1)
+                ;
+        });
+    }
 }
