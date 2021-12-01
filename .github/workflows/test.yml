@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0, 8.1]
+        php: [7.4, 8.0, 8.1]
         laravel: [7.*, 8.*]
         exclude:
           - php: 7.2
@@ -50,6 +50,9 @@ jobs:
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
+
+      - name: Touch database
+        run: touch database/database.sqlite
 
       - name: Setup dusk/chrome
         run: vendor/bin/dusk-updater detect --no-interaction
