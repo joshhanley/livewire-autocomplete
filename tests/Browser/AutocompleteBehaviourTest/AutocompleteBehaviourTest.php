@@ -493,4 +493,72 @@ class AutocompleteBehaviourTest extends TestCase
                 ;
         });
     }
+
+    /** @test */
+    public function input_does_not_get_overridden_when_multiple_network_requests_are_sent()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithNetworkDelayComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                
+                ->type('@autocomplete-input', 'bo')
+                ->assertValue('@autocomplete-input', 'bo')
+
+                // Pause to give the "network request" enough time to start
+                ->pause(500)
+
+                // Then type some more to trigger another request
+                ->type('@autocomplete-input', 'bob')
+                ->assertValue('@autocomplete-input', 'bob')
+
+                // Wait for original network request to finish
+                ->pause(600)
+
+                // Assert it hasn't overwritten the input value back to "bo"
+                ->assertValueIsNot('@autocomplete-input', 'bo')
+                ->assertValue('@autocomplete-input', 'bob')
+
+                // Wait for second network request to finish
+                ->pause(300)
+
+                // Assert final text value is still "bob"
+                ->assertValue('@autocomplete-input', 'bob')
+                ;
+        });
+    }
+
+    /** @test */
+    public function pre_selected_value_is_shown_in_input()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithPreSelectedValueComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                
+                ->assertValue('@autocomplete-input', 'bob')
+                ->assertSeeIn('@result-output', 0)
+                ;
+        });
+    }
+
+    /** @test */
+    public function pre_selected_value_can_be_changed_from_other_backend_actions()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithPreSelectedValueComponent::class)
+                ->click('@autocomplete-input')
+                // Pause to allow transitions to run
+                ->pause(100)
+                
+                ->assertValue('@autocomplete-input', 'bob')
+                ->assertSeeIn('@result-output', 0)
+                ->waitForLivewire()->click('@change-selected')
+                ->assertValue('@autocomplete-input', 'john')
+                ->assertSeeIn('@result-output', 1)
+                ;
+        });
+    }
 }
