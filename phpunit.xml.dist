@@ -14,9 +14,6 @@
         <testsuite name="Browser">
             <directory suffix="Test.php">./tests/Browser</directory>
         </testsuite>
-        <testsuite name="Unit">
-            <directory>./tests/Unit</directory>
-        </testsuite>
     </testsuites>
     <php>
         <env name="APP_KEY" value="base64:eXyeo1L7RetmDMtGhL9ylwSvuWK/WIUDJfR6zY7SLMg="/>
