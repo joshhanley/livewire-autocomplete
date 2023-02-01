@@ -94,6 +94,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                             @foreach ($resultsValue as $key => $result)
                                 <x-dynamic-component
                                     :component="$getComponent('result-row')"
+                                    :search="$inputValue"
                                     :result="$result"
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
