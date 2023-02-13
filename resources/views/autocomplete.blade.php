@@ -374,10 +374,6 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     this.close()
                 },
 
-                getSelected() {
-                  return this.selected;
-                },
-
                 setSelected($dispatch, selected) {
                     this.decoupledValue = null
                     this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
