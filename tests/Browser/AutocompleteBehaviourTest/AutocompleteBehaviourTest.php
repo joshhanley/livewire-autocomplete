@@ -316,6 +316,37 @@ class AutocompleteBehaviourTest extends TestCase
     }
 
     /** @test */
+    public function enter_key_submits_form_if_there_is_not_a_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteInFormComponent::class)
+                ->click('@autocomplete-input')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                ->assertSeeIn('@saved-output', 'true')
+                ;
+        });
+    }
+
+    /** @test */
+    public function enter_key_does_not_submit_form_if_there_is_a_currently_focused_result()
+    {
+        $this->browse(function (Browser $browser) {
+            Livewire::visit($browser, PageWithAutocompleteInFormComponent::class)
+                ->click('@autocomplete-input')
+                ->assertClassMissing('@result-0', 'bg-blue-500')
+                ->assertClassMissing('@result-1', 'bg-blue-500')
+                ->assertClassMissing('@result-2', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
+                ->assertSeeIn('@saved-output', 'false')
+                ;
+        });
+    }
+
+    /** @test */
     public function dropdown_is_hidden_and_focus_cleared_on_selection()
     {
         $this->browse(function (Browser $browser) {
@@ -502,7 +533,7 @@ class AutocompleteBehaviourTest extends TestCase
                 ->click('@autocomplete-input')
                 // Pause to allow transitions to run
                 ->pause(100)
-                
+
                 ->type('@autocomplete-input', 'bo')
                 ->assertValue('@autocomplete-input', 'bo')
 
@@ -537,7 +568,7 @@ class AutocompleteBehaviourTest extends TestCase
                 ->click('@autocomplete-input')
                 // Pause to allow transitions to run
                 ->pause(100)
-                
+
                 ->assertValue('@autocomplete-input', 'bob')
                 ->assertSeeIn('@result-output', 0)
                 ;
@@ -552,7 +583,7 @@ class AutocompleteBehaviourTest extends TestCase
                 ->click('@autocomplete-input')
                 // Pause to allow transitions to run
                 ->pause(100)
-                
+
                 ->assertValue('@autocomplete-input', 'bob')
                 ->assertSeeIn('@result-output', 0)
                 ->waitForLivewire()->click('@change-selected')

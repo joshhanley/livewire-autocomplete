@@ -46,7 +46,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         x-on:blur.window="shift(false)"
         {{-- Clear shift on window blur otherwise can't select --}}
         x-on:keydown.escape.prevent="escape($dispatch); event.target.blur()"
-        x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()"
+        x-on:keydown.enter.stop="enter($dispatch, event)"
         x-on:keydown.arrow-up.prevent="focusPrevious()"
         x-on:keydown.arrow-down.prevent="focusNext()"
         x-on:keydown.home.prevent="focusFirst()"
@@ -218,8 +218,13 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     return this.close()
                 },
 
-                enter($dispatch) {
+                enter($dispatch, event) {
                     this.selectItem($dispatch)
+
+                    if (this.selected) {
+                        event.preventDefault();
+                        event.target.blur();
+                    }
                 },
 
                 shift(isPressed) {
