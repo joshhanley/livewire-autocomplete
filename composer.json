@@ -9,9 +9,9 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
-        "laravel/framework": "^8.0|^9.0|^10.0|dev-master",
-        "livewire/livewire": "^2.3.6|dev-master"
+        "php": "^8.0",
+        "laravel/framework": "^9.0|^10.0|dev-master",
+        "livewire/livewire": "^2.11.0|dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LivewireAutocomplete\\LivewireAutocompleteServiceProvider"
+                "LivewireAutocomplete\\ServiceProvider"
             ]
         }
     },
