@@ -19,8 +19,17 @@ document.addEventListener('alpine:init', () => {
             })
         },
 
+        clear() {
+            this.clearSelectedItem()
+            this.clearInput()
+        },
+
         inputFocus() {
             this.show()
+        },
+
+        clearInput() {
+            this.value = null
         },
 
         close() {
@@ -104,6 +113,10 @@ document.addEventListener('alpine:init', () => {
 
                 this.hide()
             }
+        },
+
+        clearSelectedItem() {
+            this.key = null
         },
 
         itemsChanged() {

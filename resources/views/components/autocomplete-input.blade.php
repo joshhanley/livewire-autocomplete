@@ -16,6 +16,7 @@
     })"
     x-modelable="detachedInput"
     x-model="value"
+    x-on:keyup.backspace="clearSelectedItem()"
     x-on:keydown.arrow-up.prevent="focusPrevious"
     x-on:keydown.arrow-down.prevent="focusNext"
     x-on:keydown.meta.arrow-up.prevent.stop="focusFirst"
