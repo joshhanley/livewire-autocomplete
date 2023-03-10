@@ -47,6 +47,22 @@ document.addEventListener('alpine:init', () => {
             this.focusedKey = null
         },
 
+        keyPosition(key) {
+            return this.focusableItems.indexOf(key)
+        },
+
+        keyFound(key) {
+            return this.keyPosition(key) >= 0
+        },
+
+        keyNotFound(key) {
+            return !this.keyFound()
+        },
+
+        focusKey(key) {
+            if (this.keyFound(key)) this.focusedKey = key
+        },
+
         focusPrevious() {
             let foundPosition = this.focusedKeyPosition()
 

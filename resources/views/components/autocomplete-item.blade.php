@@ -11,13 +11,15 @@
 <li
     wire:autocomplete-key="@js($key)"
     wire:autocomplete-value="@js($value)"
-    {{-- x-bind:class="focusedKey == @js($key) ? '{{ $active }}' : '{{ $isDisabled ? $diabled : $inactive }}'" --}}
+    x-on:mouseenter="focusKey('@js($key)')"
+    x-on:mouseleave="resetFocusedKey"
     x-bind:class="{
         '{{ $isDisabled ? $disabled : $inactive }}': focusedKey != @js($key),
         '{{ $active }}': focusedKey == @js($key),
     }"
     {{ $attributes->class([
         'px-3 py-1' => !$unstyled,
+        'cursor-pointer' => !$unstyled && !$isDisabled,
         $disabled => $isDisabled,
         $inactive => !$isDisabled,
     ]) }}
