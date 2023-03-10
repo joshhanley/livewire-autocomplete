@@ -92,6 +92,10 @@ document.addEventListener('alpine:init', () => {
         },
 
         enter() {
+            this.selectItem()
+        },
+        
+        selectItem() {
             if (this.focusedKeyFound()) {
                 let valueEl = this.root.querySelector(`[wire\\:autocomplete-key="${this.focusedKey}"]`)
 

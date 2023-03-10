@@ -11,6 +11,7 @@
 <li
     wire:autocomplete-key="@js($key)"
     wire:autocomplete-value="@js($value)"
+    x-on:click="selectItem()"
     x-on:mouseenter="focusKey('@js($key)')"
     x-on:mouseleave="resetFocusedKey"
     x-bind:class="{
