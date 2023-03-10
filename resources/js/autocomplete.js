@@ -23,6 +23,10 @@ document.addEventListener('alpine:init', () => {
             this.show()
         },
 
+        close() {
+            this.hide()
+        },
+
         show() {
             this.open = true
         },
