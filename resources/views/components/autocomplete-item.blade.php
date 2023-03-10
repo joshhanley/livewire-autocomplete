@@ -13,7 +13,7 @@
     wire:autocomplete-value="@js($value)"
     x-on:click="selectItem()"
     x-on:mouseenter="focusKey('@js($key)')"
-    x-on:mouseleave="resetFocusedKey"
+    x-on:mouseleave="resetFocusedKey()"
     x-bind:class="{
         '{{ $isDisabled ? $disabled : $inactive }}': focusedKey != @js($key),
         '{{ $active }}': focusedKey == @js($key),
