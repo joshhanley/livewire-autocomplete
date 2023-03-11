@@ -100,6 +100,10 @@ document.addEventListener('alpine:init', () => {
             this.focusedKey = this.focusableItems[this.focusableItems.length - 1] ?? null
         },
 
+        tab() {
+            this.selectItem()
+        },
+
         enter() {
             this.selectItem()
         },
@@ -110,9 +114,9 @@ document.addEventListener('alpine:init', () => {
 
                 this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
-
-                this.hide()
             }
+            
+            this.hide()
         },
 
         clearSelectedItem() {

@@ -23,6 +23,7 @@
     x-on:keydown.meta.arrow-down.prevent.stop="focusLast"
     x-on:keydown.home.prevent="focusFirst"
     x-on:keydown.end.prevent="focusLast"
+    x-on:keydown.tab="tab()"
     x-on:keydown.enter.stop.prevent="enter($dispatch); event.target.blur()">
     <input
         type="text"
