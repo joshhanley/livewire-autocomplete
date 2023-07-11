@@ -56,7 +56,7 @@ jobs:
         run: vendor/bin/dusk-updater detect --no-interaction
 
       - name: Run Browser tests
-        run: vendor/bin/phpunit --testsuite Browser -c phpunit-9.xml.dist
+        run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist
         env:
           RUNNING_IN_CI: true
 
@@ -105,6 +105,6 @@ jobs:
         run: vendor/bin/dusk-updater detect --no-interaction
 
       - name: Run Browser tests
-        run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist
+        run: vendor/bin/phpunit --testsuite Browser -c phpunit-10.xml.dist
         env:
           RUNNING_IN_CI: true
