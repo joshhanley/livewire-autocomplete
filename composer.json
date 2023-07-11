@@ -11,7 +11,14 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^9.0|^10.0|dev-master",
-        "livewire/livewire": "^2.11.0|dev-master"
+        "livewire/livewire": "^2.99"
+    },
+    "require-dev": {
+        "spatie/laravel-ray": "^1.19",
+        "phpunit/phpunit": "^9",
+        "orchestra/testbench-dusk": "^8.0",
+        "orchestra/testbench": "^8.0",
+        "psy/psysh": "^0.11.18"
     },
     "autoload": {
         "psr-4": {
@@ -20,7 +27,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "LivewireAutocomplete\\Tests\\": "tests/"
+            "LivewireAutocomplete\\Tests\\": "tests/",
+            "Tests\\": "vendor/livewire/livewire/tests/"
         }
     },
     "extra": {
@@ -32,8 +40,10 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "require-dev": {
-        "joshhanley/livewire-dusk-testbench": "^0.1.0",
-        "spatie/laravel-ray": "^1.19"
+    "repositories": {
+        "livewire/livewire": {
+            "type": "path",
+            "url": "/Users/josh/Development/packages/livewire-next"
+        }
     }
 }
