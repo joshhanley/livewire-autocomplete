@@ -26,7 +26,94 @@ composer require joshhanley/livewire-autocomplete
 
 This autocomplete component is a blade component design to be used within a Livewire component. It won't work as a standalone component, without Livewire.
 
-## Demo App
+## Example API
+
+Example
+
+```html
+<x-autocomplete class="w-[700px]" wire:model="clientId">
+    <x-autocomplete-label>Client:</x-autocomplete-label>
+
+    <x-autocomplete-input wire:model="clientSearch" as="x-input" :class="$clientId ? 'text-green-500' : ''" />
+
+    <button type="button" x-on:click="clear()">Clear</button>
+
+    <x-autocomplete-list class="mx-2 mt-1" x-cloak>
+        @foreach ($this->users as $user)
+            <x-autocomplete-item
+                :key="$user->id"
+                :value="$user->name"
+                :isDisabled="$user->id == 1 || $user->id == 5"
+                {{-- active="bg-blue-500" --}}
+                {{-- inactive="bg-white" --}}
+                >
+                <span>{{ $user->name }}</span>
+                <span class="pl-1 text-gray-400">{{ $user->company?->name }}</span>
+            </x-autocomplete-item>
+        @endforeach
+    </x-autocomplete-list>
+</x-autocomplete>
+```
+
+Grouped Example
+
+```html
+<x-autocomplete class="w-[700px]" wire:model="clientId">
+    <x-autocomplete-label>Client:</x-autocomplete-label>
+
+    <x-autocomplete-input wire:model="clientSearch" as="x-input" :class="$clientId ? 'text-green-500' : ''" />
+
+    <x-autocomplete-list class="mx-2 mt-1" x-cloak>
+        @foreach ($this->users->groupBy('company_id') as $companyId => $companyUsers)
+            <li>
+                <div class="px-3 py-2 bg-gray-200 font-bold text-gray-900">
+                    {{ $this->companies->find($companyId)->name }}
+                </div>
+
+                @foreach ($companyUsers as $user)
+                    <x-autocomplete-item
+                        :key="$user->id"
+                        :value="$user->name"
+                        :isDisabled="$user->id == 1 || $user->id == 5"
+                        {{-- active="bg-blue-500" --}}
+                        {{-- inactive="bg-white" --}}
+                        >
+                        <span>{{ $user->name }}</span>
+                        {{-- <span class="pl-1 text-gray-400">{{ $user->company?->name }}</span> --}}
+                    </x-autocomplete-item>
+                @endforeach
+            </li>
+        @endforeach
+    </x-autocomplete-list>
+</x-autocomplete>
+```
+
+## Components
+x-autocomplete:
+- unstyled
+- wire:model - key property
+
+x-autocomplete-label:
+- unstyled
+
+x-autocomplete-input:
+- unstyled
+- wire:model - value property
+
+x-autocomplete-list:
+- unstyled
+
+x-autocomplete-item:
+- unstyled
+- key - key for that item
+- value - value for that item to display in text box
+- active - classes for when item is hovered/highlighted
+- inactive - classes for when item is not hovered/highlighted
+- disabled - classes for them item is disabled
+- isDisabled - boolean to determine if item is disabled or not
+
+
+<!-- ## Demo App
 
 The source code for a demo of this Livewire Autocomplete component can be found here here https://github.com/joshhanley/livewire-autocomplete-demo
 
@@ -187,4 +274,4 @@ https://github.com/joshhanley/livewire-autocomplete/blob/main/config/autocomplet
 The default styles on this component use Tailwind, but they can be overridden by:
 - publishing the components and changing them;
 - publishing the config and setting custom component names to use in the config; or
-- manually passing in component names to each instance of the autocomplete component through the `components` prop
+- manually passing in component names to each instance of the autocomplete component through the `components` prop -->
