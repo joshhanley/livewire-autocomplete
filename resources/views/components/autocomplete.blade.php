@@ -6,6 +6,7 @@
     x-data="autocomplete({
         key: @entangle($attributes->wire('model')),
     })"
+    x-on:keydown.escape="escape($event)"
     x-on:click.outside="close()"
     {{ $attributes->whereDoesntStartWith('wire:model')->class([!$unstyled => '']) }}>
     {{ $slot }}

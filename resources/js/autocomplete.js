@@ -7,12 +7,13 @@ document.addEventListener('alpine:init', () => {
         focusedKey: null,
         items: null,
         root: null,
+        shiftTab: false,
 
         init() {
             this.root = this.$el
 
             this.$nextTick(() => {
-                this.$wire.__instance.watch(this.valueProperty, () => {
+                this.$wire.watch(this.valueProperty, () => {
                     this.value = this.$wire.get(this.valueProperty)
                     this.$nextTick(() => this.itemsChanged())
                 })
@@ -81,7 +82,7 @@ document.addEventListener('alpine:init', () => {
 
             let previousFocusPosition = foundPosition - 1
 
-            this.focusedKey = this.focusableItems[previousFocusPosition] ?? this.focusedKey
+            this.focusedKey = this.focusableItems[previousFocusPosition] ?? this.resetFocusedKey()
         },
 
         focusNext() {
@@ -100,23 +101,48 @@ document.addEventListener('alpine:init', () => {
             this.focusedKey = this.focusableItems[this.focusableItems.length - 1] ?? null
         },
 
+        escape($event) {
+            this.close()
+
+            $event.target.blur()
+        },
+
         tab() {
+            if (this.shiftTab == true) return this.shiftTab = false
+
+            console.log('tab')
             this.selectItem()
         },
 
-        enter() {
-            this.selectItem()
+        shiftTab() {
+            this.shiftTab = true
+            console.log('shifttab')
         },
-        
+
+        enter($event) {
+
+            this.selectItem()
+
+            if (this.hasSelectedItem()) {
+                $event.preventDefault()
+
+                $event.target.blur()
+            }
+        },
+
         selectItem() {
             if (this.focusedKeyFound()) {
                 let valueEl = this.root.querySelector(`[wire\\:autocomplete-key="${this.focusedKey}"]`)
 
-                this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
+                this.key = valueEl.getAttribute('wire:autocomplete-key')
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
             }
-            
+
             this.hide()
+        },
+
+        hasSelectedItem() {
+            return this.key !== null
         },
 
         clearSelectedItem() {
