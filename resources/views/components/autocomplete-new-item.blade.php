@@ -1,16 +1,17 @@
 @props([
     'unstyled' => false,
-    'key',
-    'value',
     'active' => 'bg-blue-500',
     'inactive' => 'bg-white',
     'disabled' => 'bg-gray-50 text-gray-500',
     'isDisabled' => false,
 ])
 
+@php
+    $key = '_x_autocomplete_new';
+@endphp
+
 <li
     wire:autocomplete-key="@js($key)"
-    wire:autocomplete-value="@js($value)"
     x-on:click="selectItem()"
     x-on:mouseenter="focusKey(@js($key))"
     x-on:mouseleave="resetFocusedKey()"
@@ -25,5 +26,9 @@
         $inactive => !$isDisabled,
     ]) }}
     {{ $isDisabled ? 'wire:autocomplete-disabled' : '' }}>
-    {{ $slot }}
+    @if (isset($slot) && (string) $slot !== '')
+        {{ $slot }}
+    @else
+        Add new "<span x-text="value"></span>"
+    @endif
 </li>

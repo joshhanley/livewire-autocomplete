@@ -10,6 +10,10 @@
     [x-cloak] {
         display: none;
     }
+
+    .bg-blue-500 {
+        background-color: #3b82f6;
+    }
     </style>
 </head>
 <body>

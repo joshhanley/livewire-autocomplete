@@ -61,6 +61,14 @@ document.addEventListener('alpine:init', () => {
             this.focusedKey = null
         },
 
+        focusedKeyIsNewItemRow() {
+            return this.focusedKey === '_x_autocomplete_new'
+        },
+
+        focusedKeyIsNotNewItemRow() {
+            return !this.focusedKeyIsNewItemRow()
+        },
+
         keyPosition(key) {
             return this.focusableItems.indexOf(key)
         },
@@ -108,19 +116,16 @@ document.addEventListener('alpine:init', () => {
         },
 
         tab() {
-            if (this.shiftTab == true) return this.shiftTab = false
+            if (this.shiftTab == true) return (this.shiftTab = false)
 
-            console.log('tab')
             this.selectItem()
         },
 
         shiftTab() {
             this.shiftTab = true
-            console.log('shifttab')
         },
 
         enter($event) {
-
             this.selectItem()
 
             if (this.hasSelectedItem()) {
@@ -131,10 +136,14 @@ document.addEventListener('alpine:init', () => {
         },
 
         selectItem() {
-            if (this.focusedKeyFound()) {
-                let valueEl = this.root.querySelector(`[wire\\:autocomplete-key="${this.focusedKey}"]`)
+            // If key is set to new, then do not process the key and value
+            if (this.focusedKeyFound() && this.focusedKeyIsNotNewItemRow()) {
+                // This adds support for int keys and string keys
+                let focusedKey = typeof this.focusedKey === 'string' ? "'" + this.focusedKey + "'" : this.focusedKey
 
-                this.key = valueEl.getAttribute('wire:autocomplete-key')
+                let valueEl = this.root.querySelector(`[wire\\:autocomplete-key="${focusedKey}"]`)
+
+                this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
             }
 
@@ -164,7 +173,9 @@ document.addEventListener('alpine:init', () => {
         get focusableItems() {
             if (this.items !== null) return this.items
 
-            this.items = [...this.root.querySelectorAll('[wire\\:autocomplete-key]:not([wire\\:autocomplete-disabled])')].map((el) => el.getAttribute('wire:autocomplete-key'))
+            this.items = [...this.root.querySelectorAll('[wire\\:autocomplete-key]:not([wire\\:autocomplete-disabled])')].map((el) =>
+                Alpine.evaluate(this.root, el.getAttribute('wire:autocomplete-key'))
+            )
 
             return this.items
         },
