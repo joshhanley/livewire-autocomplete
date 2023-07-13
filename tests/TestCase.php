@@ -4,9 +4,9 @@ namespace LivewireAutocomplete\Tests;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-use Livewire\Features\SupportTesting\AllowedTestCase;
+use Livewire\Features\SupportTesting\TestCaseInterface;
 
-class TestCase extends \Orchestra\Testbench\Dusk\TestCase implements AllowedTestCase
+class TestCase extends \Orchestra\Testbench\Dusk\TestCase implements TestCaseInterface
 {
     public function setUp(): void
     {
