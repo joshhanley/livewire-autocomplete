@@ -50,20 +50,80 @@ class AllowNewTest extends BrowserTestCase
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
                         <x-autocomplete-list dusk="dropdown" x-cloak>
-                            @if($input !== '' && $input !== null)
-                                <x-autocomplete-new-item dusk="add-new" />
-                            @endif
+                            <x-autocomplete-item :show="$input" :value="$input" dusk="add-new">
+                                Add new "{{ $input }}"
+                            </x-autocomplete-item>
 
                             @foreach($this->results as $index => $result)
-                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $result['id'] }}">
+                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
                                     {{ $result['name'] }}
                                 </x-autocomplete-item>
                             @endforeach
                         </x-autocomplete-list>
                     </x-autocomplete>
 
-                    <div dusk="selected-output">{{ $selected }}</div>
-                    <div dusk="input-output">{{ $input }}</div>
+                    <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
+                    <div>Input: <span dusk="input-output">{{ $input }}</span></div>
+                </div>
+                HTML;
+            }
+        };
+    }
+
+    public function componentWithNewItemComponent()
+    {
+        return new class extends Component {
+            public $input;
+            public $selected;
+
+            #[Computed]
+            public function results()
+            {
+                return collect([
+                    [
+                        'id' => 1,
+                        'name' => 'bob',
+                    ],
+                    [
+                        'id' => 2,
+                        'name' => 'john',
+                    ],
+                    [
+                        'id' => 3,
+                        'name' => 'bill',
+                    ],
+                ])
+                    ->filter(function ($result) {
+                        if (! $this->input) {
+                            return true;
+                        }
+
+                        return str_contains($result['name'], $this->input);
+                    })
+                    ->values()
+                    ->toArray();
+            }
+
+            public function render()
+            {
+                return <<< 'HTML'
+                <div>
+                    <x-autocomplete wire:model.live="selected">
+                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+
+                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                            <x-autocomplete-new-item :value="$input" dusk="add-new" />
+
+                            @foreach($this->results as $index => $result)
+                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
+                                    {{ $result['name'] }}
+                                </x-autocomplete-item>
+                            @endforeach
+                        </x-autocomplete-list>
+                    </x-autocomplete>
+
+                    <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
+                    <div>Input: <span dusk="input-output">{{ $input }}</span></div>
                 </div>
                 HTML;
             }
@@ -227,6 +287,24 @@ class AllowNewTest extends BrowserTestCase
             ->assertValue('@input', 'c')
             ->clickAtXPath('//body')
             ->assertValue('@input', 'c')
+        ;
+    }
+
+    /** @test */
+    public function the_provided_new_item_component_works_the_same_way()
+    {
+        Livewire::visit($this->componentWithNewItemComponent())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->waitForLivewire()->type('@input', 'j')
+            ->assertSeeIn('@add-new', 'Add new "j"')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->keys('@input', '{TAB}')
+            // Pause to allow Livewire to run if it was going to
+            ->pause(100)
+            ->assertSeeNothingIn('@selected-output')
+            ->assertSeeIn('@input-output', 'j')
         ;
     }
 }
