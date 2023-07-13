@@ -4,6 +4,6 @@
 
 <ul
     x-show="open"
-    {{ $attributes->class([!$unstyled => 'border border-gray-300 rounded bg-white py-2']) }}>
+    {{ $attributes->class([!$unstyled => 'border border-gray-300 rounded bg-white py-2 relative']) }}>
     {{ $slot }}
 </ul>
