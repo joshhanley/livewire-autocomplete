@@ -1,13 +1,15 @@
 @props([
     'unstyled' => false,
+    'autoSelect' => false,
 ])
 
 <div
     x-data="autocomplete({
         key: @entangle($attributes->wire('model')),
+        autoSelect: @js($autoSelect),
     })"
     x-on:keydown.escape="escape($event)"
-    x-on:click.outside="close()"
+    x-on:click.outside="outside()"
     {{ $attributes->whereDoesntStartWith('wire:model')->class([!$unstyled => '']) }}>
     {{ $slot }}
 </div>

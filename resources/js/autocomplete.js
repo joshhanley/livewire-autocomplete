@@ -8,9 +8,12 @@ document.addEventListener('alpine:init', () => {
         items: null,
         root: null,
         shiftTab: false,
+        autoSelect: config.autoSelect,
 
         init() {
             this.root = this.$el
+
+            this.resetFocusedKey()
 
             this.$nextTick(() => {
                 this.$wire.watch(this.valueProperty, () => {
@@ -58,6 +61,12 @@ document.addEventListener('alpine:init', () => {
         },
 
         resetFocusedKey() {
+            if (this.autoSelect === true) {
+                this.focusFirst()
+
+                return
+            }
+
             this.focusedKey = null
         },
 
@@ -81,6 +90,14 @@ document.addEventListener('alpine:init', () => {
             return !this.keyFound()
         },
 
+        firstKey() {
+            return this.focusableItems[0] ?? null
+        },
+
+        lastKey() {
+            return this.focusableItems[this.focusableItems.length - 1] ?? null
+        },
+
         focusKey(key) {
             if (this.keyFound(key)) this.focusedKey = key
         },
@@ -90,7 +107,13 @@ document.addEventListener('alpine:init', () => {
 
             let previousFocusPosition = foundPosition - 1
 
-            this.focusedKey = this.focusableItems[previousFocusPosition] ?? this.resetFocusedKey()
+            if (this.focusableItems[previousFocusPosition]) {
+                this.focusedKey = this.focusableItems[previousFocusPosition]
+
+                return
+            }
+
+            this.resetFocusedKey()
         },
 
         focusNext() {
@@ -98,19 +121,33 @@ document.addEventListener('alpine:init', () => {
 
             let nextFocusPosition = foundPosition + 1
 
-            this.focusedKey = this.focusableItems[nextFocusPosition] ?? this.focusedKey
+            if (this.focusableItems[nextFocusPosition]) {
+                this.focusedKey = this.focusableItems[nextFocusPosition]
+            }
         },
 
         focusFirst() {
-            this.focusedKey = this.focusableItems[0] ?? null
+            this.focusedKey = this.firstKey()
         },
 
         focusLast() {
-            this.focusedKey = this.focusableItems[this.focusableItems.length - 1] ?? null
+            this.focusedKey = this.lastKey()
+        },
+
+        outside() {
+            this.close()
+
+            if (this.autoSelect && this.notHaveSelectedItem()) {
+                this.clear()
+            }
         },
 
         escape($event) {
             this.close()
+
+            if (this.autoSelect) {
+                this.clear()
+            }
 
             $event.target.blur()
         },
@@ -147,11 +184,19 @@ document.addEventListener('alpine:init', () => {
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
             }
 
+            if (this.focusedKeyNotFound() && this.autoSelect) {
+                this.clear()
+            }
+
             this.hide()
         },
 
         hasSelectedItem() {
             return this.key !== null
+        },
+
+        notHaveSelectedItem() {
+            return !this.hasSelectedItem()
         },
 
         clearSelectedItem() {
@@ -171,7 +216,8 @@ document.addEventListener('alpine:init', () => {
         },
 
         get focusableItems() {
-            if (this.items !== null) return this.items
+            // Disable memoisation for now as it is causing an inconsistency.
+            // if (this.items !== null) return this.items
 
             this.items = [...this.root.querySelectorAll('[wire\\:autocomplete-key]:not([wire\\:autocomplete-disabled])')].map((el) =>
                 Alpine.evaluate(this.root, el.getAttribute('wire:autocomplete-key'))
