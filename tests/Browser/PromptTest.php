@@ -46,7 +46,7 @@ class PromptTest extends BrowserTestCase
             {
                 return <<< 'HTML'
                 <div>
-                    <x-autocomplete auto-select wire:model.live="selected">
+                    <x-autocomplete wire:model.live="selected">
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
                         <x-autocomplete-list dusk="dropdown" x-cloak>
