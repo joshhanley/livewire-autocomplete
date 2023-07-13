@@ -66,6 +66,66 @@ class AutoSelectTest extends BrowserTestCase
         };
     }
 
+    public function componentWithNewItem()
+    {
+        return new class extends Component {
+            public $input;
+            public $selected;
+
+            #[Computed]
+            public function results()
+            {
+                return collect([
+                    [
+                        'id' => 1,
+                        'name' => 'bob',
+                    ],
+                    [
+                        'id' => 2,
+                        'name' => 'john',
+                    ],
+                    [
+                        'id' => 3,
+                        'name' => 'bill',
+                    ],
+                ])
+                    ->filter(function ($result) {
+                        if (! $this->input) {
+                            return true;
+                        }
+
+                        return str_contains($result['name'], $this->input);
+                    })
+                    ->values()
+                    ->toArray();
+            }
+
+            public function render()
+            {
+                return <<< 'HTML'
+                <div>
+                    <x-autocomplete auto-select wire:model.live="selected">
+                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+
+                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                            <x-autocomplete-new-item :value="$input" />
+
+                            @foreach($this->results as $index => $result)
+                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
+                                    {{ $result['name'] }}
+                                </x-autocomplete-item>
+                            @endforeach
+                        </x-autocomplete-list>
+                    </x-autocomplete>
+
+                    <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
+                    <div>Input: <span dusk="input-output">{{ $input }}</span></div>
+                </div>
+                HTML;
+            }
+        };
+    }
+
     /** @test */
     public function on_autoselect_first_option_is_selected_by_default()
     {
@@ -195,6 +255,21 @@ class AutoSelectTest extends BrowserTestCase
             ->assertValue('@input', 'bob')
             ->clickAtXPath('//body')
             ->assertValue('@input', 'bob')
+        ;
+    }
+
+    /** @test */
+    public function on_autoselect_click_away_does_not_clear_input_value_if_new_item_is_present()
+    {
+        Livewire::visit($this->componentWithNewItem())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->waitForLivewire()->type('@input', 'steve')
+            ->waitForLivewire()->click('@result-0')
+            ->assertValue('@input', 'steve')
+            ->clickAtXPath('//body')
+            ->assertValue('@input', 'steve')
         ;
     }
 }

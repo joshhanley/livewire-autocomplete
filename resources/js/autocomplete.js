@@ -137,7 +137,7 @@ document.addEventListener('alpine:init', () => {
         outside() {
             this.close()
 
-            if (this.autoSelect && this.notHaveSelectedItem()) {
+            if (this.autoSelect && this.notHaveSelectedItem() && this.notHaveNewItem()) {
                 this.clear()
             }
         },
@@ -201,6 +201,14 @@ document.addEventListener('alpine:init', () => {
 
         clearSelectedItem() {
             this.key = null
+        },
+
+        hasNewItem() {
+            return !! this.items.find(item => item == '_x_autocomplete_new')
+        },
+
+        notHaveNewItem() {
+            return ! this.hasNewItem()
         },
 
         itemsChanged() {
