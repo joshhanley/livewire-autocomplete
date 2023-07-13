@@ -42,7 +42,7 @@ class TestCase extends \Orchestra\Testbench\Dusk\TestCase implements TestCaseInt
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('view.paths', [
-            __DIR__.'/views',
+            __DIR__ . '/views',
             resource_path('views'),
         ]);
 
@@ -50,29 +50,29 @@ class TestCase extends \Orchestra\Testbench\Dusk\TestCase implements TestCaseInt
 
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
         $app['config']->set('filesystems.disks.unit-downloads', [
             'driver' => 'local',
-            'root' => __DIR__.'/fixtures',
+            'root' => __DIR__ . '/fixtures',
         ]);
     }
 
     protected function livewireClassesPath($path = '')
     {
-        return app_path('Livewire'.($path ? '/'.$path : ''));
+        return app_path('Livewire' . ($path ? '/' . $path : ''));
     }
 
     protected function livewireViewsPath($path = '')
     {
-        return resource_path('views').'/livewire'.($path ? '/'.$path : '');
+        return resource_path('views') . '/livewire' . ($path ? '/' . $path : '');
     }
 
     protected function livewireTestsPath($path = '')
     {
-        return base_path('tests/Feature/Livewire'.($path ? '/'.$path : ''));
+        return base_path('tests/Feature/Livewire' . ($path ? '/' . $path : ''));
     }
 }
