@@ -15,6 +15,8 @@ document.addEventListener('alpine:init', () => {
 
             this.resetFocusedKey()
 
+            this.$watch('focusedKey', () => this.scrollFocusedIntoView())
+
             this.$nextTick(() => {
                 this.$wire.watch(this.valueProperty, () => {
                     this.value = this.$wire.get(this.valueProperty)
@@ -68,6 +70,24 @@ document.addEventListener('alpine:init', () => {
             }
 
             this.focusedKey = null
+        },
+
+        focusedElement() {
+            // This adds support for int keys and string keys
+            let focusedKey = typeof this.focusedKey === 'string' ? "'" + this.focusedKey + "'" : this.focusedKey
+
+            return this.root.querySelector(`[wire\\:autocomplete-key="${focusedKey}"]`)
+        },
+
+        scrollFocusedIntoView() {
+            let el = this.focusedElement()
+
+            if (!el) return
+
+            el.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            })
         },
 
         focusedKeyIsNewItemRow() {
@@ -175,10 +195,7 @@ document.addEventListener('alpine:init', () => {
         selectItem() {
             // If key is set to new, then do not process the key and value
             if (this.focusedKeyFound() && this.focusedKeyIsNotNewItemRow()) {
-                // This adds support for int keys and string keys
-                let focusedKey = typeof this.focusedKey === 'string' ? "'" + this.focusedKey + "'" : this.focusedKey
-
-                let valueEl = this.root.querySelector(`[wire\\:autocomplete-key="${focusedKey}"]`)
+                let valueEl = this.focusedElement()
 
                 this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
@@ -209,7 +226,7 @@ document.addEventListener('alpine:init', () => {
 
         notHaveNewItem() {
             return !this.hasNewItem()
-    },
+        },
 
         itemsChanged() {
             this.clearItems()
