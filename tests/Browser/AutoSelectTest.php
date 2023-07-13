@@ -108,7 +108,7 @@ class AutoSelectTest extends BrowserTestCase
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
                         <x-autocomplete-list dusk="dropdown" x-cloak>
-                            <x-autocomplete-new-item :value="$input" />
+                            <x-autocomplete-new-item :value="$input" dusk="add-new" />
 
                             @foreach($this->results as $index => $result)
                                 <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
@@ -266,7 +266,8 @@ class AutoSelectTest extends BrowserTestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->waitForLivewire()->type('@input', 'steve')
-            ->waitForLivewire()->click('@result-0')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->assertHasClass('@add-new', 'bg-blue-500')
             ->assertValue('@input', 'steve')
             ->clickAtXPath('//body')
             ->assertValue('@input', 'steve')
