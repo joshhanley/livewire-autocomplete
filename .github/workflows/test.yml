@@ -97,13 +97,15 @@ jobs:
 
       - name: Install Composer dependencies
         env:
-          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.COMPOSER_AUTH}}"} }'
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.GITHUB_TOKEN}}"} }'
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
 
       - name: Touch database
-        run: touch database/database.sqlite
+        run: 
+          mkdir -p database
+          touch database/database.sqlite
 
       - name: Setup dusk/chrome
         run: vendor/bin/dusk-updater detect --no-interaction
