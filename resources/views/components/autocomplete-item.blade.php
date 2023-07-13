@@ -1,7 +1,7 @@
 @props([
     'unstyled' => false,
     'key',
-    'value',
+    'value' => null,
     'active' => 'bg-blue-500',
     'inactive' => 'bg-white',
     'disabled' => 'bg-gray-50 text-gray-500',
@@ -11,7 +11,11 @@
 
 @php
     if (!isset($key) || is_null($key)) {
-        $key = '_x_autocomplete_new';
+        if (is_null($value)) {
+            $key = '_x_autocomplete_empty';
+        } else {
+            $key = '_x_autocomplete_new';
+        }
     }
 
     if (array_key_exists('show', get_defined_vars())) {

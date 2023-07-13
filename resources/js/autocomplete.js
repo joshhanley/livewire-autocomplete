@@ -204,12 +204,12 @@ document.addEventListener('alpine:init', () => {
         },
 
         hasNewItem() {
-            return !! this.items.find(item => item == '_x_autocomplete_new')
+            return !!this.items.find((item) => item == '_x_autocomplete_new')
         },
 
         notHaveNewItem() {
-            return ! this.hasNewItem()
-        },
+            return !this.hasNewItem()
+    },
 
         itemsChanged() {
             this.clearItems()
@@ -227,9 +227,9 @@ document.addEventListener('alpine:init', () => {
             // Disable memoisation for now as it is causing an inconsistency.
             // if (this.items !== null) return this.items
 
-            this.items = [...this.root.querySelectorAll('[wire\\:autocomplete-key]:not([wire\\:autocomplete-disabled])')].map((el) =>
-                Alpine.evaluate(this.root, el.getAttribute('wire:autocomplete-key'))
-            )
+            this.items = [...this.root.querySelectorAll('[wire\\:autocomplete-key]:not([wire\\:autocomplete-disabled])')]
+                .map((el) => Alpine.evaluate(this.root, el.getAttribute('wire:autocomplete-key')))
+                .filter((item) => item != '_x_autocomplete_empty')
 
             return this.items
         },
