@@ -1,12 +1,15 @@
+> [!WARNING]
+> Branch trying to update the component for Livewire V3, currently in progress
+
 # Livewire Autocomplete
 
 An autocomplete select component designed for use with Livewire that allows you to search through results or add a new one.
 
 ## Requirements
 
-- Laravel ^8.0.0
-- Livewire ^2.3.6
-- Alpine ^2.8.1 | ^3.0.6 (must have Livewire ^2.5.0)
+- Laravel ^10
+- Livewire ^3
+- Alpine ^3.0.6 (must have Livewire ^3)
 
 ## Installation
 
@@ -28,7 +31,7 @@ This autocomplete component is a blade component design to be used within a Live
 
 ## Demo App
 
-The source code for a demo of this Livewire Autocomplete component can be found here here https://github.com/joshhanley/livewire-autocomplete-demo
+The source code for a demo of this Livewire Autocomplete component can be found here here https://github.com/joshhanley/livewire-autocomplete-demo ***(outdated as it still uses Livewire 2 and Laravel 9)***
 
 ## Example API
 
