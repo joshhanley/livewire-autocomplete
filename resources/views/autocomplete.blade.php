@@ -19,10 +19,10 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
     :component="$getComponent('outer-container')"
     x-data="autocomplete({
         name: '{{ $name }}',
-        value: $wire.entangle('{{ $inputProperty->value }}'),
+        value: $wire.$entangle('{{ $inputProperty->value }}'),
         decoupledValue: null,
-        results: $wire.entangle('{{ $resultsProperty->value }}'),
-        selected: $wire.entangle('{{ $selectedProperty->value }}'),
+        results: $wire.$entangle('{{ $resultsProperty->value }}'),
+        selected: $wire.$entangle('{{ $selectedProperty->value }}'),
         focusAction: '{{ $focusAction->value ?? null }}',
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
