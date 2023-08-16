@@ -1,29 +1,30 @@
 @php
-$inputProperty = $attributes->wire('model-text');
-$resultsProperty = $attributes->wire('model-results');
-$selectedProperty = $attributes->wire('model-id');
-$focusAction = $attributes->wire('focus');
-
-/** Remove all wire attributes that are assigned to local properties from the attribute bag */
-$attributes = $attributes->whereDoesntStartWith('wire:');
-
-$inputValue = $this->getPropertyValue($inputProperty->value);
-$resultsValue = $this->getPropertyValue($resultsProperty->value);
-$autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
-$allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
-$loadOnceOnFocus = filter_var($getOption('load-once-on-focus'), FILTER_VALIDATE_BOOLEAN);
-$inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
+    $inputProperty = $attributes->wire('model-text');
+    $resultsProperty = $attributes->wire('model-results');
+    $selectedProperty = $attributes->wire('model-id');
+    $focusAction = $attributes->wire('focus');
+    
+    /** Remove all wire attributes that are assigned to local properties from the attribute bag */
+    $attributes = $attributes->whereDoesntStartWith('wire:');
+    
+    $inputValue = $this->getPropertyValue($inputProperty->value);
+    $resultsValue = $this->getPropertyValue($resultsProperty->value);
+    
+    $autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
+    $allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
+    $loadOnceOnFocus = filter_var($getOption('load-once-on-focus'), FILTER_VALIDATE_BOOLEAN);
+    $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 @endphp
 
 <x-dynamic-component
     :component="$getComponent('outer-container')"
     x-data="autocomplete({
         name: '{{ $name }}',
-        value: $wire.$entangle('{{ $inputProperty->value }}'),
         decoupledValue: null,
-        results: $wire.$entangle('{{ $resultsProperty->value }}'),
-        selected: $wire.$entangle('{{ $selectedProperty->value }}'),
         focusAction: '{{ $focusAction->value ?? null }}',
+        value: $wire.$entangle('{{ $inputProperty->value }}', true),
+        results: $wire.$entangle('{{ $resultsProperty->value }}', true),
+        selected: $wire.$entangle('{{ $selectedProperty->value }}', true),
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
         autoSelect: {{ $autoSelect ? 'true' : 'false' }},
@@ -35,6 +36,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
     <x-dynamic-component
         :component="$getComponent('input')"
         name="{{ $name }}"
+
         {{ $attributes }}
         x-model="decoupledValue"
         x-on:focus="inputFocus()"
@@ -85,7 +87,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                                 :input-text="$inputValue"
                                 wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
-                                x-bind:class="{ '{{ $getOption('result-focus-styles') }}' : focusIndex == 0}"
+                                x-bind:class="{ '{{ $getOption('result-focus-styles') }}': focusIndex == 0 }"
                                 x-ref="add-new"
                                 dusk="add-new" />
                         @endif
@@ -99,7 +101,10 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                                     text-attribute="{{ $getOption('text') }}"
                                     wire:key="{{ $name }}-result-{{ $key }}"
                                     x-on:mouseenter="focusIndex = {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }}"
-                                    x-bind:class="{ '{{ $getOption('result-focus-styles') }}' : focusIndex == {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }} }"
+                                    x-bind:class="{
+                                        '{{ $getOption('result-focus-styles') }}': focusIndex ==
+                                            {{ $allowNew && strlen($inputValue) > 0 ? $key + 1 : $key }}
+                                    }"
                                     x-ref="result-{{ $key }}"
                                     dusk="result-{{ $key }}" />
                             @endforeach
@@ -115,9 +120,10 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
 @once
     <script>
-        function autocomplete(config) {
-            return {
+        document.addEventListener('livewire:init', () => {
+            Alpine.data('autocomplete', (config) => ({
                 showDropdown: false,
+
                 ...config,
                 focusIndex: null,
                 resultsCount: null,
@@ -134,7 +140,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.decoupledValue = this.value
 
-                    this.$watch('value', (newValue) => this.setDecoupledValue(newValue) )
+                    this.$watch('value', (newValue) => this.setDecoupledValue(newValue))
                 },
 
                 show() {
@@ -161,7 +167,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     if (this.focusAction) {
                         let target = this.parseOutMethodAndParams(this.focusAction)
 
-                        this.$wire.call(target.method, ...target.params)
+                        this.$wire.$call(target.method, ...target.params)
                     }
 
                     if (this.loadOnceOnFocus) this.focusAction = null
@@ -268,7 +274,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     this.resultsCount = this.results ? this.results.length : 0
 
-                    if (this.allowNew && this.decoupledValue !== null && this.decoupledValue.length > 0) this.resultsCount++
+                    if (this.allowNew && this.decoupledValue !== null && this.decoupledValue.length > 0)
+                        this.resultsCount++
 
                     return this.resultsCount
                 },
@@ -322,7 +329,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                     let scrollEl
 
-                    if (this.allowNew && this.decoupledValue !== null && this.decoupledValue.length !== 0) {
+                    if (this.allowNew && this.decoupledValue !== null && this.decoupledValue.length !==
+                        0) {
                         if (this.focusIndex === 0) {
                             scrollEl = this.$refs['add-new']
                         } else {
@@ -333,7 +341,9 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     }
 
                     if (scrollEl === undefined)
-                        return console.warn('"result-' + this.focusIndex + '" could not be found. Check you have @{{ $attributes }} in your result-row component.')
+                        return console.warn('"result-' + this.focusIndex +
+                            '" could not be found. Check you have @{{ $attributes }} in your result-row component.'
+                        )
 
                     scrollEl.scrollIntoView({
                         behavior: 'smooth',
@@ -357,12 +367,16 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                 selectItem($dispatch) {
                     if (this.hasFocus() && this.hasResults()) {
-                        if (this.allowNew && this.decoupledValue !== null && this.decoupledValue.length !== 0) {
+                        if (this.allowNew && this.decoupledValue !== null && this.decoupledValue
+                            .length !== 0) {
                             if (this.focusIndex !== 0)
                                 this.setSelected($dispatch, this.results[this.focusIndex - 1])
-                            else 
-                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this.decoupledValue)
+                            else
+                                $dispatch((this.name ?? 'autocomplete') + '-add-new', this
+                                    .decoupledValue)
                         } else {
+                            console.log(this.focusIndex)
+                            console.log(this.results)
                             this.setSelected($dispatch, this.results[this.focusIndex])
                         }
                     } else {
@@ -376,8 +390,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                 setSelected($dispatch, selected) {
                     this.decoupledValue = null
-                    this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
-                    this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
+                    console.log(selected)
+                    this.value = typeof selected === 'object' && selected.hasOwnProperty(this
+                        .searchAttribute) ? selected[this.searchAttribute] : selected
+                    this.selected = typeof selected === 'object' && selected.hasOwnProperty(this
+                        .idAttribute) ? selected[this.idAttribute] : selected
                     $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
                     $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
                     $dispatch((this.name ?? 'autocomplete') + '-input', this.value)
@@ -415,12 +432,13 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                             this.clearItem(this.dispatch.bind(this.dispatch, event.target))
                         },
                         ['x-on:' + (this.name ?? 'autocomplete') + '-set.window'](event) {
-                            this.setSelected(this.dispatch.bind(this.dispatch, event.target), event.detail)
+                            this.setSelected(this.dispatch.bind(this.dispatch, event.target), event
+                                .detail)
                         }
                     }
                 }
-            }
-        }
 
+            }))
+        })
     </script>
 @endonce
