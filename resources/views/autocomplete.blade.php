@@ -375,8 +375,7 @@
                                 $dispatch((this.name ?? 'autocomplete') + '-add-new', this
                                     .decoupledValue)
                         } else {
-                            console.log(this.focusIndex)
-                            console.log(this.results)
+                            
                             this.setSelected($dispatch, this.results[this.focusIndex])
                         }
                     } else {
@@ -390,7 +389,7 @@
 
                 setSelected($dispatch, selected) {
                     this.decoupledValue = null
-                    console.log(selected)
+                    
                     this.value = typeof selected === 'object' && selected.hasOwnProperty(this
                         .searchAttribute) ? selected[this.searchAttribute] : selected
                     this.selected = typeof selected === 'object' && selected.hasOwnProperty(this
