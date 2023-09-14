@@ -42,7 +42,7 @@ jobs:
           restore-keys: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-
 
       - name: Authorise Composer
-        run: composer config --global github-oauth.github.com ${{ secrets.COMPOSER_TOKEN }}
+        run: composer config -g github-oauth.github.com ${GITHUB_TOKEN}
 
       - name: Install Composer dependencies
         run: |
