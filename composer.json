@@ -11,7 +11,7 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^9.0|^10.0|dev-master",
-        "livewire/livewire": "dev-josh/dusk-testable-in-packages as 2.99.99"
+        "livewire/livewire": "dev-feature/dusk-testable-in-packages as 3.0.3"
     },
     "require-dev": {
         "spatie/laravel-ray": "^1.19",
@@ -43,7 +43,7 @@
     "repositories": {
         "livewire/livewire": {
             "type": "vcs",
-            "url": "git@github.com:livewire/next.git"
+            "url": "git@github.com:joshhanley/livewire.git"
         }
     }
 }

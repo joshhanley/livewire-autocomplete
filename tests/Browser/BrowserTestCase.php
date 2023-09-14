@@ -2,12 +2,14 @@
 
 namespace LivewireAutocomplete\Tests\Browser;
 
+use function Livewire\trigger;
 use Illuminate\Testing\Constraints\SeeInOrder;
 use Laravel\Dusk\Browser;
+use Livewire\Features\SupportTesting\BaseBrowserTestCase;
+
+use Livewire\Features\SupportTesting\BaseTestCase;
 use LivewireAutocomplete\Tests\TestCase;
 use PHPUnit\Framework\Assert as PHPUnit;
-
-use function Livewire\trigger;
 
 class BrowserTestCase extends TestCase
 {
