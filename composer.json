@@ -42,7 +42,7 @@
   "repositories": {
     "livewire/livewire": {
       "type": "vcs",
-      "url": "https://github.com/joshhanley/livewire.git"
+      "url": "https://github.com/joshhanley/livewire"
     }
   }
 }
