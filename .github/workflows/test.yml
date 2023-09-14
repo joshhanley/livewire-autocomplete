@@ -44,6 +44,7 @@ jobs:
       - name: Install Composer dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
+          composer require "livewire/livewire:dev-feature/dusk-testable-in-packages"
           composer update --prefer-stable --no-interaction --no-suggest
 
       - name: Touch database
