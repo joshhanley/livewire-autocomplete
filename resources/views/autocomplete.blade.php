@@ -9,6 +9,7 @@ $attributes = $attributes->whereDoesntStartWith('wire:');
 
 $inputValue = $this->getPropertyValue($inputProperty->value);
 $resultsValue = $this->getPropertyValue($resultsProperty->value);
+
 $autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
 $allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
 $loadOnceOnFocus = filter_var($getOption('load-once-on-focus'), FILTER_VALIDATE_BOOLEAN);
@@ -19,11 +20,11 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
     :component="$getComponent('outer-container')"
     x-data="autocomplete({
         name: '{{ $name }}',
-        value: $wire.entangle('{{ $inputProperty->value }}'),
+        value: $wire.$entangle('{{ $inputProperty->value }}', true),
         decoupledValue: null,
-        results: $wire.entangle('{{ $resultsProperty->value }}'),
-        selected: $wire.entangle('{{ $selectedProperty->value }}'),
         focusAction: '{{ $focusAction->value ?? null }}',
+        results: $wire.$entangle('{{ $resultsProperty->value }}', true),
+        selected: $wire.$entangle('{{ $selectedProperty->value }}', true),
         idAttribute: '{{ $getOption('id') }}',
         searchAttribute: '{{ $getOption('text') }}',
         autoSelect: {{ $autoSelect ? 'true' : 'false' }},
@@ -85,7 +86,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                                 :input-text="$inputValue"
                                 wire:key='{{ $name }}-add-new'
                                 x-on:mouseenter="focusIndex = 0"
-                                x-bind:class="{ '{{ $getOption('result-focus-styles') }}' : focusIndex == 0}"
+                                x-bind:class="{ '{{ $getOption('result-focus-styles') }}' : focusIndex == 0 }"
                                 x-ref="add-new"
                                 dusk="add-new" />
                         @endif
@@ -115,8 +116,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
 @once
     <script>
-        function autocomplete(config) {
-            return {
+        document.addEventListener('livewire:init', () => {
+            Alpine.data('autocomplete', (config) => ({
                 showDropdown: false,
                 ...config,
                 focusIndex: null,
@@ -161,7 +162,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                     if (this.focusAction) {
                         let target = this.parseOutMethodAndParams(this.focusAction)
 
-                        this.$wire.call(target.method, ...target.params)
+                        this.$wire.$call(target.method, ...target.params)
                     }
 
                     if (this.loadOnceOnFocus) this.focusAction = null
@@ -360,7 +361,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                         if (this.allowNew && this.decoupledValue !== null && this.decoupledValue.length !== 0) {
                             if (this.focusIndex !== 0)
                                 this.setSelected($dispatch, this.results[this.focusIndex - 1])
-                            else 
+                            else
                                 $dispatch((this.name ?? 'autocomplete') + '-add-new', this.decoupledValue)
                         } else {
                             this.setSelected($dispatch, this.results[this.focusIndex])
@@ -376,6 +377,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 
                 setSelected($dispatch, selected) {
                     this.decoupledValue = null
+                    
                     this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
                     this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
                     $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
@@ -419,8 +421,8 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
                         }
                     }
                 }
-            }
-        }
 
+            }))
+        })
     </script>
 @endonce

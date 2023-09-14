@@ -4,9 +4,17 @@ An autocomplete select component designed for use with Livewire that allows you 
 
 ## Requirements
 
-- Laravel ^8.0.0
-- Livewire ^2.3.6
-- Alpine ^2.8.1 | ^3.0.6 (must have Livewire ^2.5.0)
+- Laravel ^10.0.0
+- Livewire ^3.0.0
+- Alpine ^3.0.0 (included in Livewire V3)
+
+## Upgrades
+
+Version 1.x of this package supports Livewire V2.
+
+If you want to use this with Livewire V3, you will need to upgrade to version 2.x of this package.
+
+There shouldn't be any breaking changes that you have to deal with, as all the breaking changes are internal.
 
 ## Installation
 
@@ -73,9 +81,29 @@ The source code for a demo of this Livewire Autocomplete component can be found 
 - `wire:model-text` this is the property on the Livewire component that should be populated with the text value of the input field
 
 - `wire:model-result` this is the property on the Livewire component that contains the list of results.
-This can be an array or collection of values, array with keys, or eloquent models
+This can be an array or collection of values, array with keys, or eloquent models (note for eloquent models to work in Livewire V3, you need to use `legacy_model_binding` for this to work - **but it's not recommended**)
 
 - `wire:focus` this is the method on the Livewire component that should be called on focus to load results into the results property
+
+## Events
+
+- `{$name}-add-new` event, this is the main event the component fires, it uses the `name` attribute used for the component to fire the event (The `allow-new` option ***needs*** to be set true).
+
+### Add new event example
+
+```html
+    <div @my-autocomplete-add-new.window="$wire.createUser($event.detail)">
+        <x-lwa::autocomplete
+            name="my-autocomplete"
+            wire:model-text="name"
+            wire:model-id="userId"
+            wire:model-results="users"
+            :options="[
+                'text'=> 'name',
+                'allow-new'=> 'true',
+            ]" />
+    </div>
+```
 
 ## Options and Components
 
@@ -105,7 +133,6 @@ Then individual options and components can be passed into each instance of the c
 - **overlay-styles** the styles to use when displaying the dropdown as an overlay.
 
 - **result-focus-styles** the styles to use on a result row when it has focus.
-
 
 ### Components
 
