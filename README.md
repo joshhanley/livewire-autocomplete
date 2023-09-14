@@ -16,6 +16,8 @@ If you want to use this with Livewire V3, you will need to upgrade to version 2.
 
 There shouldn't be any breaking changes that you have to deal with, as all the breaking changes are internal.
 
+**Note:** Livewire V3 no longer supports Eloquent Model binding out of the box. If you are using Eloquent Models in your autocomplete search results (as previously recommended by this package), you can enable `legacy_model_binding` in Livewire V3. **It's not recommended to use legacy model binding in Livewire V3**, so it should only be used to assist with upgrading and refactoring away from models.
+
 ## Installation
 
 To install the package run
