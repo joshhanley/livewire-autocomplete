@@ -11,7 +11,7 @@
   "require": {
     "php": "^8.1",
     "laravel/framework": "^10.0|dev-master",
-    "livewire/livewire": "^3|dev-master"
+    "livewire/livewire": "dev-feature/dusk-testable-in-packages"
   },
   "autoload": {
     "psr-4": {
@@ -33,6 +33,16 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "spatie/laravel-ray": "^1.19"
+    "spatie/laravel-ray": "^1.19",
+    "phpunit/phpunit": "^9",
+    "orchestra/testbench": "^8.0",
+    "orchestra/testbench-dusk": "^8.0",
+    "psy/psysh": "^0.11.20"
+  },
+  "repositories": {
+    "livewire/livewire": {
+      "type": "path",
+      "url": "/Users/josh/Development/packages/livewire"
+    }
   }
 }
