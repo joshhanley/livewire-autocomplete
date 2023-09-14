@@ -41,8 +41,8 @@
   },
   "repositories": {
     "livewire/livewire": {
-      "type": "path",
-      "url": "/Users/josh/Development/packages/livewire"
+      "type": "vcs",
+      "url": "https://github.com/joshhanley/livewire.git"
     }
   }
 }
