@@ -1,15 +1,20 @@
-> [!WARNING]
-> Branch trying to update the component for Livewire V3, currently in progress
-
 # Livewire Autocomplete
 
 An autocomplete select component designed for use with Livewire that allows you to search through results or add a new one.
 
 ## Requirements
 
-- Laravel ^10
-- Livewire ^3
-- Alpine ^3.0.6 (must have Livewire ^3)
+- Laravel ^10.0.0
+- Livewire ^3.0.0
+- Alpine ^3.0.0 (included in Livewire V3)
+
+## Upgrades
+
+Version 1.x of this package supports Livewire V2.
+
+If you want to use this with Livewire V3, you will need to upgrade to version 2.x of this package.
+
+There shouldn't be any breaking changes that you have to deal with, as all the breaking changes are internal.
 
 ## Installation
 
@@ -31,7 +36,7 @@ This autocomplete component is a blade component design to be used within a Live
 
 ## Demo App
 
-The source code for a demo of this Livewire Autocomplete component can be found here here https://github.com/joshhanley/livewire-autocomplete-demo ***(outdated as it still uses Livewire 2 and Laravel 9)***
+The source code for a demo of this Livewire Autocomplete component can be found here here https://github.com/joshhanley/livewire-autocomplete-demo
 
 ## Example API
 
@@ -76,7 +81,7 @@ The source code for a demo of this Livewire Autocomplete component can be found 
 - `wire:model-text` this is the property on the Livewire component that should be populated with the text value of the input field
 
 - `wire:model-result` this is the property on the Livewire component that contains the list of results.
-This can be an array or collection of values, array with keys, **NOT eloquent models**
+This can be an array or collection of values, array with keys, or eloquent models (note for eloquent models to work in Livewire V3, you need to use `legacy_model_binding` for this to work - **but it's not recommended**)
 
 - `wire:focus` this is the method on the Livewire component that should be called on focus to load results into the results property
 
@@ -128,9 +133,6 @@ Then individual options and components can be passed into each instance of the c
 - **overlay-styles** the styles to use when displaying the dropdown as an overlay.
 
 - **result-focus-styles** the styles to use on a result row when it has focus.
-
-
-
 
 ### Components
 
