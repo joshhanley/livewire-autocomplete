@@ -217,3 +217,25 @@ The default styles on this component use Tailwind, but they can be overridden by
 - publishing the components and changing them;
 - publishing the config and setting custom component names to use in the config; or
 - manually passing in component names to each instance of the autocomplete component through the `components` prop
+
+## Scripts
+
+Livewire Autocomplete scripts are automatically included whenever you have an `<x-autocomplete>` component on the page.
+
+But the scripts don't load, if the autocomplete component isn't displayed on page render.
+
+To get around this, you can disable the inline scripts by setting the config `autocomplete.inline-scripts` to `false`.
+
+You can then either include the script in your `app.blade.php` layout file at the end of the body tag, after Livewire's scripts.
+
+```blade
+    <livewire:scripts />
+    <script src="{{ route('livewire-autocomplete.asset', 'autocomplete.js') }}"></script>
+</body>
+```
+
+Or you can include the autocomplete scripts in your `app.js` bundle.
+
+```js
+require('../../vendor/joshhanley/livewire-autocomplete/resources/js/autocomplete.js')
+```
