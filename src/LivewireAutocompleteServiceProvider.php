@@ -25,6 +25,8 @@ class LivewireAutocompleteServiceProvider extends ServiceProvider
         config()->set('autocomplete.name', $this->name);
         config()->set('autocomplete.namespace', $this->namespace);
 
+        $this->loadRoutesFrom(__DIR__ . '/../routes/livewire-autocomplete.php');
+
         $this->publishes([
             __DIR__ . '/../config/' . $this->name . '.php' => config_path($this->name . '.php'),
         ], [$this->name, $this->name . '-config']);
