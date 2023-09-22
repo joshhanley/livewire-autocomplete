@@ -94,7 +94,7 @@ This can be an array or collection of values, array with keys, or eloquent model
 ### Add new event example
 
 ```html
-    <div x-on:[](url)my-autocomplete-add-new.window="$wire.createUser($event.detail)">
+    <div x-on:my-autocomplete-add-new.window="$wire.createUser($event.detail)">
         <x-lwa::autocomplete
             name="my-autocomplete"
             wire:model-text="name"
