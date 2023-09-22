@@ -29,4 +29,6 @@ return [
 
     // Set this to true if you would prefer it to use the global namespace <x-autocomplete />
     'use_global_namespace' => false,
+
+    'inline-scripts' => true,
 ];
