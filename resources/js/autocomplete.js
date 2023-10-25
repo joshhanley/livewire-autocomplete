@@ -50,6 +50,10 @@ document.addEventListener('alpine:init', () => {
             this.open = false
         },
 
+        toggle() {
+            this.open = !this.open
+        },
+
         focusedKeyPosition() {
             return this.focusableItems.indexOf(this.focusedKey)
         },
