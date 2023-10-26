@@ -36,7 +36,7 @@
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith('wire:model')->class([!$unstyled => 'grow-1 w-full border-0 p-0 nofocus']) }} />
+        {{ $attributes->whereDoesntStartWith('wire:model')->class(['grow-1 w-full border-0 p-0 nofocus' => !$unstyled]) }} />
 
         {{$slot}}
 </div>
