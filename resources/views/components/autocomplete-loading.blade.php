@@ -2,7 +2,7 @@
     @if (isset($slot) && (string) $slot !== '')
         {{ $slot }}
     @else
-        <div class="w-full flex items-center justify-center">
+        <div class="absolute w-full h-full flex items-center justify-center">
             <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
             <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24">
