@@ -10,7 +10,7 @@
     })"
     x-on:keydown.escape="escape($event)"
     x-on:click.outside="outside()"
-    {{ $attributes->whereDoesntStartWith('wire:model')->class(['' => !$unstyled]) }}>
+    {{ $attributes->whereDoesntStartWith('wire:model')->class(['' => !$unstyled, 'relative']) }}>
     {{ $slot }}
 </div>
 
