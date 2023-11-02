@@ -1,5 +1,6 @@
 @props([
     'unstyled' => false,
+    'inputStyles' => '',
 ])
 
 <div
@@ -29,14 +30,13 @@
     x-on:keydown.end.prevent="focusLast()"
     x-on:keydown.enter.stop="enter($event)"
     x-on:click="!wasJustFocused && toggle(); wasJustFocused = false"
-    class="flex flex-row border border-gray-300 rounded w-full px-3 py-2 justify-between items-center"
+    {{ $attributes->whereStartsWith('class')->class(['border border-gray-300 rounded w-full px-3 py-2' => !$unstyled]) }}
     >
     <input
         type="text"
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith('wire:model')->class(['grow-1 w-full border-0 p-0 nofocus' => !$unstyled]) }} />
-
-        {{$slot}}
+        {{ $attributes->whereDoesntStartWith(['wire:model', 'class'])->class([$inputStyles, 'w-full border-0 p-0 nofocus' => !$unstyled]) }} />
+    {{ $slot }}
 </div>
