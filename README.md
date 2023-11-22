@@ -82,7 +82,7 @@ The source code for a demo of this Livewire Autocomplete component can be found 
 
 - `wire:model-text` this is the property on the Livewire component that should be populated with the text value of the input field
 
-- `wire:model-result` this is the property on the Livewire component that contains the list of results.
+- `wire:model-results` this is the property on the Livewire component that contains the list of results.
 This can be an array or collection of values, array with keys, or eloquent models (note for eloquent models to work in Livewire V3, you need to use `legacy_model_binding` for this to work - **but it's not recommended**)
 
 - `wire:focus` this is the method on the Livewire component that should be called on focus to load results into the results property
