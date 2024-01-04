@@ -169,7 +169,7 @@ document.addEventListener('alpine:init', () => {
         escape($event) {
             this.close()
 
-            if (this.autoSelect) {
+            if (this.autoSelect && this.notHaveSelectedItem() && this.notHaveNewItem()) {
                 this.clear()
             }
 
