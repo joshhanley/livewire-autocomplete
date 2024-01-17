@@ -54,6 +54,14 @@ document.addEventListener('alpine:init', () => {
             this.open = !this.open
         },
 
+        hasFocusedKey() {
+            return this.focusedKey !== null
+        },
+
+        notHaveFocusedKey() {
+            return !this.hasFocusedKey()
+        },
+
         focusedKeyPosition() {
             return this.focusableItems.indexOf(this.focusedKey)
         },
@@ -68,7 +76,9 @@ document.addEventListener('alpine:init', () => {
 
         resetFocusedKey() {
             if (this.autoSelect === true) {
-                this.focusFirst()
+                if (this.notHaveFocusedKey()) {
+                    this.focusFirst()
+                }
 
                 return
             }
