@@ -1,7 +1,8 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('autocomplete', (config) => ({
         open: false,
-        key: config.key,
+        key: null,
+        id: config.id,
         value: null,
         valueProperty: null,
         focusedKey: null,
@@ -211,7 +212,10 @@ document.addEventListener('alpine:init', () => {
             if (this.focusedKeyFound() && this.focusedKeyIsNotNewItemRow()) {
                 let valueEl = this.focusedElement()
 
+                let id = valueEl.getAttribute('wire:autocomplete-id')
+
                 this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
+                this.id = id ? Alpine.evaluate(this.root, id) : this.key
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
             }
 
@@ -223,7 +227,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         hasSelectedItem() {
-            return this.key !== null
+            return this.id !== null
         },
 
         notHaveSelectedItem() {
@@ -231,7 +235,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         clearSelectedItem() {
-            this.key = null
+            this.id = null
         },
 
         hasNewItem() {

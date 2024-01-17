@@ -1,6 +1,7 @@
 @props([
     'unstyled' => false,
     'key',
+    'id' => null,
     'value' => null,
     'active' => 'bg-blue-500',
     'inactive' => 'bg-white',
@@ -28,6 +29,7 @@
 @if ($show)
     <li
         wire:autocomplete-key="@js($key)"
+        wire:autocomplete-id="@js($id ?? $key)"
         wire:autocomplete-value="@js($value)"
         x-on:click="selectItem()"
         x-on:mouseenter="focusKey(@js($key))"
