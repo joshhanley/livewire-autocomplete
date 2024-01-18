@@ -1,24 +1,34 @@
 <?php
 
-namespace LivewireAutocomplete\Tests;
+namespace LivewireAutocomplete\Tests\Browser;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Testing\Constraints\SeeInOrder;
 use Laravel\Dusk\Browser;
+use LivewireAutocomplete\Tests\TestCase;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-class TestServiceProvider extends ServiceProvider
+class BrowserTestCase extends TestCase
 {
-    public function boot()
+    public function setUp(): void
     {
-        config()->set('autocomplete.options.auto-select', false);
-        config()->set('autocomplete.options.allow-new', false);
+        parent::setUp();
 
-        $this->addDuskMacros();
-    }
+        Browser::macro('assertSeeInOrder', function ($selector, $contents) {
+            $fullSelector = $this->resolver->format($selector);
 
-    public function addDuskMacros()
-    {
+            $element = $this->resolver->findOrFail($selector);
+
+            $contentsString = implode(', ', $contents);
+
+            PHPUnit::assertThat(
+                array_map('e', $contents),
+                new SeeInOrder($element->getText()),
+                "Did not see expected contents [{$contentsString}] within element [{$fullSelector}]."
+            );
+
+            return $this;
+        });
+
         $script = '
             let elRect = document.querySelector(`%1$s`).getBoundingClientRect()
             let containerRect = document.querySelector(`%2$s`).getBoundingClientRect()
@@ -53,22 +63,6 @@ class TestServiceProvider extends ServiceProvider
             PHPUnit::assertFalse(
                 $this->driver->executeScript(sprintf($script, $fullSelector, $fullContainer)),
                 "Element [{$fullSelector}] is visible in [{$fullContainer}]"
-            );
-
-            return $this;
-        });
-
-        Browser::macro('assertSeeInOrder', function ($selector, $contents) {
-            $fullSelector = $this->resolver->format($selector);
-
-            $element = $this->resolver->findOrFail($selector);
-
-            $contentsString = implode(', ', $contents);
-
-            PHPUnit::assertThat(
-                array_map('e', ($contents)),
-                new SeeInOrder($element->getText()),
-                "Did not see expected contents [{$contentsString}] within element [{$fullSelector}]."
             );
 
             return $this;
