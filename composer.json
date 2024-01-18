@@ -10,14 +10,14 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^9.0|^10.0|dev-master",
-        "livewire/livewire": "dev-feature/dusk-testable-in-packages as 3.0.3"
+        "laravel/framework": "^10.0|dev-master",
+        "livewire/livewire": "^3.0|dev-main"
     },
     "require-dev": {
         "spatie/laravel-ray": "^1.19",
-        "phpunit/phpunit": "^9",
-        "orchestra/testbench-dusk": "^7.0|^8.0",
-        "orchestra/testbench": "^7.0|^8.0",
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench-dusk": "^8.0",
+        "orchestra/testbench": "^8.0",
         "psy/psysh": "^0.11.18"
     },
     "autoload": {
@@ -39,11 +39,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "livewire/livewire": {
-            "type": "vcs",
-            "url": "git@github.com:joshhanley/livewire.git"
-        }
-    }
+    "prefer-stable": true
 }

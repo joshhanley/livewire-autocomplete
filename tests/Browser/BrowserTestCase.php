@@ -2,27 +2,16 @@
 
 namespace LivewireAutocomplete\Tests\Browser;
 
-use function Livewire\trigger;
 use Illuminate\Testing\Constraints\SeeInOrder;
 use Laravel\Dusk\Browser;
-use Livewire\Features\SupportTesting\BaseBrowserTestCase;
-
-use Livewire\Features\SupportTesting\BaseTestCase;
 use LivewireAutocomplete\Tests\TestCase;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 class BrowserTestCase extends TestCase
 {
-    public static function tweakApplicationHook()
-    {
-        return function () {};
-    }
-
     public function setUp(): void
     {
         parent::setUp();
-
-        trigger('browser.testCase.setUp', $this);
 
         Browser::macro('assertSeeInOrder', function ($selector, $contents) {
             $fullSelector = $this->resolver->format($selector);
@@ -78,12 +67,5 @@ class BrowserTestCase extends TestCase
 
             return $this;
         });
-    }
-
-    public function tearDown(): void
-    {
-        trigger('browser.testCase.tearDown', $this);
-
-        parent::tearDown();
     }
 }
