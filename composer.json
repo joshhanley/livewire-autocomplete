@@ -18,7 +18,8 @@
         "phpunit/phpunit": "^9.0",
         "orchestra/testbench-dusk": "^8.0",
         "orchestra/testbench": "^8.0",
-        "psy/psysh": "^0.11.18"
+        "psy/psysh": "^0.11.18",
+        "joshhanley/livewire-dusk-testbench": "^3.0@beta"
     },
     "autoload": {
         "psr-4": {
