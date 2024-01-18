@@ -46,6 +46,7 @@ class AutoSelectTest extends BrowserTestCase
             {
                 return <<< 'HTML'
                 <div>
+                    <p dusk="some-element-other-than-the-input">some-element-other-than-the-input</p>
                     <x-autocomplete auto-select wire:model.live="selected">
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
@@ -104,6 +105,7 @@ class AutoSelectTest extends BrowserTestCase
             {
                 return <<< 'HTML'
                 <div>
+                    <p dusk="some-element-other-than-the-input">some-element-other-than-the-input</p>
                     <x-autocomplete auto-select wire:model.live="selected">
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
@@ -195,7 +197,7 @@ class AutoSelectTest extends BrowserTestCase
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500')
-            ->clickAtXPath('//body')
+            ->click('@some-element-other-than-the-input')
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -239,7 +241,7 @@ class AutoSelectTest extends BrowserTestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->waitForLivewire()->type('@input', 'steve')
-            ->waitForLivewire()->clickAtXPath('//body')
+            ->waitForLivewire()->click('@some-element-other-than-the-input')
             ->assertValue('@input', '')
         ;
     }
@@ -253,7 +255,7 @@ class AutoSelectTest extends BrowserTestCase
             ->pause(100)
             ->waitForLivewire()->click('@result-0')
             ->assertValue('@input', 'bob')
-            ->clickAtXPath('//body')
+            ->click('@some-element-other-than-the-input')
             ->assertValue('@input', 'bob')
         ;
     }
@@ -269,7 +271,7 @@ class AutoSelectTest extends BrowserTestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@add-new', 'bg-blue-500')
             ->assertValue('@input', 'steve')
-            ->clickAtXPath('//body')
+            ->click('@some-element-other-than-the-input')
             ->assertValue('@input', 'steve')
         ;
     }
