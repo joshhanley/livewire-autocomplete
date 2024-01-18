@@ -46,6 +46,7 @@ class AutoSelectTest extends BrowserTestCase
             {
                 return <<< 'HTML'
                 <div>
+                    <p dusk="some-element-other-than-the-input">some-element-other-than-the-input</p>
                     <x-autocomplete auto-select wire:model.live="selected">
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
@@ -195,7 +196,7 @@ class AutoSelectTest extends BrowserTestCase
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500')
-            ->clickAtXPath('//body')
+            ->click('@some-element-other-than-the-input')
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
