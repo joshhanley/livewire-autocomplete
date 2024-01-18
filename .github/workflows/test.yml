@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [8.1, 8.2]
+        php: [8.1, 8.2, 8.3]
         laravel: [10.*]
 
     name: PHP:${{ matrix.php }} / Laravel:${{ matrix.laravel }}
@@ -42,14 +42,12 @@ jobs:
           restore-keys: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-
 
       - name: Install Composer dependencies
-        env:
-          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.COMPOSER_AUTH}}"} }'
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
 
       - name: Touch database
-        run: 
+        run:
           mkdir -p database
           touch database/database.sqlite
 
@@ -95,14 +93,12 @@ jobs:
           restore-keys: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-
 
       - name: Install Composer dependencies
-        env:
-          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.COMPOSER_AUTH}}"} }'
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
 
       - name: Touch database
-        run: 
+        run:
           mkdir -p database
           touch database/database.sqlite
 
