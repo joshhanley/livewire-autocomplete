@@ -32,7 +32,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         loadOnceOnFocus: {{ $loadOnceOnFocus ? 'true' : 'false' }},
     })"
     x-init="init($dispatch)"
-    x-on:click.away="away($dispatch)">
+    x-on:mousedown.away="away($dispatch)">
     <x-dynamic-component
         :component="$getComponent('input')"
         name="{{ $name }}"
