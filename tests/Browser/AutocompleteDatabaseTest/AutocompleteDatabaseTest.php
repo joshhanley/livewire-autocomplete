@@ -18,13 +18,6 @@ class AutocompleteDatabaseTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => __DIR__ . '/../../../database/database.sqlite',
-            'prefix' => '',
-        ]);
-
         $app['config']->set('livewire.legacy_model_binding', true);
     }
 
