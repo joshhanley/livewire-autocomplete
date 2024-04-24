@@ -7,7 +7,7 @@ use LivewireDuskTestbench\TestCase as BaseTestCase;
 class TestCase extends BaseTestCase
 {
     public array $packageProviders = [
-        \LivewireAutocomplete\ServiceProvider::class,
+        \LivewireAutocomplete\LivewireAutocompleteServiceProvider::class,
     ];
 
     public function viewsDirectory(): string
