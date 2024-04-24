@@ -128,6 +128,9 @@ class AutocompleteDatabaseTest extends TestCase
     /** @test */
     public function selected_item_can_be_cleared()
     {
+        // @todo: Reenable this test when the PR is merged and tagged
+        $this->markTestSkipped('This test is failing in V3 due to https://github.com/livewire/livewire/pull/8343');
+
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
         Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
         Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
