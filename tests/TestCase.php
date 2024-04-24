@@ -12,6 +12,6 @@ class TestCase extends BaseTestCase
 
     public function viewsDirectory(): string
     {
-        return __DIR__.'/views';
+        return __DIR__.'/Browser/views';
     }
 }
