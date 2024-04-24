@@ -9,6 +9,14 @@ use PHPUnit\Framework\Assert as PHPUnit;
 
 class TestCase extends BaseTestCase
 {
+    public static function tweakApplicationHook()
+    {
+        return function () {
+            config()->set('autocomplete.options.auto-select', false);
+            config()->set('autocomplete.options.allow-new', false);
+        };
+    }
+
     public function setUp(): void
     {
         parent::setUp();
