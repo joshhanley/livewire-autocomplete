@@ -14,6 +14,7 @@ class TestCase extends BaseTestCase
         return function () {
             config()->set('autocomplete.options.auto-select', false);
             config()->set('autocomplete.options.allow-new', false);
+            config()->set('database.default', 'sqlite');
         };
     }
 
