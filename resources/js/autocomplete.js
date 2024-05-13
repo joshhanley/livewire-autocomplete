@@ -235,11 +235,12 @@ document.addEventListener('alpine:init', () => {
         },
 
         clearSelectedItem() {
+            this.key = null
             this.id = null
         },
 
         hasNewItem() {
-            return !!this.items.find((item) => item == '_x_autocomplete_new')
+            return !!this.items?.find((item) => item == '_x_autocomplete_new')
         },
 
         notHaveNewItem() {
