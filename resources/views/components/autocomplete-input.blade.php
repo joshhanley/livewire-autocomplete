@@ -5,7 +5,7 @@
 
 <div
     x-data="{
-        inputValue: @entangle($attributes->wire('model')),
+        inputValue: $wire.entangle('{{ $attributes->wire('model')->value }}'),
         detachedInput: null,
         wasJustFocused: false,
     }"
