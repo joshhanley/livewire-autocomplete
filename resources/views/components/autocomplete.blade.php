@@ -5,7 +5,7 @@
 
 <div
     x-data="autocomplete({
-        id: $wire.entangle('{{ $attributes->wire('model')->value }}'),
+        id: $wire.entangle('{{ $attributes->wire('model')->value }}', @js($attributes->wire('model')->hasModifier('live'))),
         autoSelect: @js($autoSelect),
     })"
     x-on:keydown.escape="escape($event)"
