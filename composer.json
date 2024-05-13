@@ -10,14 +10,14 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^10.0|dev-master",
+        "laravel/framework": "^10.0|^11.0|dev-master",
         "livewire/livewire": "^3.0|dev-main"
     },
     "require-dev": {
         "spatie/laravel-ray": "^1.19",
         "phpunit/phpunit": "^9.0",
-        "orchestra/testbench-dusk": "^8.0",
-        "orchestra/testbench": "^8.0",
+        "orchestra/testbench-dusk": "^8.0|^9.0",
+        "orchestra/testbench": "^8.0|^9.0",
         "psy/psysh": "^0.11.18",
         "joshhanley/livewire-dusk-testbench": "^3.0@beta"
     },
