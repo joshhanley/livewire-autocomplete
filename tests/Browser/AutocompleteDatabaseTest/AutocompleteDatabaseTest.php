@@ -2,7 +2,6 @@
 
 namespace LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest\Models\Item;
 use LivewireAutocomplete\Tests\Browser\TestCase;
@@ -11,7 +10,7 @@ class AutocompleteDatabaseTest extends TestCase
 {
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(getcwd() . '/database/migrations');
+        $this->loadMigrationsFrom(getcwd().'/database/migrations');
     }
 
     protected function getEnvironmentSetUp($app)
@@ -21,7 +20,7 @@ class AutocompleteDatabaseTest extends TestCase
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
             'driver' => 'sqlite',
-            'database' => __DIR__ . '/../../../database/database.sqlite',
+            'database' => __DIR__.'/../../../database/database.sqlite',
             'prefix' => '',
         ]);
 
@@ -128,9 +127,6 @@ class AutocompleteDatabaseTest extends TestCase
     /** @test */
     public function selected_item_can_be_cleared()
     {
-        // @todo: Reenable this test when the PR is merged and tagged
-        $this->markTestSkipped('This test is failing in V3 due to https://github.com/livewire/livewire/pull/8343');
-
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
         Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
         Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
