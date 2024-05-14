@@ -2,12 +2,15 @@
 
 namespace LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest\Models\Item;
 use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AutocompleteDatabaseTest extends TestCase
 {
+    use RefreshDatabase;
+    
     protected function defineDatabaseMigrations()
     {
         dump('defineDatabaseMigrations',config()->get('database.connections.testbench'));
