@@ -48,7 +48,6 @@ jobs:
 
       - name: Touch database
         run:
-          mkdir -p database
           touch database/database.sqlite
 
       - name: Setup dusk/chrome
