@@ -2,18 +2,14 @@
 
 namespace LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest\Models\Item;
 use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AutocompleteDatabaseTest extends TestCase
 {
-    // use RefreshDatabase;
-
     protected function defineDatabaseMigrations()
     {
-        // dump('defineDatabaseMigrations',config()->get('database.connections.testbench'));
         $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
     }
 
@@ -21,8 +17,6 @@ class AutocompleteDatabaseTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
         
-        // dump('envSetUpBefore', $app['config']->get('database.connections.testbench'));
-
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
             'driver' => 'sqlite',
@@ -31,8 +25,6 @@ class AutocompleteDatabaseTest extends TestCase
         ]);
 
         $app['config']->set('livewire.legacy_model_binding', true);
-
-        // dump('envSetUpAfter', $app['config']->get('database.connections.testbench'));
     }
 
     /** @test */
@@ -58,8 +50,55 @@ class AutocompleteDatabaseTest extends TestCase
         ;
     }
 
+    /** @test */
+    public function results_are_filtered_based_on_input()
+    {
+        Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
+        Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
+        Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
+        Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
+        Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
+
+        Livewire::visit(DatabaseResultsAutocompleteComponent::class)
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->type('@autocomplete-input', 'o')
+                ->assertDontSeeIn('@autocomplete-dropdown', 'test1')
+                ->assertDontSeeIn('@autocomplete-dropdown', 'test2')
+                ->assertDontSeeIn('@autocomplete-dropdown', 'test3')
+                ->assertSeeInOrder('@autocomplete-dropdown', [
+                    'other1',
+                    'other2',
+                ])
+        ;
+    }
+
+    /** @test */
+    public function ensure_results_count_gets_updated_so_focus_cant_go_off_the_end_of_results()
+    {
+        Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
+        Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
+        Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
+        Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
+        Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
+
+        Livewire::visit(DatabaseResultsAutocompleteComponent::class)
+                ->click('@autocomplete-input')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->waitForLivewire()->type('@autocomplete-input', 'o')
+                ->assertSeeInOrder('@autocomplete-dropdown', [
+                    'other1',
+                    'other2',
+                ])
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+                ->keys('@autocomplete-input', '{ARROW_DOWN}')
+                ->assertHasClass('@result-1', 'bg-blue-500')
+        ;
+    }
+
     // /** @test */
-    // public function results_are_filtered_based_on_input()
+    // public function results_dropdown_is_not_shown_if_there_are_no_results_found()
     // {
     //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
     //     Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
@@ -67,123 +106,76 @@ class AutocompleteDatabaseTest extends TestCase
     //     Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
     //     Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
 
-    //     Livewire::visit(DatabaseResultsAutocompleteComponent::class)
-    //             ->click('@autocomplete-input')
-    //             ->waitForLivewire()->type('@autocomplete-input', 'o')
-    //             ->assertDontSeeIn('@autocomplete-dropdown', 'test1')
-    //             ->assertDontSeeIn('@autocomplete-dropdown', 'test2')
-    //             ->assertDontSeeIn('@autocomplete-dropdown', 'test3')
-    //             ->assertSeeInOrder('@autocomplete-dropdown', [
-    //                 'other1',
-    //                 'other2',
-    //             ])
-    //     ;
+    //     $this->browse(function (Browser $browser) {
+    //         Livewire::visit(DatabaseResultsAutocompleteComponent::class)
+    //                 ->assertMissing('@autocomplete-dropdown')
+    //                 ->click('@autocomplete-input')
+    //                 ->waitForLivewire()->type('@autocomplete-input', 'o')
+    //                 ->assertSeeInOrder('@autocomplete-dropdown', [
+    //                     'other1',
+    //                     'other2',
+    //                 ])
+    //                 ->assertVisible('@autocomplete-dropdown')
+    //                 ->waitForLivewire()->type('@autocomplete-input', 'a')
+    //                 // Pause to allow transitions to run
+    //                 ->pause(101)
+    //                 ->assertMissing('@autocomplete-dropdown')
+    //                 ;
+    //     });
     // }
 
-    // /** @test */
-    // public function ensure_results_count_gets_updated_so_focus_cant_go_off_the_end_of_results()
-    // {
-    //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
-    //     Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
-    //     Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
-    //     Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
-    //     Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
+    /** @test */
+    public function selected_item_can_be_cleared()
+    {
+        Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
+        Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
+        Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
+        Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
+        Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
 
-    //     Livewire::visit(DatabaseResultsAutocompleteComponent::class)
-    //             ->click('@autocomplete-input')
-    //             ->keys('@autocomplete-input', '{ARROW_DOWN}')
-    //             ->waitForLivewire()->type('@autocomplete-input', 'o')
-    //             ->assertSeeInOrder('@autocomplete-dropdown', [
-    //                 'other1',
-    //                 'other2',
-    //             ])
-    //             ->keys('@autocomplete-input', '{ARROW_DOWN}')
-    //             ->keys('@autocomplete-input', '{ARROW_DOWN}')
-    //             ->assertHasClass('@result-1', 'bg-blue-500')
-    //             ->keys('@autocomplete-input', '{ARROW_DOWN}')
-    //             ->assertHasClass('@result-1', 'bg-blue-500')
-    //     ;
-    // }
+        Livewire::visit(DatabaseResultsAutocompleteComponent::class)
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->click('@result-1')
+                ->assertValue('@autocomplete-input', 'test2')
+                ->assertSeeIn('@result-output', 'ID:2')
+                ->waitForLivewire()->click('@clear')
+                ->assertValue('@autocomplete-input', '')
+                ->assertSeeNothingIn('@result-output')
+        ;
+    }
 
-    // // /** @test */
-    // // public function results_dropdown_is_not_shown_if_there_are_no_results_found()
-    // // {
-    // //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
-    // //     Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
-    // //     Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
-    // //     Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
-    // //     Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
+    /** @test */
+    public function clear_button_cant_be_pressed_if_nothing_selected()
+    {
+        Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
+        Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
+        Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
+        Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
+        Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
 
-    // //     $this->browse(function (Browser $browser) {
-    // //         Livewire::visit(DatabaseResultsAutocompleteComponent::class)
-    // //                 ->assertMissing('@autocomplete-dropdown')
-    // //                 ->click('@autocomplete-input')
-    // //                 ->waitForLivewire()->type('@autocomplete-input', 'o')
-    // //                 ->assertSeeInOrder('@autocomplete-dropdown', [
-    // //                     'other1',
-    // //                     'other2',
-    // //                 ])
-    // //                 ->assertVisible('@autocomplete-dropdown')
-    // //                 ->waitForLivewire()->type('@autocomplete-input', 'a')
-    // //                 // Pause to allow transitions to run
-    // //                 ->pause(101)
-    // //                 ->assertMissing('@autocomplete-dropdown')
-    // //                 ;
-    // //     });
-    // // }
+        Livewire::visit(DatabaseResultsAutocompleteComponent::class)
+                ->click('@autocomplete-input')
+                ->assertMissing('@clear')
+                // ->waitForLivewire()->click('@clear')
+        ;
+    }
 
-    // /** @test */
-    // public function selected_item_can_be_cleared()
-    // {
-    //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
-    //     Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
-    //     Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
-    //     Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
-    //     Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
+    /** @test */
+    public function input_cannot_be_focused_when_item_is_selected()
+    {
+        Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
+        Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
+        Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
+        Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
+        Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
 
-    //     Livewire::visit(DatabaseResultsAutocompleteComponent::class)
-    //             ->click('@autocomplete-input')
-    //             ->waitForLivewire()->click('@result-1')
-    //             ->assertValue('@autocomplete-input', 'test2')
-    //             ->assertSeeIn('@result-output', 'ID:2')
-    //             ->waitForLivewire()->click('@clear')
-    //             ->assertValue('@autocomplete-input', '')
-    //             ->assertSeeNothingIn('@result-output')
-    //     ;
-    // }
-
-    // /** @test */
-    // public function clear_button_cant_be_pressed_if_nothing_selected()
-    // {
-    //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
-    //     Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
-    //     Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
-    //     Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
-    //     Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
-
-    //     Livewire::visit(DatabaseResultsAutocompleteComponent::class)
-    //             ->click('@autocomplete-input')
-    //             ->assertMissing('@clear')
-    //             // ->waitForLivewire()->click('@clear')
-    //     ;
-    // }
-
-    // /** @test */
-    // public function input_cannot_be_focused_when_item_is_selected()
-    // {
-    //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
-    //     Item::updateOrCreate(['id' => 2], ['name' => 'test2']);
-    //     Item::updateOrCreate(['id' => 3], ['name' => 'test3']);
-    //     Item::updateOrCreate(['id' => 4], ['name' => 'other1']);
-    //     Item::updateOrCreate(['id' => 5], ['name' => 'other2']);
-
-    //     Livewire::visit(DatabaseResultsAutocompleteComponent::class)
-    //             ->click('@autocomplete-input')
-    //             ->waitForLivewire()->click('@result-1')
-    //             ->assertValue('@autocomplete-input', 'test2')
-    //             ->assertNotFocused('@autocomplete-input')
-    //             ->click('@autocomplete-input')
-    //             ->assertNotFocused('@autocomplete-input')
-    //     ;
-    // }
+        Livewire::visit(DatabaseResultsAutocompleteComponent::class)
+                ->click('@autocomplete-input')
+                ->waitForLivewire()->click('@result-1')
+                ->assertValue('@autocomplete-input', 'test2')
+                ->assertNotFocused('@autocomplete-input')
+                ->click('@autocomplete-input')
+                ->assertNotFocused('@autocomplete-input')
+        ;
+    }
 }
