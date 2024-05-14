@@ -81,7 +81,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500')
-            ->clickAtXPath('//body')
+            ->click('@some-element-other-than-the-input')
             ->click('@autocomplete-input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -128,7 +128,7 @@ class AutocompleteAutoselectTest extends TestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->waitForLivewire()->type('@autocomplete-input', 'steve')
-            ->waitForLivewire()->clickAtXPath('//body')
+            ->waitForLivewire()->click('@some-element-other-than-the-input')
             ->assertValue('@autocomplete-input', '')
         ;
     }
@@ -143,7 +143,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->pause(100)
             ->waitForLivewire()->click('@result-0')
             ->assertValue('@autocomplete-input', 'bob')
-            ->clickAtXPath('//body')
+            ->click('@some-element-other-than-the-input')
             ->assertValue('@autocomplete-input', 'bob')
         ;
     }

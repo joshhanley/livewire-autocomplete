@@ -2,7 +2,6 @@
 
 namespace LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use LivewireAutocomplete\Tests\Browser\AutocompleteDatabaseTest\Models\Item;
 use LivewireAutocomplete\Tests\Browser\TestCase;
@@ -11,17 +10,17 @@ class AutocompleteDatabaseTest extends TestCase
 {
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(getcwd() . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
     }
 
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-
+        
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
             'driver' => 'sqlite',
-            'database' => __DIR__ . '/../../../database/database.sqlite',
+            'database' => __DIR__.'/../../../database/database.sqlite',
             'prefix' => '',
         ]);
 

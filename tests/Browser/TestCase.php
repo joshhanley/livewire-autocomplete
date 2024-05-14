@@ -2,62 +2,84 @@
 
 namespace LivewireAutocomplete\Tests\Browser;
 
-use Livewire\Features\SupportTesting\BaseTestCase;
-use LivewireAutocomplete\LivewireAutocompleteServiceProvider;
-use LivewireAutocomplete\Tests\TestServiceProvider;
-use LivewireDuskTestbench\TestCase as LivewireDuskTestbenchTestCase;
-
-use function Livewire\trigger;
+use Illuminate\Testing\Constraints\SeeInOrder;
+use Laravel\Dusk\Browser;
+use LivewireAutocomplete\Tests\TestCase as BaseTestCase;
+use PHPUnit\Framework\Assert as PHPUnit;
 
 class TestCase extends BaseTestCase
 {
-    // public $withoutUI = false;
-
-    // public $packageProviders = [
-    //     LivewireAutocompleteServiceProvider::class,
-    //     TestServiceProvider::class,
-    // ];
-
-    // public function configureViewsDirectory()
-    // {
-    //     $this->viewsDirectory = __DIR__ . '/views';
-    // }
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            ...parent::getPackageProviders($app),
-            LivewireAutocompleteServiceProvider::class,
-            TestServiceProvider::class
-        ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        parent::getEnvironmentSetUp($app);
-        
-        $app['config']->set('view.paths', [
-            __DIR__ . '/views',
-            resource_path('views'),
-        ]);
-    }
-
     public static function tweakApplicationHook()
     {
-        return function () {};
+        return function () {
+            config()->set('autocomplete.options.auto-select', false);
+            config()->set('autocomplete.options.allow-new', false);
+            config()->set('database.default', 'testbench');
+            config()->set('database.connections.testbench', [
+                'driver' => 'sqlite',
+                'database' => __DIR__ . '/../../database/database.sqlite',
+                'prefix' => '',
+            ]);
+        };
     }
 
     public function setUp(): void
     {
         parent::setUp();
 
-        trigger('browser.testCase.setUp', $this);
-    }
+        Browser::macro('assertSeeInOrder', function ($selector, $contents) {
+            $fullSelector = $this->resolver->format($selector);
 
-    public function tearDown(): void
-    {
-        trigger('browser.testCase.tearDown', $this);
+            $element = $this->resolver->findOrFail($selector);
 
-        parent::tearDown();
+            $contentsString = implode(', ', $contents);
+
+            PHPUnit::assertThat(
+                array_map('e', $contents),
+                new SeeInOrder($element->getText()),
+                "Did not see expected contents [{$contentsString}] within element [{$fullSelector}]."
+            );
+
+            return $this;
+        });
+
+        $script = '
+            let elRect = document.querySelector(`%1$s`).getBoundingClientRect()
+            let containerRect = document.querySelector(`%2$s`).getBoundingClientRect()
+
+            return containerRect.top < elRect.bottom && containerRect.bottom > elRect.top
+        ';
+
+        Browser::macro('isVisibleInContainer', function ($selector, $container) use ($script) {
+            /** @var \Laravel\Dusk\Browser $this */
+            $fullSelector = $this->resolver->format($selector);
+            $fullContainer = $this->resolver->format($container);
+
+            $this->resolver->findOrFail($selector);
+            $this->resolver->findOrFail($container);
+
+            PHPUnit::assertTrue(
+                $this->driver->executeScript(sprintf($script, $fullSelector, $fullContainer)),
+                "Element [{$fullSelector}] is not visible in [{$fullContainer}]"
+            );
+
+            return $this;
+        });
+
+        Browser::macro('isNotVisibleInContainer', function ($selector, $container) use ($script) {
+            /** @var \Laravel\Dusk\Browser $this */
+            $fullSelector = $this->resolver->format($selector);
+            $fullContainer = $this->resolver->format($container);
+
+            $this->resolver->findOrFail($selector);
+            $this->resolver->findOrFail($container);
+
+            PHPUnit::assertFalse(
+                $this->driver->executeScript(sprintf($script, $fullSelector, $fullContainer)),
+                "Element [{$fullSelector}] is visible in [{$fullContainer}]"
+            );
+
+            return $this;
+        });
     }
 }
