@@ -17,7 +17,6 @@ class TestCase extends BaseTestCase
             config()->set('database.default', 'testbench');
             config()->set('database.connections.testbench', [
                 'driver' => 'mysql',
-                'host' => '127.0.0.1',
                 'database' => 'autocompletetesting',
                 'username' => 'root',
                 'prefix' => '',
