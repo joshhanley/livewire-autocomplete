@@ -17,7 +17,7 @@ class TestCase extends BaseTestCase
             config()->set('database.default', 'testbench');
             config()->set('database.connections.testbench', [
                 'driver' => 'sqlite',
-                'database' => __DIR__ . '/../../database/database.sqlite',
+                'database' => ':memory:',
                 'prefix' => '',
             ]);
         };
