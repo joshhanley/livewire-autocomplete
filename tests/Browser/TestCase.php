@@ -12,7 +12,6 @@ class TestCase extends BaseTestCase
     public static function tweakApplicationHook()
     {
         return function () {
-            // dump('tweakAppBefore', config()->get('database.connections.testbench'));
             config()->set('autocomplete.options.auto-select', false);
             config()->set('autocomplete.options.allow-new', false);
             config()->set('database.default', 'testbench');
@@ -21,7 +20,6 @@ class TestCase extends BaseTestCase
                 'database' => __DIR__ . '/../../database/database.sqlite',
                 'prefix' => '',
             ]);
-            // dump('tweakAppAfter', config()->get('database.connections.testbench'));
         };
     }
 

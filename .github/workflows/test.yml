@@ -54,6 +54,6 @@ jobs:
         run: vendor/bin/dusk-updater detect --no-interaction
 
       - name: Run Browser tests
-        run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist tests/Browser/AutocompleteDatabaseTest/AutocompleteDatabaseTest.php
+        run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist
         env:
           RUNNING_IN_CI: true
