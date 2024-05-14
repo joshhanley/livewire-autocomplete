@@ -58,3 +58,5 @@ jobs:
         run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist
         env:
           RUNNING_IN_CI: true
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite

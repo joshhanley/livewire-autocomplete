@@ -10,21 +10,26 @@ class AutocompleteDatabaseTest extends TestCase
 {
     protected function defineDatabaseMigrations()
     {
+        dump('defineDatabaseMigrations',config()->get('database.connections.testbench'));
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
+        
+        dump('envSetUpBefore', $app['config']->get('database.connections.testbench'));
 
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => __DIR__.'/../../../database/database.sqlite',
-            'prefix' => '',
-        ]);
+        // $app['config']->set('database.default', 'testbench');
+        // $app['config']->set('database.connections.testbench', [
+        //     'driver' => 'sqlite',
+        //     'database' => __DIR__.'/../../../database/database.sqlite',
+        //     'prefix' => '',
+        // ]);
 
         $app['config']->set('livewire.legacy_model_binding', true);
+
+        // dump('envSetUpAfter', $app['config']->get('database.connections.testbench'));
     }
 
     /** @test */
