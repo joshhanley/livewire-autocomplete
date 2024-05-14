@@ -20,6 +20,7 @@ class AutocompleteDatabaseTest extends TestCase
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
             'driver' => 'mysql',
+            'host' => '127.0.0.1',
             'database' => 'autocompletetesting',
             'username' => 'root',
             'prefix' => '',
