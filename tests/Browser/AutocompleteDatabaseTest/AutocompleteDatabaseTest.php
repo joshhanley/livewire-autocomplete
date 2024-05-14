@@ -17,9 +17,6 @@ class AutocompleteDatabaseTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        echo __DIR__.'/../../../database/database.sqlite';
-        echo file_exists(__DIR__.'/../../../database/database.sqlite');
-
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
             'driver' => 'sqlite',
