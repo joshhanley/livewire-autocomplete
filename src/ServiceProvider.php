@@ -27,8 +27,6 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__ . '/../config/' . $this->name . '.php' => config_path($this->name . '.php'),
         ], [$this->name, $this->name . '-config']);
 
-        // dd($this->namespace, config($this->name . '.use_global_namespace', true));
-
         $this->loadViews(__DIR__ . '/../resources/views', $this->namespace, config($this->name . '.use_global_namespace', true));
 
         if (config($this->name . '.use_global_namespace', true)) {
