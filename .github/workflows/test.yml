@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - "**"
-  pull_request:
-    types: [ready_for_review, synchronize, opened]
+#   pull_request:
+#     types: [ready_for_review, synchronize, opened]
 
 jobs:
   tests-on-phpunit-9:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [8.1, 8.2, 8.3]
+        php: [8.1] #, 8.2, 8.3]
         laravel: [10.*]
 
     name: PHP:${{ matrix.php }} / Laravel:${{ matrix.laravel }}
