@@ -10,7 +10,7 @@ class AutocompleteDatabaseTest extends TestCase
 {
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(getcwd().'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     protected function getEnvironmentSetUp($app)
