@@ -9,11 +9,11 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AutocompleteDatabaseTest extends TestCase
 {
-    use RefreshDatabase;
-    
+    // use RefreshDatabase;
+
     protected function defineDatabaseMigrations()
     {
-        dump('defineDatabaseMigrations',config()->get('database.connections.testbench'));
+        // dump('defineDatabaseMigrations',config()->get('database.connections.testbench'));
         $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
     }
 
@@ -21,7 +21,7 @@ class AutocompleteDatabaseTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
         
-        dump('envSetUpBefore', $app['config']->get('database.connections.testbench'));
+        // dump('envSetUpBefore', $app['config']->get('database.connections.testbench'));
 
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
@@ -32,7 +32,7 @@ class AutocompleteDatabaseTest extends TestCase
 
         $app['config']->set('livewire.legacy_model_binding', true);
 
-        dump('envSetUpAfter', $app['config']->get('database.connections.testbench'));
+        // dump('envSetUpAfter', $app['config']->get('database.connections.testbench'));
     }
 
     /** @test */
