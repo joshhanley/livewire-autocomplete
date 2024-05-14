@@ -19,9 +19,8 @@ class AutocompleteDatabaseTest extends TestCase
 
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver' => 'mysql',
-            'database' => 'autocompletetesting',
-            'username' => 'root',
+            'driver' => 'sqlite',
+            'database' => __DIR__.'/../../../database/database.sqlite',
             'prefix' => '',
         ]);
 

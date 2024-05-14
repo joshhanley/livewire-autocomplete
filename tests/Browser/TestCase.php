@@ -16,9 +16,8 @@ class TestCase extends BaseTestCase
             config()->set('autocomplete.options.allow-new', false);
             config()->set('database.default', 'testbench');
             config()->set('database.connections.testbench', [
-                'driver' => 'mysql',
-                'database' => 'autocompletetesting',
-                'username' => 'root',
+                'driver' => 'sqlite',
+                'database' => __DIR__ . '/../../database/database.sqlite',
                 'prefix' => '',
             ]);
         };
