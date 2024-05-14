@@ -18,6 +18,16 @@ jobs:
 
     name: PHP:${{ matrix.php }} / Laravel:${{ matrix.laravel }}
 
+    services:
+        mysql:
+          image: mysql:latest
+          env:
+            MYSQL_DATABASE: autocompletetesting
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          ports:
+            - 3306
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3  
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -45,11 +55,8 @@ jobs:
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
-
-      - name: Touch database
-        run:
-          mkdir -p database
-          touch database/database.sqlite
+        env:
+            DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
       - name: Setup dusk/chrome
         run: vendor/bin/dusk-updater detect --no-interaction
@@ -58,3 +65,4 @@ jobs:
         run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist
         env:
           RUNNING_IN_CI: true
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
