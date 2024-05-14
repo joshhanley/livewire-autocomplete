@@ -20,16 +20,16 @@ class AutocompleteDatabaseTest extends TestCase
         
         dump('envSetUpBefore', $app['config']->get('database.connections.testbench'));
 
-        // $app['config']->set('database.default', 'testbench');
-        // $app['config']->set('database.connections.testbench', [
-        //     'driver' => 'sqlite',
-        //     'database' => __DIR__.'/../../../database/database.sqlite',
-        //     'prefix' => '',
-        // ]);
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver' => 'sqlite',
+            'database' => __DIR__.'/../../../database/database.sqlite',
+            'prefix' => '',
+        ]);
 
         $app['config']->set('livewire.legacy_model_binding', true);
 
-        // dump('envSetUpAfter', $app['config']->get('database.connections.testbench'));
+        dump('envSetUpAfter', $app['config']->get('database.connections.testbench'));
     }
 
     /** @test */

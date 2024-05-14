@@ -15,13 +15,13 @@ class TestCase extends BaseTestCase
             dump('tweakAppBefore', config()->get('database.connections.testbench'));
             config()->set('autocomplete.options.auto-select', false);
             config()->set('autocomplete.options.allow-new', false);
-            // config()->set('database.default', 'testbench');
-            // config()->set('database.connections.testbench', [
-            //     'driver' => 'sqlite',
-            //     'database' => __DIR__ . '/../../database/database.sqlite',
-            //     'prefix' => '',
-            // ]);
-            // dump('tweakAppAfter', config()->get('database.connections.testbench'));
+            config()->set('database.default', 'testbench');
+            config()->set('database.connections.testbench', [
+                'driver' => 'sqlite',
+                'database' => __DIR__ . '/../../database/database.sqlite',
+                'prefix' => '',
+            ]);
+            dump('tweakAppAfter', config()->get('database.connections.testbench'));
         };
     }
 
