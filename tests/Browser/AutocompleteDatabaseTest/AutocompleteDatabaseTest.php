@@ -11,7 +11,7 @@ class AutocompleteDatabaseTest extends TestCase
     protected function defineDatabaseMigrations()
     {
         dump('defineDatabaseMigrations',config()->get('database.connections.testbench'));
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
     }
 
     protected function getEnvironmentSetUp($app)
