@@ -1,49 +1,44 @@
 {
-  "name": "joshhanley/livewire-autocomplete",
-  "description": "An autocomplete dropdown for Livewire",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Josh Hanley",
-      "email": "josh@joshhanley.com.au"
-    }
-  ],
-  "require": {
-    "php": "^8.1",
-    "laravel/framework": "^10.0|dev-master",
-    "livewire/livewire": "^3.0.0|dev-feature/dusk-testable-in-packages"
-  },
-  "autoload": {
-    "psr-4": {
-      "LivewireAutocomplete\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "LivewireAutocomplete\\Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "LivewireAutocomplete\\LivewireAutocompleteServiceProvider"
-      ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "require-dev": {
-    "spatie/laravel-ray": "^1.19",
-    "phpunit/phpunit": "^9",
-    "orchestra/testbench": "^8.0",
-    "orchestra/testbench-dusk": "^8.0",
-    "psy/psysh": "^0.11.20"
-  },
-  "repositories": {
-    "livewire/livewire": {
-      "type": "vcs",
-      "no-api": true,
-      "url": "https://github.com/joshhanley/livewire"
-    }
-  }
+    "name": "joshhanley/livewire-autocomplete",
+    "description": "An autocomplete dropdown for Livewire",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Hanley",
+            "email": "josh@joshhanley.com.au"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^10.0|dev-master",
+        "livewire/livewire": "^3.0|dev-main"
+    },
+    "require-dev": {
+        "spatie/laravel-ray": "^1.19",
+        "phpunit/phpunit": "^10.0",
+        "orchestra/testbench-dusk": "^8.0",
+        "orchestra/testbench": "^8.0",
+        "psy/psysh": "^0.11.18",
+        "joshhanley/livewire-dusk-testbench": "^3.0@beta"
+    },
+    "autoload": {
+        "psr-4": {
+            "LivewireAutocomplete\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LivewireAutocomplete\\Tests\\": "tests/",
+            "Tests\\": "vendor/livewire/livewire/tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LivewireAutocomplete\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
