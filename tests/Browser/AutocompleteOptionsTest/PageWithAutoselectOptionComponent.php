@@ -54,6 +54,7 @@ class PageWithAutoselectOptionComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
+                <p dusk="some-element-other-than-the-input">some-element-other-than-the-input</p>
                 <x-lwa::autocomplete
                     wire:model-text="input"
                     wire:model-id="selected"
