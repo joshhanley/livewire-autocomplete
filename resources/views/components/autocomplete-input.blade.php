@@ -29,8 +29,7 @@
     x-on:keydown.home.prevent="focusFirst()"
     x-on:keydown.end.prevent="focusLast()"
     x-on:keydown.enter.stop="enter($event)"
-    @class([$containerClass]) }}
-    >
+    @class([$containerClass])>
     <input
         type="text"
         x-model="inputValue"
