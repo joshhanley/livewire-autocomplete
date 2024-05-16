@@ -1,6 +1,6 @@
 @props([
     'unstyled' => false,
-    'inputClass' => '',
+    'containerClass' => '',
 ])
 
 <div
@@ -29,13 +29,13 @@
     x-on:keydown.home.prevent="focusFirst()"
     x-on:keydown.end.prevent="focusLast()"
     x-on:keydown.enter.stop="enter($event)"
-    {{ $attributes->whereStartsWith('class')->class(['border border-gray-300 rounded w-full px-3 py-2 bg-white has-[:focus]:border-blue-400' => !$unstyled]) }}
+    @class([$containerClass]) }}
     >
     <input
         type="text"
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith(['wire:model', 'class'])->class([$inputClass, 'w-full p-0 outline-none border-0 focus:outline-none focus:ring-0 focus:border-transparent' => !$unstyled]) }} />
+        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full px-3 py-2 border border-gray-300 rounded' => !$unstyled]) }} />
     {{ $slot }}
 </div>
