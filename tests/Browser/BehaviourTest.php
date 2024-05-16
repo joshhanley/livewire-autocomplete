@@ -10,7 +10,8 @@ class BehaviourTest extends BrowserTestCase
 {
     public function component()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
             public $selected;
 
@@ -59,7 +60,8 @@ class BehaviourTest extends BrowserTestCase
 
     public function componentInForm()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
             public $selected;
 
@@ -117,7 +119,8 @@ class BehaviourTest extends BrowserTestCase
 
     public function componentWithNetworkDelay()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
             public $selected;
 
@@ -170,7 +173,8 @@ class BehaviourTest extends BrowserTestCase
 
     public function componentWithPreSelectedValue()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input = 'bob';
             public $selected = 0;
 
@@ -218,6 +222,61 @@ class BehaviourTest extends BrowserTestCase
                     <div dusk="result-output">{{ $selected }}</div>
 
                     <button dusk="change-selected" type="button" wire:click="changeSelected">Change Selected</button>
+                </div>
+                HTML;
+            }
+        };
+    }
+
+    public function componentWithoutLiveModifiers()
+    {
+        return new class extends Component
+        {
+            public $input;
+            public $selected;
+
+            #[Computed]
+            public function results()
+            {
+                return collect([
+                    'bob',
+                    'john',
+                    'bill',
+                ])
+                    ->filter(function ($result) {
+                        if (! $this->input) {
+                            return true;
+                        }
+
+                        return str_contains($result, $this->input);
+                    })
+                    ->values()
+                    ->toArray();
+            }
+
+            public function render()
+            {
+                return <<< 'HTML'
+                <div>
+                    <div dusk="forMouseAway"></div>
+                    <x-autocomplete wire:model="selected">
+                        <x-autocomplete-input wire:model="input" dusk="input" />
+
+                        {{-- Don't actually need a search method here, so just calling `$refresh` --}}
+                        <button type="button" wire:click="$refresh" dusk="search-button">Search</button>
+
+                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                            @foreach($this->results as $key => $result)
+                                <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                    {{ $result }}
+                                </x-autocomplete-item>
+                            @endforeach
+                        </x-autocomplete-list>
+                    </x-autocomplete>
+
+                    <div dusk="result-output">{{ $selected }}</div>
+
+                    <button type="button" wire:click="$refresh" dusk="refresh-button">Refresh</button>
                 </div>
                 HTML;
             }
@@ -740,6 +799,34 @@ class BehaviourTest extends BrowserTestCase
             ->waitForLivewire()->click('@change-selected')
             ->assertValue('@input', 'john')
             ->assertSeeIn('@result-output', 1)
+        ;
+    }
+
+    /** @test */
+    public function component_without_wire_model_live_modifiers_still_works()
+    {
+        Livewire::visit($this->componentWithoutLiveModifiers())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill'])
+            ->assertSeeNothingIn('@result-output')
+
+            ->waitForNoLivewire()->type('@input', 'b')
+            ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill'])
+            ->assertSeeNothingIn('@result-output')
+
+            ->waitForLivewire()->click('@search-button')
+            ->assertSeeInOrder('@dropdown', ['bob', 'bill'])
+            ->assertSeeNothingIn('@result-output')
+
+            ->waitForNoLivewire()->click('@result-0')
+            ->assertValue('@input', 'bob')
+            ->assertSeeNothingIn('@result-output')
+
+            ->waitForLivewire()->click('@refresh-button')
+            ->assertValue('@input', 'bob')
+            ->assertSeeIn('@result-output', 'bob')
         ;
     }
 }

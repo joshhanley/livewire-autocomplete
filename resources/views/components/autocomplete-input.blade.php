@@ -1,11 +1,13 @@
 @props([
     'unstyled' => false,
+    'containerClass' => '',
 ])
 
 <div
     x-data="{
-        inputValue: @entangle($attributes->wire('model')),
+        inputValue: $wire.entangle('{{ $attributes->wire('model')->value }}', @js($attributes->wire('model')->hasModifier('live'))),
         detachedInput: null,
+        wasJustFocused: false,
     }"
     x-init="valueProperty = @js((string) $attributes->wire('model'));
     
@@ -26,10 +28,14 @@
     x-on:keydown.meta.arrow-down.prevent.stop="focusLast()"
     x-on:keydown.home.prevent="focusFirst()"
     x-on:keydown.end.prevent="focusLast()"
-    x-on:keydown.enter.stop="enter($event)">
+    x-on:keydown.enter.stop="enter($event)"
+    @class([$containerClass]) }}
+    >
     <input
         type="text"
         x-model="inputValue"
-        x-on:focus="inputFocus()"
-        {{ $attributes->whereDoesntStartWith('wire:model')->class([!$unstyled => 'border border-gray-300 rounded w-full px-3 py-2']) }} />
+        x-on:focus="inputFocus(); wasJustFocused = true"
+        x-on:blur="wasJustFocused = false"
+        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full px-3 py-2 border border-gray-300 rounded' => !$unstyled]) }} />
+    {{ $slot }}
 </div>

@@ -5,12 +5,12 @@
 
 <div
     x-data="autocomplete({
-        key: @entangle($attributes->wire('model')),
+        id: $wire.entangle('{{ $attributes->wire('model')->value }}', @js($attributes->wire('model')->hasModifier('live'))),
         autoSelect: @js($autoSelect),
     })"
     x-on:keydown.escape="escape($event)"
     x-on:click.outside="outside()"
-    {{ $attributes->whereDoesntStartWith('wire:model')->class([!$unstyled => '']) }}>
+    {{ $attributes->whereDoesntStartWith('wire:model')->class(['' => !$unstyled, 'relative']) }}>
     {{ $slot }}
 </div>
 

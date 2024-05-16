@@ -2,6 +2,6 @@
     'unstyled' => false,
 ])
 
-<label {{ $attributes->class([!$unstyled => '']) }}>
+<label {{ $attributes->class(['' => !$unstyled]) }}>
     {{ $slot }}
 </label>
