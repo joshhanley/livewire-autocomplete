@@ -1,6 +1,6 @@
 @props([
     'unstyled' => false,
-    'inputStyles' => '',
+    'inputClass' => '',
 ])
 
 <div
@@ -36,6 +36,6 @@
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith(['wire:model', 'class'])->class([$inputStyles, 'w-full p-0 outline-none border-0 focus:outline-none focus:ring-0 focus:border-transparent' => !$unstyled]) }} />
+        {{ $attributes->whereDoesntStartWith(['wire:model', 'class'])->class([$inputClass, 'w-full p-0 outline-none border-0 focus:outline-none focus:ring-0 focus:border-transparent' => !$unstyled]) }} />
     {{ $slot }}
 </div>
