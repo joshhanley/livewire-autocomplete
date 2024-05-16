@@ -243,9 +243,7 @@ class AutoSelectTest extends BrowserTestCase
             ->waitForLivewire()->click('@result-0')
             ->assertValue('@input', 'bob')
             ->keys('@input', '{ESCAPE}')
-            // Pause to allow a Livewire request to complete if it was going to
-            ->pause(300)
-            ->assertValue('@input', 'bob')
+            ->waitForNoLivewire()->assertValue('@input', 'bob')
         ;
     }
 
@@ -260,9 +258,8 @@ class AutoSelectTest extends BrowserTestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@add-new', 'bg-blue-500')
             ->assertValue('@input', 'steve')
-            // Pause to allow a Livewire request to complete if it was going to
-            ->pause(300)
-            ->assertValue('@input', 'steve')
+            ->keys('@input', '{ESCAPE}')
+            ->waitForNoLivewire()->assertValue('@input', 'steve')
         ;
     }
 
@@ -288,7 +285,7 @@ class AutoSelectTest extends BrowserTestCase
             ->pause(100)
             ->waitForLivewire()->click('@result-0')
             ->assertValue('@input', 'bob')
-            ->click('@some-element-other-than-the-input')
+            ->waitForNoLivewire()->click('@some-element-other-than-the-input')
             ->assertValue('@input', 'bob')
         ;
     }
@@ -304,7 +301,7 @@ class AutoSelectTest extends BrowserTestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@add-new', 'bg-blue-500')
             ->assertValue('@input', 'steve')
-            ->click('@some-element-other-than-the-input')
+            ->waitForNoLivewire()->click('@some-element-other-than-the-input')
             ->assertValue('@input', 'steve')
         ;
     }
