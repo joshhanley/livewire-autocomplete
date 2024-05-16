@@ -234,6 +234,39 @@ class AutoSelectTest extends BrowserTestCase
     }
 
     /** @test */
+    public function on_autoselect_escape_does_not_clear_selected_text()
+    {
+        Livewire::visit($this->component())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->waitForLivewire()->click('@result-0')
+            ->assertValue('@input', 'bob')
+            ->keys('@input', '{ESCAPE}')
+            // Pause to allow a Livewire request to complete if it was going to
+            ->pause(300)
+            ->assertValue('@input', 'bob')
+        ;
+    }
+
+    /** @test */
+    public function on_autoselect_escape_does_not_clear_input_value_if_new_item_is_present()
+    {
+        Livewire::visit($this->componentWithNewItem())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->waitForLivewire()->type('@input', 'steve')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->assertHasClass('@add-new', 'bg-blue-500')
+            ->assertValue('@input', 'steve')
+            // Pause to allow a Livewire request to complete if it was going to
+            ->pause(300)
+            ->assertValue('@input', 'steve')
+        ;
+    }
+
+    /** @test */
     public function on_autoselect_click_away_clears_input_text()
     {
         Livewire::visit($this->component())
