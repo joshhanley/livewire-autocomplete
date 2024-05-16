@@ -51,6 +51,10 @@ document.addEventListener('alpine:init', () => {
             this.open = false
         },
 
+        toggle() {
+            this.open = !this.open
+        },
+
         hasFocusedKey() {
             return this.focusedKey !== null
         },
