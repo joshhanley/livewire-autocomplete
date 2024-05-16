@@ -49,9 +49,10 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
 
-      - name: Touch database
-        run: 
-          touch database/database.sqlite
+    # Not needed as have moved the touch into the database tests
+    #   - name: Touch database
+    #     run:
+    #       touch database/database.sqlite
 
       - name: Setup dusk/chrome
         run: vendor/bin/dusk-updater detect --no-interaction
