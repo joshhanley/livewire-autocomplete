@@ -308,4 +308,23 @@ class AutoSelectTest extends BrowserTestCase
             ->assertValue('@input', 'steve')
         ;
     }
+
+    /** @test */
+    public function on_autoselect_mouse_out_does_not_reset_the_focused_element_back_to_the_first_one()
+    {
+        Livewire::visit($this->component())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->mouseover('@result-2')
+            ->assertClassMissing('@result-0', 'bg-blue-500')
+            ->assertClassMissing('@result-1', 'bg-blue-500')
+            ->assertHasClass('@result-2', 'bg-blue-500')
+
+            ->mouseover('@some-element-other-than-the-input')
+            ->assertClassMissing('@result-0', 'bg-blue-500')
+            ->assertClassMissing('@result-1', 'bg-blue-500')
+            ->assertHasClass('@result-2', 'bg-blue-500')
+        ;
+    }
 }
