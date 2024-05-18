@@ -12,12 +12,12 @@ class ScrollIntoViewTest extends TestCase
     {
         Livewire::visit(ScrollIntoViewTestComponent::class)
             ->click('@autocomplete-input')
-            ->isVisibleInContainer('@result-1', '@autocomplete-dropdown')
-            ->isNotVisibleInContainer('@result-12', '@autocomplete-dropdown')
+            ->assertIsVisibleInContainer('@autocomplete-dropdown', '@result-1')
+            ->assertIsNotVisibleInContainer('@autocomplete-dropdown', '@result-12')
             ->keys('@autocomplete-input', '{END}')
             // Need to wait long enough for native scroll animation to happen
             ->pause(400)
-            ->isVisibleInContainer('@result-12', '@autocomplete-dropdown')
-            ->isNotVisibleInContainer('@result-1', '@autocomplete-dropdown');
+            ->assertIsVisibleInContainer('@autocomplete-dropdown', '@result-12')
+            ->assertIsNotVisibleInContainer('@autocomplete-dropdown', '@result-1');
     }
 }

@@ -69,7 +69,7 @@
         </button>
     </div>
 
-    <x-autocomplete-list class="mx-2 mt-1" dusk="autocomplete-dropdown">
+    <x-autocomplete-list class="mx-2 mt-1 max-h-56 overflow-y-auto" dusk="autocomplete-dropdown">
         <div @class('hidden relative w-full py-2 h-10 flex items-center justify-center') wire:loading.flex dusk="autocomplete-loading">
             <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
             <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg"
