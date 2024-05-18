@@ -11,4 +11,16 @@ return [
     'use_global_namespace' => true,
 
     'inline-scripts' => true,
+
+    'legacy_options' => [
+        'id' => 'id',
+        'text' => 'text',
+        'auto-select' => true,
+        'allow-new' => true,
+        'load-once-on-focus' => true,
+        'inline' => false,
+        'inline-styles' => 'relative',
+        'overlay-styles' => 'absolute z-30',
+        'result-focus-styles' => 'bg-blue-500',
+    ],
 ];

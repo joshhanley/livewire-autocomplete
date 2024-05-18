@@ -16,7 +16,7 @@
         'overlay-styles' => 'absolute z-30',
         'result-focus-styles' => 'bg-blue-500',
     ];
-    $options = array_merge($defaultOptions, $options);
+    $options = array_merge($defaultOptions, config('livewire-autocomplete.legacy_options', []), $options);
     $getOption = fn($option) => $options[$option] ?? null;
     $hasResults = fn($results) => is_countable($results) && count($results) > 0;
     $hasInputText = fn($inputText) => $inputText !== null && $inputText != '';
@@ -75,7 +75,12 @@
             @else
                 @if ($hasResults($resultsValue) || $allowNew)
                     @if ($allowNew  && strlen($inputValue) > 0)
-                        <x-autocomplete-new-item :key="0" :value="$inputValue" wire:key='{{ $name }}-add-new' dusk="add-new">
+                        <x-autocomplete-new-item
+                            :key="0"
+                            :value="$inputValue"
+                            wire:key='{{ $name }}-add-new'
+                            :active="$getOption('result-focus-styles')"
+                            dusk="add-new">
                             Add new "{{ $inputValue }}"
                         </x-autocomplete-new-item>
                     @endif
@@ -83,7 +88,12 @@
                     @if ($resultsValue)
                         @foreach ($resultsValue as $key => $result)
                             {{-- @todo: Change these to get from options if available --}}
-                            <x-autocomplete-item :key="$result[$getOption('id')] ?? $key" :value="$result[$getOption('text')] ?? $result" wire:key="{{ $name }}-result-{{ $key }}" dusk="result-{{ $key }}">
+                            <x-autocomplete-item
+                                :key="$result[$getOption('id')] ?? $key"
+                                :value="$result[$getOption('text')] ?? $result"
+                                wire:key="{{ $name }}-result-{{ $key }}"
+                                :active="$getOption('result-focus-styles')"
+                                dusk="result-{{ $key }}">
                                 {{  $result[$getOption('text')] ?? $result }}
                             </x-autocomplete-item>
                         @endforeach

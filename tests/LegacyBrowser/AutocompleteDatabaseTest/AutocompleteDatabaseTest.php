@@ -10,17 +10,23 @@ class AutocompleteDatabaseTest extends TestCase
 {
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
 
+        $databaseFile = __DIR__.'/../../database/database.sqlite';
+
+        if (! file_exists($databaseFile)) {
+            touch($databaseFile);
+        }
+
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
             'driver' => 'sqlite',
-            'database' => __DIR__.'/../../../database/database.sqlite',
+            'database' => $databaseFile,
             'prefix' => '',
         ]);
 
