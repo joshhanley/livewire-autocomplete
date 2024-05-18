@@ -40,7 +40,21 @@
 
 {{-- @todo: Fix this so it supports namespacing --}}
 <x-autocomplete :auto-select="$autoSelect" :wire:model.live="$selectedProperty->value">
-    <x-autocomplete-input :wire:model.live="$inputProperty->value" class="bg-white" x-bind:disabled="id" dusk="autocomplete-input" />
+    @if($loadOnceOnFocus)
+        <x-autocomplete-input
+            :wire:model.live="$inputProperty->value"
+            :wire:focus.once="$focusAction->value"
+            class="bg-white"
+            x-bind:disabled="id"
+            dusk="autocomplete-input" />
+    @else
+        <x-autocomplete-input
+            :wire:model.live="$inputProperty->value"
+            :wire:focus="$focusAction->value"
+            class="bg-white"
+            x-bind:disabled="id"
+            dusk="autocomplete-input" />
+    @endif
 
     {{-- clear-button --}}
     <div x-show="id" class="absolute right-0 inset-y-0 pr-3 flex items-center" x-cloak>

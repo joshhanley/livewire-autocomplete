@@ -79,7 +79,7 @@ class LoadOnFocusComponent extends Component
                         wire:model-text="inputText"
                         wire:model-id="selectedSlug"
                         wire:model-results="results"
-                        wire:focus="calculateResults"
+                        wire:focus.once="calculateResults"
                         :options="[
                             'auto-select' => false,
                             'load-once-on-focus' => $loadOnceOnFocus,
