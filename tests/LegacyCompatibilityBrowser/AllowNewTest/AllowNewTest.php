@@ -11,7 +11,6 @@ class AllowNewTest extends TestCase
     public function add_new_row_is_not_shown_when_there_is_no_input()
     {
         Livewire::visit(AddNewItemComponent::class)
-        ->tinker()
             ->click('@autocomplete-input')
             // Pause to allow transitions to run
             ->pause(100)
