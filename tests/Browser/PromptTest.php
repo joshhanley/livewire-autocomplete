@@ -5,8 +5,9 @@ namespace LivewireAutocomplete\Tests\Browser;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class PromptTest extends BrowserTestCase
+class PromptTest extends TestCase
 {
     public function component()
     {

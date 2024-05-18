@@ -5,8 +5,9 @@ namespace LivewireAutocomplete\Tests\Browser;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class BehaviourTest extends BrowserTestCase
+class BehaviourTest extends TestCase
 {
     public function component()
     {
