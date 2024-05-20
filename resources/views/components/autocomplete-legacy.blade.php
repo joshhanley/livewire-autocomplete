@@ -1,7 +1,7 @@
 @props([
     'name' => 'autocomplete',
     'options' => [],
-    'components' => '',
+    'components' => [],
 ])
 
 @php
@@ -16,8 +16,16 @@
         'overlay-styles' => 'absolute z-30',
         'result-focus-styles' => 'bg-blue-500',
     ];
+
+    $defaultComponents = [
+        'add-new-row' => 'add-new-row',
+        'result-row' => 'result-row',
+    ];
+
     $options = array_merge($defaultOptions, config('livewire-autocomplete.legacy_options', []), $options);
+    $components = array_merge($defaultComponents, config('livewire-autocomplete.legacy_components', []), $components);
     $getOption = fn($option) => $options[$option] ?? null;
+    $getComponent = fn($component) => $components[$component] ?? null;
     $hasResults = fn($results) => is_countable($results) && count($results) > 0;
     $hasInputText = fn($inputText) => $inputText !== null && $inputText != '';
     $shouldShowPlaceholder = fn($results, $inputText) => !$hasResults($results) && !$hasInputText($inputText);
@@ -36,11 +44,14 @@
     $allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
     $loadOnceOnFocus = filter_var($getOption('load-once-on-focus'), FILTER_VALIDATE_BOOLEAN);
     $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
+
+    $addNewRowComponent = $getComponent('add-new-row') !== 'add-new-row' ? $getComponent('add-new-row') : null;
+    $resultRowComponent = $getComponent('result-row') !== 'result-row' ? $getComponent('result-row') : null;
 @endphp
 
 {{-- @todo: Fix this so it supports namespacing --}}
 <x-autocomplete :auto-select="$autoSelect" :wire:model.live="$selectedProperty->value">
-    @if($loadOnceOnFocus)
+    @if ($loadOnceOnFocus)
         <x-autocomplete-input
             :wire:model.live="$inputProperty->value"
             :wire:focus.once="$focusAction->value"
@@ -92,13 +103,18 @@
                 </div>
             @else
                 @if ($hasResults($resultsValue) || $allowNew)
-                    @if ($allowNew  && strlen($inputValue) > 0)
+                    @if ($allowNew && strlen($inputValue) > 0)
                         <x-autocomplete-new-item
                             :value="$inputValue"
                             wire:key='{{ $name }}-add-new'
                             :active="$getOption('result-focus-styles')"
+                            :unstyled="$addNewRowComponent !== null"
                             dusk="add-new">
-                            Add new "{{ $inputValue }}"
+                            @if ($addNewRowComponent)
+                                <x-dynamic-component :component="$addNewRowComponent" :inputText="$inputValue" />
+                            @else
+                                Add new "{{ $inputValue }}"
+                            @endif
                         </x-autocomplete-new-item>
                     @endif
 
@@ -110,8 +126,13 @@
                                 :value="$result[$getOption('text')] ?? $result"
                                 wire:key="{{ $name }}-result-{{ $key }}"
                                 :active="$getOption('result-focus-styles')"
+                                :unstyled="$resultRowComponent !== null"
                                 dusk="result-{{ $key }}">
-                                {{  $result[$getOption('text')] ?? $result }}
+                                @if ($resultRowComponent)
+                                    <x-dynamic-component :component="$resultRowComponent" :result="$result" :textAttribute="$getOption('text')" />
+                                @else
+                                    {{ $result[$getOption('text')] ?? $result }}
+                                @endif
                             </x-autocomplete-item>
                         @endforeach
                     @endif

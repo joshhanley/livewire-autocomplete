@@ -23,4 +23,8 @@ return [
         'overlay-styles' => 'absolute z-30',
         'result-focus-styles' => 'bg-blue-500',
     ],
+
+    'legacy_components' => [
+        'result-row' => 'result-row',
+    ],
 ];
