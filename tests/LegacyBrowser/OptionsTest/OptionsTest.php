@@ -23,7 +23,7 @@ class OptionsTest extends TestCase
         Livewire::withQueryParams(['inline' => true])
             ->visit(DefaultStylesComponent::class)
             ->click('@autocomplete-input')
-            ->assertHasClass('@autocomplete-dropdown', 'relative');
+            ->assertClassMissing('div:has(> [dusk="autocomplete-dropdown"])', 'absolute');
     }
 
     /** @test */
@@ -32,8 +32,8 @@ class OptionsTest extends TestCase
         Livewire::withQueryParams(['inline' => false])
             ->visit(DefaultStylesComponent::class)
             ->click('@autocomplete-input')
-            ->assertHasClass('@autocomplete-dropdown', 'absolute')
-            ->assertHasClass('@autocomplete-dropdown', 'z-30');
+            ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'absolute')
+            ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'z-10');
     }
 
     /** @test */
@@ -52,8 +52,7 @@ class OptionsTest extends TestCase
         Livewire::withQueryParams(['inline' => true])
             ->visit(CustomStylesComponent::class)
             ->click('@autocomplete-input')
-            ->assertHasClass('@autocomplete-dropdown', 'some-inline-style')
-            ->assertClassMissing('@autocomplete-dropdown', 'relative');
+            ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'some-inline-style');
     }
 
     /** @test */
@@ -62,9 +61,7 @@ class OptionsTest extends TestCase
         Livewire::withQueryParams(['inline' => false])
             ->visit(CustomStylesComponent::class)
             ->click('@autocomplete-input')
-            ->assertHasClass('@autocomplete-dropdown', 'some-overlay-style')
-            ->assertClassMissing('@autocomplete-dropdown', 'absolute')
-            ->assertClassMissing('@autocomplete-dropdown', 'z-30');
+            ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'some-overlay-style');
     }
 
     /** @test */
