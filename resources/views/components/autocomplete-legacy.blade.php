@@ -102,7 +102,7 @@
                         @foreach ($resultsValue as $key => $result)
                             {{-- @todo: Change these to get from options if available --}}
                             <x-autocomplete-item
-                                :key="$result[$getOption('id')] ?? $key"
+                                :key="$result[$getOption('id')] ?? $result"
                                 :value="$result[$getOption('text')] ?? $result"
                                 wire:key="{{ $name }}-result-{{ $key }}"
                                 :active="$getOption('result-focus-styles')"

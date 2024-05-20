@@ -379,7 +379,7 @@ class AutocompleteBehaviourTest extends TestCase
             ->assertHasClass('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500')
             // Empty mouseover simulates mouseout by mousing over body
-            ->mouseover('')
+            ->mouseover('@forMouseAway')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500');
