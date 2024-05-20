@@ -90,7 +90,6 @@
                 @if ($hasResults($resultsValue) || $allowNew)
                     @if ($allowNew  && strlen($inputValue) > 0)
                         <x-autocomplete-new-item
-                            :key="0"
                             :value="$inputValue"
                             wire:key='{{ $name }}-add-new'
                             :active="$getOption('result-focus-styles')"
