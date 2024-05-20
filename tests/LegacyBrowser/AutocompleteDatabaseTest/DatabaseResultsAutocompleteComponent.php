@@ -56,7 +56,6 @@ class DatabaseResultsAutocompleteComponent extends Component
                     :options="[
                         'text' => 'name',
                     ]"
-                    result-component="item-row"
                     search-attribute="name"
                     />
 
