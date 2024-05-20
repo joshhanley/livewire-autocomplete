@@ -150,7 +150,7 @@ document.addEventListener('alpine:init', () => {
         focusPrevious() {
             let previousFocusIndex = this.focusedIndex - 1
 
-            if (this.focusableItems[previousFocusIndex]) {
+            if (this.focusableItems[previousFocusIndex] !== undefined) {
                 this.focusedIndex = previousFocusIndex
 
                 return
@@ -162,7 +162,7 @@ document.addEventListener('alpine:init', () => {
         focusNext() {
             let nextFocusIndex = this.focusedIndex === null ? 0 : this.focusedIndex + 1
 
-            if (this.focusableItems[nextFocusIndex]) {
+            if (this.focusableItems[nextFocusIndex] !== undefined) {
                 this.focusedIndex = nextFocusIndex
             }
         },
