@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class DatabaseTest extends BrowserTestCase
+class DatabaseTest extends TestCase
 {
     protected function defineDatabaseMigrations()
     {

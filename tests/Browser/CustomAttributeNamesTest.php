@@ -4,8 +4,9 @@ namespace LivewireAutocomplete\Tests\Browser;
 
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class CustomAttributeNamesTest extends BrowserTestCase
+class CustomAttributeNamesTest extends TestCase
 {
     public function component()
     {
