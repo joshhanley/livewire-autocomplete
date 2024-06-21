@@ -57,10 +57,10 @@ class PromptTest extends TestCase
                                         {{ $result['name'] }}
                                     </x-autocomplete-item>
                                 @empty
-                                    <x-autocomplete-item dusk="empty">No results found</x-autocomplete-item>
+                                    <x-autocomplete-empty dusk="empty" />
                                 @endforelse
                             @else
-                                <x-autocomplete-item dusk="prompt">Start typing to search</x-autocomplete-item>
+                                <x-autocomplete-prompt dusk="prompt" />
                             @endif
                         </x-autocomplete-list>
                     </x-autocomplete>
