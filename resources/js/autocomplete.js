@@ -258,6 +258,10 @@ document.addEventListener('alpine:init', () => {
 
             // if (this.focusedIndexNotFound()) {
             this.resetFocusedIndex()
+            this.$refs['autocomplete-list'].scroll({
+                top: 0,
+                // behavior: 'smooth',
+            })
             // }
         },
 
