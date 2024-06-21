@@ -29,12 +29,12 @@
     x-on:keydown.home.prevent="focusFirst()"
     x-on:keydown.end.prevent="focusLast()"
     x-on:keydown.enter.stop="enter($event)"
-    @class([$containerClass])>
+    @class([$containerClass, 'flex items-center px-3 py-2 gap-x-2 border border-gray-300 rounded has-[input:disabled]:bg-gray-100' => !$unstyled])>
     <input
         type="text"
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full px-3 py-2 border border-gray-300 rounded disabled:bg-gray-100' => !$unstyled]) }} />
+        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full  disabled:bg-gray-100' => !$unstyled]) }} />
     {{ $slot }}
 </div>
