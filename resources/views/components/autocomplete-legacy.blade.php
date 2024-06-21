@@ -47,9 +47,7 @@
 
     $addNewRowComponent = $getComponent('add-new-row') !== 'add-new-row' ? $getComponent('add-new-row') : null;
     $resultRowComponent = $getComponent('result-row') !== 'result-row' ? $getComponent('result-row') : null;
-    $componentNamePrefix = config('livewire-autocomplete.use_global_namespace', false) 
-        ? ''
-        : (config('livewire-autocomplete.namespace', 'lwa') . '::')
+    $componentNamePrefix = config('livewire-autocomplete.use_global_namespace', false) ? '' : (config('livewire-autocomplete.namespace', 'lwa') . '::');
 @endphp
 
 {{-- @todo: Fix this so it supports namespacing --}}
