@@ -50,7 +50,6 @@
     $componentNamePrefix = config('livewire-autocomplete.use_global_namespace', false) ? '' : (config('livewire-autocomplete.namespace', 'lwa') . '::');
 @endphp
 
-{{-- @todo: Fix this so it supports namespacing --}}
 <x-dynamic-component :component="$componentNamePrefix . 'autocomplete'" :auto-select="$autoSelect" :wire:model.live="$selectedProperty->value">
     @if ($loadOnceOnFocus)
         <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
@@ -103,7 +102,6 @@
 
                 @if ($resultsValue)
                     @foreach ($resultsValue as $key => $result)
-                        {{-- @todo: Change these to get from options if available --}}
                         <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-item'"
                             :key="$result[$getOption('id')] ?? $result"
                             :value="$result[$getOption('text')] ?? $result"
