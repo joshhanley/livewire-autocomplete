@@ -76,64 +76,54 @@
         :containerClass="$getOption('inline') ? $getOption('inline-styles') : $getOption('overlay-styles')"
         class="mx-2 mt-1 max-h-56 overflow-y-auto"
         dusk="autocomplete-dropdown">
-        <div @class('hidden relative w-full py-2 h-10 flex items-center justify-center') wire:loading.flex dusk="autocomplete-loading">
-            <div class="absolute inset-0 bg-gray-500 opacity-25"></div>
-            <svg class="animate-spin h-4 w-4 text-cool-gray-700 stroke-current" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-        </div>
+        <x-autocomplete-loading />
 
-        <div wire:loading.remove>
-            @if ($shouldShowPlaceholder($resultsValue, $inputValue))
-                {{-- prompt --}}
-                <div class="px-3 py-2" wire:key="{{ $name }}-prompt">
-                    Start typing to search...
-                </div>
-            @else
-                @if ($hasResults($resultsValue) || $allowNew)
-                    @if ($allowNew && strlen($inputValue) > 0)
-                        <x-autocomplete-new-item
-                            :value="$inputValue"
-                            wire:key='{{ $name }}-add-new'
-                            :active="$getOption('result-focus-styles')"
-                            :unstyled="$addNewRowComponent !== null"
-                            dusk="add-new">
-                            @if ($addNewRowComponent)
-                                <x-dynamic-component :component="$addNewRowComponent" :inputText="$inputValue" />
-                            @else
-                                Add new "{{ $inputValue }}"
-                            @endif
-                        </x-autocomplete-new-item>
-                    @endif
-
-                    @if ($resultsValue)
-                        @foreach ($resultsValue as $key => $result)
-                            {{-- @todo: Change these to get from options if available --}}
-                            <x-autocomplete-item
-                                :key="$result[$getOption('id')] ?? $result"
-                                :value="$result[$getOption('text')] ?? $result"
-                                wire:key="{{ $name }}-result-{{ $key }}"
-                                :active="$getOption('result-focus-styles')"
-                                :unstyled="$resultRowComponent !== null"
-                                dusk="result-{{ $key }}">
-                                @if ($resultRowComponent)
-                                    <x-dynamic-component :component="$resultRowComponent" :result="$result" :textAttribute="$getOption('text')" />
-                                @else
-                                    {{ $result[$getOption('text')] ?? $result }}
-                                @endif
-                            </x-autocomplete-item>
-                        @endforeach
-                    @endif
-                @else
-                    {{-- no-results --}}
-                    <div class="px-3 py-2" wire:key="{{ $name }}-no-results">
-                        No results found
-                    </div>
+        @if ($shouldShowPlaceholder($resultsValue, $inputValue))
+            {{-- prompt --}}
+            <x-autocomplete-prompt wire:key="{{ $name }}-prompt">
+                Start typing to search...
+            </x-autocomplete-prompt>
+        @else
+            @if ($hasResults($resultsValue) || $allowNew)
+                @if ($allowNew && strlen($inputValue) > 0)
+                    <x-autocomplete-new-item
+                        :value="$inputValue"
+                        wire:key='{{ $name }}-add-new'
+                        :active="$getOption('result-focus-styles')"
+                        :unstyled="$addNewRowComponent !== null"
+                        dusk="add-new">
+                        @if ($addNewRowComponent)
+                            <x-dynamic-component :component="$addNewRowComponent" :inputText="$inputValue" />
+                        @else
+                            Add new "{{ $inputValue }}"
+                        @endif
+                    </x-autocomplete-new-item>
                 @endif
+
+                @if ($resultsValue)
+                    @foreach ($resultsValue as $key => $result)
+                        {{-- @todo: Change these to get from options if available --}}
+                        <x-autocomplete-item
+                            :key="$result[$getOption('id')] ?? $result"
+                            :value="$result[$getOption('text')] ?? $result"
+                            wire:key="{{ $name }}-result-{{ $key }}"
+                            :active="$getOption('result-focus-styles')"
+                            :unstyled="$resultRowComponent !== null"
+                            dusk="result-{{ $key }}">
+                            @if ($resultRowComponent)
+                                <x-dynamic-component :component="$resultRowComponent" :result="$result" :textAttribute="$getOption('text')" />
+                            @else
+                                {{ $result[$getOption('text')] ?? $result }}
+                            @endif
+                        </x-autocomplete-item>
+                    @endforeach
+                @endif
+            @else
+                {{-- no-results --}}
+                <x-autocomplete-empty wire:key="{{ $name }}-no-results">
+                    No results found
+                </x-autocomplete-empty>
             @endif
-        </div>
+        @endif
     </x-autocomplete-list>
 </x-autocomplete>
