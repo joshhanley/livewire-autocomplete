@@ -20,6 +20,8 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
+        config()->set('autocomplete.namespace', $this->namespace);
+
         $this->loadRoutesFrom(__DIR__ . '/../routes/livewire-autocomplete.php');
 
         // Publish config

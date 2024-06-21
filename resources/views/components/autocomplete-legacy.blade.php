@@ -47,46 +47,49 @@
 
     $addNewRowComponent = $getComponent('add-new-row') !== 'add-new-row' ? $getComponent('add-new-row') : null;
     $resultRowComponent = $getComponent('result-row') !== 'result-row' ? $getComponent('result-row') : null;
+    $componentNamePrefix = config('livewire-autocomplete.use_global_namespace', false) 
+        ? ''
+        : (config('livewire-autocomplete.namespace', 'lwa') . '::')
 @endphp
 
 {{-- @todo: Fix this so it supports namespacing --}}
-<x-autocomplete :auto-select="$autoSelect" :wire:model.live="$selectedProperty->value">
+<x-dynamic-component :component="$componentNamePrefix . 'autocomplete'" :auto-select="$autoSelect" :wire:model.live="$selectedProperty->value">
     @if ($loadOnceOnFocus)
-        <x-autocomplete-input
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
             :wire:model.live="$inputProperty->value"
             :wire:focus.once="$focusAction->value"
             class="bg-white"
             x-bind:disabled="id"
             dusk="autocomplete-input">
-            <x-autocomplete-clear-button />
-        </x-autocomplete-input>
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" />
+        </x-dynamic-component>
     @else
-        <x-autocomplete-input
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
             :wire:model.live="$inputProperty->value"
             :wire:focus="$focusAction->value"
             class="bg-white"
             x-bind:disabled="id"
             dusk="autocomplete-input">
-            <x-autocomplete-clear-button />
-        </x-autocomplete-input>
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" />
+        </x-dynamic-component>
     @endif
 
-    <x-autocomplete-list
+    <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-list'"
         :inline="$getOption('inline')"
         :containerClass="$getOption('inline') ? $getOption('inline-styles') : $getOption('overlay-styles')"
         class="mx-2 mt-1 max-h-56 overflow-y-auto"
         dusk="autocomplete-dropdown">
-        <x-autocomplete-loading />
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-loading'" />
 
         @if ($shouldShowPlaceholder($resultsValue, $inputValue))
             {{-- prompt --}}
-            <x-autocomplete-prompt wire:key="{{ $name }}-prompt">
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-prompt'" wire:key="{{ $name }}-prompt">
                 Start typing to search...
-            </x-autocomplete-prompt>
+            </x-dynamic-component>
         @else
             @if ($hasResults($resultsValue) || $allowNew)
                 @if ($allowNew && strlen($inputValue) > 0)
-                    <x-autocomplete-new-item
+                    <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-new-item'"
                         :value="$inputValue"
                         wire:key='{{ $name }}-add-new'
                         :active="$getOption('result-focus-styles')"
@@ -97,13 +100,13 @@
                         @else
                             Add new "{{ $inputValue }}"
                         @endif
-                    </x-autocomplete-new-item>
+                    </x-dynamic-component>
                 @endif
 
                 @if ($resultsValue)
                     @foreach ($resultsValue as $key => $result)
                         {{-- @todo: Change these to get from options if available --}}
-                        <x-autocomplete-item
+                        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-item'"
                             :key="$result[$getOption('id')] ?? $result"
                             :value="$result[$getOption('text')] ?? $result"
                             wire:key="{{ $name }}-result-{{ $key }}"
@@ -115,15 +118,15 @@
                             @else
                                 {{ $result[$getOption('text')] ?? $result }}
                             @endif
-                        </x-autocomplete-item>
+                        </x-dynamic-component>
                     @endforeach
                 @endif
             @else
                 {{-- no-results --}}
-                <x-autocomplete-empty wire:key="{{ $name }}-no-results">
+                <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-empty'" wire:key="{{ $name }}-no-results">
                     No results found
-                </x-autocomplete-empty>
+                </x-dynamic-component>
             @endif
         @endif
-    </x-autocomplete-list>
-</x-autocomplete>
+    </x-dynamic-component>
+</x-dynamic-component>
