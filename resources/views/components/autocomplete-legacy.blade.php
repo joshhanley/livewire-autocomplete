@@ -58,7 +58,7 @@
             class="bg-white"
             x-bind:disabled="id"
             dusk="autocomplete-input">
-            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" />
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" dusk="clear" />
         </x-dynamic-component>
     @else
         <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
@@ -67,7 +67,7 @@
             class="bg-white"
             x-bind:disabled="id"
             dusk="autocomplete-input">
-            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" />
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" dusk="clear" />
         </x-dynamic-component>
     @endif
 
