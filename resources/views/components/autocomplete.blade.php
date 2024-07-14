@@ -20,7 +20,7 @@
 </div>
 
 @if (config('livewire-autocomplete.inline-scripts'))
-    @once
+    @assets
         <script src="{{ route('livewire-autocomplete.asset', 'autocomplete.js') }}"></script>
-    @endonce
+    @endassets
 @endif
