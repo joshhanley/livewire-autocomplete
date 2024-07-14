@@ -61,3 +61,8 @@ jobs:
         run: vendor/bin/phpunit --testsuite Browser -c phpunit.xml.dist
         env:
           RUNNING_IN_CI: true
+
+      - name: Run Legacy Browser tests
+        run: vendor/bin/phpunit --testsuite LegacyBrowser -c phpunit.xml.dist
+        env:
+          RUNNING_IN_CI: true
