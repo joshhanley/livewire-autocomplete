@@ -6,7 +6,7 @@
     type="button"
     x-on:click="clear()"
     x-show="hasSelectedItem()"
-    {{ $attributes->class(['border-2 border-gray-300 dark:border-zinc-600 rounded bg-white dark:bg-zinc-900 text-gray-700 dark:text-gray-300 transition-transform ease-in-out duration-100 transform cursor-pointer hover:scale-105 hover:text-black dark:hover:text-white focus:outline-none focus:border-blue-400' => !$unstyled]) }}
+    {{ $attributes->class(['border border-gray-300 dark:border-zinc-600 rounded bg-white dark:bg-zinc-900 text-gray-700 dark:text-gray-300 transition-transform ease-in-out duration-100 transform cursor-pointer hover:scale-105 hover:text-black dark:hover:text-white focus:outline-none focus:ring-0 focus:border-blue-500 dark:focus:border-blue-600' => !$unstyled]) }}
     x-cloak
     >
     @if ($slot->isNotEmpty())
