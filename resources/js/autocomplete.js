@@ -19,17 +19,16 @@ document.addEventListener('alpine:init', () => {
 
             this.$watch('focusedIndex', () => {
                 this.resetFocusedIndexKey()
-                
+
                 this.scrollFocusedIntoView()
             })
 
-            Livewire.hook('commit', ({component, succeed}) => {
-                if (component.id === this.$wire.id) {
-                    succeed(() => {
-                        console.log('here')
-                        this.$nextTick(() => this.itemsChanged())
-                    })
-                }
+            Livewire.hook('commit', ({ component, succeed }) => {
+                if (component.id !== this.$wire.id) return
+
+                succeed(() => {
+                    this.$nextTick(() => this.itemsChanged())
+                })
             })
         },
 
@@ -149,7 +148,6 @@ document.addEventListener('alpine:init', () => {
         },
 
         firstIndex() {
-            console.log('length', this.focusableItems, this.focusableItems?.length)
             return this.focusableItems.length ? 0 : null
         },
 
