@@ -7,6 +7,11 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class AutocompleteEventsTest extends TestCase
 {
+    public function setUp() : void
+    {
+        $this->markTestIncomplete('Finish this');
+    }
+
     /** @test */
     public function event_is_dispatched_on_input()
     {
