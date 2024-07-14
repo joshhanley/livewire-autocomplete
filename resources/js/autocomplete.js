@@ -6,7 +6,7 @@ document.addEventListener('alpine:init', () => {
         value: null,
         valueProperty: null,
         focusedIndex: null,
-        focusedIndexKeyValue: -1,
+        _focusedIndexKey: '__some_unlikely_key',
         items: null,
         root: null,
         shiftTab: false,
@@ -71,15 +71,15 @@ document.addEventListener('alpine:init', () => {
 
         focusedIndexKey() {
             // Memoise the focused index key
-            if (this.focusedIndexKeyValue !== -1) return this.focusedIndexKeyValue
+            if (this._focusedIndexKey !== '__some_unlikely_key') return this._focusedIndexKey
 
-            this.focusedIndexKeyValue = this.focusableItems[this.focusedIndex] ?? null
+            this._focusedIndexKey = this.focusableItems[this.focusedIndex] ?? null
 
-            return this.focusedIndexKeyValue
+            return this._focusedIndexKey
         },
 
         resetFocusedIndexKey() {
-            this.focusedIndexKeyValue = -1
+            this._focusedIndexKey = '__some_unlikely_key'
         },
 
         focusedIndexFound() {
