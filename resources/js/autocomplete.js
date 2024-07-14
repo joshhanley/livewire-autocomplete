@@ -6,6 +6,7 @@ document.addEventListener('alpine:init', () => {
         value: null,
         valueProperty: null,
         focusedIndex: null,
+        _focusedIndexKey: -1,
         items: null,
         root: null,
         shiftTab: false,
@@ -17,6 +18,7 @@ document.addEventListener('alpine:init', () => {
             this.resetFocusedIndex()
 
             this.$watch('focusedIndex', () => this.scrollFocusedIntoView())
+            this.$watch('focusedIndex', () => (this._focusedIndexKey = -1))
 
             this.$nextTick(() => {
                 this.$wire.watch(this.valueProperty, () => {
@@ -64,7 +66,10 @@ document.addEventListener('alpine:init', () => {
         },
 
         focusedIndexKey() {
-            return this.focusableItems[this.focusedIndex] ?? null
+            // Memoise the focused index key
+            if (this._focusedIndexKey !== -1) return this._focusedIndexKey
+
+            return (this._focusedIndexKey = this.focusableItems[this.focusedIndex] ?? null)
         },
 
         focusedIndexFound() {
