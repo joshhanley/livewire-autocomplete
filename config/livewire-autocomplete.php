@@ -12,19 +12,9 @@ return [
 
     'inline-scripts' => true,
 
-    'legacy_options' => [
-        'id' => 'id',
-        'text' => 'text',
-        'auto-select' => true,
-        'allow-new' => true,
-        'load-once-on-focus' => true,
-        'inline' => false,
-        'inline-styles' => 'relative',
-        'overlay-styles' => 'absolute z-30',
-        'result-focus-styles' => 'bg-blue-500',
-    ],
+    // Only to be used for apps that are using the legacy version of the package
+    'legacy_options' => [],
 
-    'legacy_components' => [
-        'result-row' => 'result-row',
-    ],
+    // Only to be used for apps that are using the legacy version of the package
+    'legacy_components' => [],
 ];
