@@ -18,37 +18,15 @@ document.addEventListener('alpine:init', () => {
             this.resetFocusedIndex()
 
             this.$watch('focusedIndex', () => {
-                this.scrollFocusedIntoView()
-
-                console.log('watchFocusedIndex', this.focusedIndex)
                 this.resetFocusedIndexKey()
-                console.log('watchFocusedIndexReset', this.focusedIndexKeyValue)
+                
+                this.scrollFocusedIntoView()
             })
-            // this.$watch('focusedIndex', () => {
-            //     console.log('focusedIndexChanged', this.focusedIndex)
-            //     this.resetFocusedIndexKey()
-            //     console.log('focusedIndexKeyValue', this.focusedIndexKeyValue)
-            // })
-
-            this.$watch('focusedIndexKeyValue', () => {
-                console.log('focusedIndexKeyValueChanged', this.focusedIndexKeyValue)
-            })
-            // this.$watch('focusedIndex', () => console.log('focusedIndexChanged'))
-
-            // this.$nextTick(() => {
-            //     this.$wire.watch(this.valueProperty, () => {
-            //         this.value = this.$wire.get(this.valueProperty)
-            //         this.$nextTick(() => this.itemsChanged())
-            //     })
-            // })
 
             Livewire.hook('commit', ({component, succeed}) => {
-                console.log('commit', component, this.$wire.__instance)
                 if (component.id === this.$wire.id) {
-                    console.log('componentSame')
-
                     succeed(() => {
-                        console.log('succeed')
+                        console.log('here')
                         this.$nextTick(() => this.itemsChanged())
                     })
                 }
@@ -93,26 +71,19 @@ document.addEventListener('alpine:init', () => {
         },
 
         focusedIndexKey() {
-            console.log('focusedIndexKeyMethod', this.focusedIndexKeyValue)
             // Memoise the focused index key
             if (this.focusedIndexKeyValue !== -1) return this.focusedIndexKeyValue
 
-            console.log('calcFocusedIndexKey', this.focusedIndex, this.focusableItems, this.focusableItems[this.focusedIndex] ?? null)
             this.focusedIndexKeyValue = this.focusableItems[this.focusedIndex] ?? null
 
-            console.log(this.focusedIndexKeyValue)
             return this.focusedIndexKeyValue
         },
 
         resetFocusedIndexKey() {
-            console.log('resetFocusedIndexKEY')
             this.focusedIndexKeyValue = -1
         },
 
         focusedIndexFound() {
-            console.log(this.focusedIndexKey())
-            this.resetFocusedIndexKey()
-
             return this.focusedIndexKey() !== null
         },
 
@@ -121,26 +92,16 @@ document.addEventListener('alpine:init', () => {
         },
 
         resetFocusedIndex() {
-            console.log('resetFocusedIndex')
-            // this.resetFocusedIndexKey()
+            this.resetFocusedIndexKey()
             if (this.autoSelect === true) {
-                this.resetFocusedIndexKey()
                 if (this.notHaveFocusedIndex()) {
-                    // this.resetFocusedIndexKey()
-                    console.log('focusfirst')
-                    console.log(this.focusedIndex)
                     this.focusFirst()
-                    console.log(this.focusedIndex)
                 }
 
                 return
             }
 
-            console.log('reset')
-            console.log(this.focusedIndex)
-            this.resetFocusedIndexKey()
             this.focusedIndex = null
-            console.log(this.focusedIndex)
         },
 
         focusedElement() {
@@ -225,7 +186,6 @@ document.addEventListener('alpine:init', () => {
         },
 
         focusFirst() {
-            console.log('focusFirst')
             this.focusedIndex = this.firstIndex()
         },
 
@@ -272,7 +232,6 @@ document.addEventListener('alpine:init', () => {
         },
 
         selectItem() {
-            console.log('selectItem', this.focusedIndexFound(), this.focusedIndexIsNotNewItemRow())
             // If key is set to new, then do not process the key and value
             if (this.focusedIndexFound() && this.focusedIndexIsNotNewItemRow()) {
                 let valueEl = this.focusedElement()
