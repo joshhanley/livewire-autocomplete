@@ -85,7 +85,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         focusedIndexFound() {
-            return this.focusedIndexKey() !== null
+            return this.indexFound(this.focusedIndex)
         },
 
         focusedIndexNotFound() {
@@ -94,8 +94,9 @@ document.addEventListener('alpine:init', () => {
 
         resetFocusedIndex() {
             this.resetFocusedIndexKey()
+
             if (this.autoSelect === true) {
-                if (this.notHaveFocusedIndex()) {
+                if (this.notHaveFocusedIndex() || this.focusedIndexNotFound()) {
                     this.focusFirst()
                 }
 
@@ -281,6 +282,8 @@ document.addEventListener('alpine:init', () => {
 
         itemsChanged() {
             this.clearItems()
+
+            this.focusedIndex = null
 
             // if (this.focusedIndexNotFound()) {
             this.resetFocusedIndex()

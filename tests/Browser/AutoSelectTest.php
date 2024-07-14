@@ -221,6 +221,21 @@ class AutoSelectTest extends TestCase
     }
 
     /** @test */
+    public function on_autoselect_refocus_first_option_if_items_have_changed()
+    {
+        Livewire::visit($this->component())
+            ->click('@input')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->assertClassMissing('@result-0', 'bg-blue-500')
+            ->assertHasClass('@result-1', 'bg-blue-500')
+            ->assertClassMissing('@result-2', 'bg-blue-500')
+            ->waitForLivewire()->type('@input', 'b')
+            ->assertHasClass('@result-0', 'bg-blue-500')
+            ->assertClassMissing('@result-1', 'bg-blue-500')
+        ;
+    }
+
+    /** @test */
     public function on_autoselect_clear_input_on_escape()
     {
         Livewire::visit($this->component())
