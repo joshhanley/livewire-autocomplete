@@ -18,13 +18,25 @@ document.addEventListener('alpine:init', () => {
             this.resetFocusedIndex()
 
             this.$watch('focusedIndex', () => this.scrollFocusedIntoView())
-            this.$watch('focusedIndex', () => (this._focusedIndexKey = -1))
+            this.$watch('focusedIndex', () => this.resetFocusedIndexKey())
 
             this.$nextTick(() => {
                 this.$wire.watch(this.valueProperty, () => {
                     this.value = this.$wire.get(this.valueProperty)
                     this.$nextTick(() => this.itemsChanged())
                 })
+            })
+
+            Livewire.hook('commit', ({component, succeed}) => {
+                console.log('commit', component, this.$wire.__instance)
+                if (component.id === this.$wire.id) {
+                    console.log('componentSame')
+
+                    succeed(() => {
+                        console.log('succeed')
+                        this.itemsChanged()
+                    })
+                }
             })
         },
 
@@ -72,7 +84,13 @@ document.addEventListener('alpine:init', () => {
             return (this._focusedIndexKey = this.focusableItems[this.focusedIndex] ?? null)
         },
 
+        resetFocusedIndexKey() {
+            this._focusedIndexKey = -1
+        },
+
         focusedIndexFound() {
+            this.resetFocusedIndexKey()
+
             return this.focusedIndexKey() !== null
         },
 
@@ -81,6 +99,7 @@ document.addEventListener('alpine:init', () => {
         },
 
         resetFocusedIndex() {
+            this.resetFocusedIndexKey()
             if (this.autoSelect === true) {
                 if (this.notHaveFocusedIndex()) {
                     this.focusFirst()
