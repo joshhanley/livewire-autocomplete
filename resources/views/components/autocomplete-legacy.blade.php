@@ -60,7 +60,6 @@
         <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
             :wire:model.live="$inputProperty->value"
             :wire:focus.once="$focusAction->value"
-            class="bg-white"
             x-bind:disabled="id"
             :attributes="$attributes"
             dusk="autocomplete-input">
@@ -70,7 +69,6 @@
         <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
             :wire:model.live="$inputProperty->value"
             :wire:focus="$focusAction->value"
-            class="bg-white"
             x-bind:disabled="id"
             :attributes="$attributes"
             dusk="autocomplete-input">

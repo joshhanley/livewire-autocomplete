@@ -4,8 +4,8 @@
     'id' => null,
     'value' => null,
     'active' => 'bg-blue-500',
-    'inactive' => 'bg-white',
-    'disabled' => 'bg-gray-50 text-gray-500',
+    'inactive' => 'bg-white dark:bg-zinc-900',
+    'disabled' => 'bg-gray-50 dark:bg-zinc-700 text-gray-500',
     'isDisabled' => false,
     'show',
 ])
@@ -39,7 +39,7 @@
             '{{ $active }}': focusedIndexKey() == @js($key),
         }"
         {{ $attributes->class([
-            'px-3 py-1' => !$unstyled,
+            'px-3 py-1 dark:text-zinc-100' => !$unstyled,
             'cursor-pointer' => !$unstyled && !$isDisabled,
             $disabled => $isDisabled,
             $inactive => !$isDisabled,
