@@ -6,17 +6,13 @@
 <div
     x-data="{
         inputValue: $wire.entangle('{{ $attributes->wire('model')->value }}', @js($attributes->wire('model')->hasModifier('live'))),
-        detachedInput: null,
         wasJustFocused: false,
     }"
     x-init="valueProperty = @js((string) $attributes->wire('model'));
     
-    $nextTick(() => detachedInput = inputValue)
-    
-    $watch('detachedInput', () => {
-        inputValue = detachedInput
-    })"
-    x-modelable="detachedInput"
+    {{-- `inputValue` will be overwritten by `value` once the `x-modelable` directive is applied, so set value first --}}
+    value = inputValue"
+    x-modelable="inputValue"
     x-model="value"
     {{-- Shift tab must go before tab to ensure it fires first and flags can be set to disable tab --}}
     x-on:keydown.shift.tab="shiftTab()"
