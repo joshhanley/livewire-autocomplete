@@ -82,7 +82,7 @@ class PageWithEventsComponent extends Component
                         Alpine Selected: <span dusk="alpine-selected" x-text="selected"></span>
                     </div>
                     <button dusk="alpine-clear" x-on:click="$dispatch('item-clear')">Alpine Clear</button>
-                    <button dusk="alpine-set" x-on:click="$dispatch('item-set', 'bob')">Alpine Clear</button>
+                    <button dusk="alpine-set" x-on:click="$dispatch('item-set', 'bob')">Alpine Set</button>
                 </div>
             </div>
             HTML;

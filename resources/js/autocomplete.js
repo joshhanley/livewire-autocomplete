@@ -5,12 +5,14 @@ document.addEventListener('alpine:init', () => {
         id: config.id,
         value: null,
         valueProperty: null,
+        name: config.name,
         focusedIndex: null,
         _focusedIndexKey: '__some_unlikely_key',
         items: null,
         root: null,
         shiftTab: false,
         autoSelect: config.autoSelect,
+        fireEvents: config.fireEvents,
 
         init() {
             this.root = this.$el
@@ -239,6 +241,12 @@ document.addEventListener('alpine:init', () => {
                 this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
                 this.id = id ? Alpine.evaluate(this.root, id) : this.key
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
+
+                this.$dispatch(this.name + '-selected', this.id)
+            }
+
+            if (this.focusedIndexFound() && this.focusedIndexIsNewItemRow()) {
+                this.$dispatch(this.name + '-add-new', this.value)
             }
 
             if (this.focusedIndexNotFound() && this.autoSelect) {
@@ -259,6 +267,8 @@ document.addEventListener('alpine:init', () => {
         clearSelectedItem() {
             this.key = null
             this.id = null
+
+            this.$dispatch(this.name + '-cleared')
         },
 
         hasNewItem() {
