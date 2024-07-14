@@ -25,14 +25,14 @@
     x-on:keydown.home.prevent="focusFirst()"
     x-on:keydown.end.prevent="focusLast()"
     x-on:keydown.enter.stop="enter($event)"
-    @class([$containerClass, 'flex items-center px-3 py-2 gap-x-2 border border-gray-300 rounded overflow-hidden bg-white focus-within:border-blue-500 has-[input:disabled]:bg-gray-100' => !$unstyled])>
+    @class([$containerClass, 'flex items-center px-3 py-2 gap-x-2 border border-gray-300 dark:border-zinc-600 rounded overflow-hidden bg-white dark:bg-zinc-900 focus-within:border-blue-500 has-[input:disabled]:bg-gray-100 dark:has-[input:disabled]:bg-zinc-700' => !$unstyled])>
     {{ $prefix ?? null }}
     <input
         type="text"
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full focus:outline-none bg-white disabled:bg-gray-100' => !$unstyled]) }} />
+        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full focus:outline-none bg-white dark:bg-zinc-900 text-white dark:text-zinc-100 disabled:bg-zinc-100 dark:disabled:bg-zinc-700' => !$unstyled]) }} />
     {{ $slot }}
 
     {{ $suffix ?? null}}
