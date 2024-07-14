@@ -5,8 +5,9 @@ namespace LivewireAutocomplete\Tests\Browser;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class LoadOnFocusTest extends BrowserTestCase
+class LoadOnFocusTest extends TestCase
 {
     public function component()
     {

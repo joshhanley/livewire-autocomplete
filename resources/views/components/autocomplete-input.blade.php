@@ -6,17 +6,13 @@
 <div
     x-data="{
         inputValue: $wire.entangle('{{ $attributes->wire('model')->value }}', @js($attributes->wire('model')->hasModifier('live'))),
-        detachedInput: null,
         wasJustFocused: false,
     }"
     x-init="valueProperty = @js((string) $attributes->wire('model'));
     
-    $nextTick(() => detachedInput = inputValue)
-    
-    $watch('detachedInput', () => {
-        inputValue = detachedInput
-    })"
-    x-modelable="detachedInput"
+    {{-- `inputValue` will be overwritten by `value` once the `x-modelable` directive is applied, so set value first --}}
+    value = inputValue"
+    x-modelable="inputValue"
     x-model="value"
     {{-- Shift tab must go before tab to ensure it fires first and flags can be set to disable tab --}}
     x-on:keydown.shift.tab="shiftTab()"
@@ -29,12 +25,15 @@
     x-on:keydown.home.prevent="focusFirst()"
     x-on:keydown.end.prevent="focusLast()"
     x-on:keydown.enter.stop="enter($event)"
-    @class([$containerClass])>
+    @class([$containerClass, 'flex items-center px-3 py-2 gap-x-2 border border-gray-300 rounded overflow-hidden bg-white focus-within:border-blue-500 has-[input:disabled]:bg-gray-100' => !$unstyled])>
+    {{ $prefix ?? null }}
     <input
         type="text"
         x-model="inputValue"
         x-on:focus="inputFocus(); wasJustFocused = true"
         x-on:blur="wasJustFocused = false"
-        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full px-3 py-2 border border-gray-300 rounded' => !$unstyled]) }} />
+        {{ $attributes->whereDoesntStartWith(['wire:model'])->class(['w-full focus:outline-none bg-white disabled:bg-gray-100' => !$unstyled]) }} />
     {{ $slot }}
+
+    {{ $suffix ?? null}}
 </div>

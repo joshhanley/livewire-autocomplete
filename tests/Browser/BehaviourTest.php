@@ -5,8 +5,9 @@ namespace LivewireAutocomplete\Tests\Browser;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class BehaviourTest extends BrowserTestCase
+class BehaviourTest extends TestCase
 {
     public function component()
     {
@@ -38,7 +39,7 @@ class BehaviourTest extends BrowserTestCase
             {
                 return <<< 'HTML'
                 <div>
-                    <div dusk="forMouseAway"></div>
+                    <div dusk="forMouseAway">Mouse away</div>
                     <x-autocomplete wire:model.live="selected">
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
@@ -46,6 +47,65 @@ class BehaviourTest extends BrowserTestCase
                             @foreach($this->results as $key => $result)
                                 <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                     {{ $result }}
+                                </x-autocomplete-item>
+                            @endforeach
+                        </x-autocomplete-list>
+                    </x-autocomplete>
+
+                    <div dusk="result-output">{{ $selected }}</div>
+                </div>
+                HTML;
+            }
+        };
+    }
+
+    public function componentWithNumericKeys()
+    {
+        return new class extends Component
+        {
+            public $input;
+            public $selected;
+
+            #[Computed]
+            public function results()
+            {
+                return collect([
+                    [
+                        'id' => 0,
+                        'name' => 'bob',
+                    ],
+                    [
+                        'id' => 1,
+                        'name' => 'john',
+                    ],
+                    [
+                        'id' => 2,
+                        'name' => 'bill',
+                    ],
+                ])
+                    ->filter(function ($result) {
+                        if (! $this->input) {
+                            return true;
+                        }
+
+                        return str_contains($result, $this->input);
+                    })
+                    ->values()
+                    ->toArray();
+            }
+
+            public function render()
+            {
+                return <<< 'HTML'
+                <div>
+                    <div dusk="forMouseAway"></div>
+                    <x-autocomplete wire:model.live="selected">
+                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+
+                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                            @foreach($this->results as $key => $result)
+                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $key }}">
+                                    {{ $result['name'] }}
                                 </x-autocomplete-item>
                             @endforeach
                         </x-autocomplete-list>
@@ -311,7 +371,8 @@ class BehaviourTest extends BrowserTestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->assertVisible('@dropdown')
-            ->clickAtXPath('//body')
+            // Click on a different element that's not the autocomplete
+            ->click('@forMouseAway')
             // Pause to allow transitions to run
             ->pause(100)
             ->assertNotFocused('@input')
@@ -452,6 +513,29 @@ class BehaviourTest extends BrowserTestCase
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->keys('@input', '{ARROW_UP}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
+            ->assertClassMissing('@result-1', 'bg-blue-500')
+            ->assertClassMissing('@result-2', 'bg-blue-500')
+        ;
+    }
+
+    /** @test */
+    public function down_and_up_arrow_focuses_result_with_a_zero_as_the_key()
+    {
+        Livewire::visit($this->componentWithNumericKeys())
+            ->click('@input')
+            ->assertClassMissing('@result-0', 'bg-blue-500')
+            ->assertClassMissing('@result-1', 'bg-blue-500')
+            ->assertClassMissing('@result-2', 'bg-blue-500')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->assertHasClass('@result-0', 'bg-blue-500')
+            ->assertClassMissing('@result-1', 'bg-blue-500')
+            ->assertClassMissing('@result-2', 'bg-blue-500')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->assertClassMissing('@result-0', 'bg-blue-500')
+            ->assertHasClass('@result-1', 'bg-blue-500')
+            ->assertClassMissing('@result-2', 'bg-blue-500')
+            ->keys('@input', '{ARROW_UP}')
+            ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500')
         ;

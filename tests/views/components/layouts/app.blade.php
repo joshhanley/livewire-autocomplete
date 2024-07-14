@@ -17,6 +17,14 @@
         .bg-blue-500 {
             background-color: #3b82f6;
         }
+
+        .max-h-56 {
+            max-height: 4rem; /* 14rem but doesn't work for tests */
+        }
+
+        .overflow-y-auto {
+            overflow-y: auto;
+        }
     </style>
 </head>
 

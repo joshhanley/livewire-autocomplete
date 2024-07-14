@@ -1,13 +1,18 @@
 @props([
     'unstyled' => false,
     'autoSelect' => false,
+    'disableEvents' => false,
+    'name' => 'autocomplete',
 ])
 
 <div
     x-data="autocomplete({
         id: $wire.entangle('{{ $attributes->wire('model')->value }}', @js($attributes->wire('model')->hasModifier('live'))),
         autoSelect: @js($autoSelect),
+        name: @js($name),
+        fireEvents: @js(!$disableEvents),
     })"
+    x-on:{{ $name }}-clear.window="fireEvents && clear()"
     x-on:keydown.escape="escape($event)"
     x-on:click.outside="outside()"
     {{ $attributes->whereDoesntStartWith('wire:model')->class(['' => !$unstyled, 'relative']) }}>

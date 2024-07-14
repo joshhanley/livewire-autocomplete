@@ -5,22 +5,30 @@ document.addEventListener('alpine:init', () => {
         id: config.id,
         value: null,
         valueProperty: null,
-        focusedKey: null,
+        name: config.name,
+        focusedIndex: null,
+        _focusedIndexKey: '__some_unlikely_key',
         items: null,
         root: null,
         shiftTab: false,
         autoSelect: config.autoSelect,
+        fireEvents: config.fireEvents,
 
         init() {
             this.root = this.$el
 
-            this.resetFocusedKey()
+            this.resetFocusedIndex()
 
-            this.$watch('focusedKey', () => this.scrollFocusedIntoView())
+            this.$watch('focusedIndex', () => {
+                this.resetFocusedIndexKey()
 
-            this.$nextTick(() => {
-                this.$wire.watch(this.valueProperty, () => {
-                    this.value = this.$wire.get(this.valueProperty)
+                this.scrollFocusedIntoView()
+            })
+
+            Livewire.hook('commit', ({ component, succeed }) => {
+                if (component.id !== this.$wire.id) return
+
+                succeed(() => {
                     this.$nextTick(() => this.itemsChanged())
                 })
             })
@@ -55,41 +63,53 @@ document.addEventListener('alpine:init', () => {
             this.open = !this.open
         },
 
-        hasFocusedKey() {
-            return this.focusedKey !== null
+        hasFocusedIndex() {
+            return this.focusedIndex !== null
         },
 
-        notHaveFocusedKey() {
-            return !this.hasFocusedKey()
+        notHaveFocusedIndex() {
+            return !this.hasFocusedIndex()
         },
 
-        focusedKeyPosition() {
-            return this.focusableItems.indexOf(this.focusedKey)
+        focusedIndexKey() {
+            // Memoise the focused index key
+            if (this._focusedIndexKey !== '__some_unlikely_key') return this._focusedIndexKey
+
+            this._focusedIndexKey = this.focusableItems[this.focusedIndex] ?? null
+
+            return this._focusedIndexKey
         },
 
-        focusedKeyFound() {
-            return this.focusedKeyPosition() >= 0
+        resetFocusedIndexKey() {
+            this._focusedIndexKey = '__some_unlikely_key'
         },
 
-        focusedKeyNotFound() {
-            return !this.focusedKeyFound()
+        focusedIndexFound() {
+            return this.focusedIndexKey() !== null
         },
 
-        resetFocusedKey() {
+        focusedIndexNotFound() {
+            return !this.focusedIndexFound()
+        },
+
+        resetFocusedIndex() {
+            this.resetFocusedIndexKey()
             if (this.autoSelect === true) {
-                if (this.notHaveFocusedKey()) {
+                if (this.notHaveFocusedIndex()) {
                     this.focusFirst()
                 }
 
                 return
             }
 
-            this.focusedKey = null
+            this.focusedIndex = null
         },
 
         focusedElement() {
+            let focusedKey = this.focusedIndexKey()
+
             // This adds support for int keys and string keys
-            let focusedKey = typeof this.focusedKey === 'string' ? "'" + this.focusedKey + "'" : this.focusedKey
+            focusedKey = typeof focusedKey === 'string' ? "'" + focusedKey + "'" : focusedKey
 
             return this.root.querySelector(`[wire\\:autocomplete-key="${focusedKey}"]`)
         },
@@ -105,68 +125,72 @@ document.addEventListener('alpine:init', () => {
             })
         },
 
-        focusedKeyIsNewItemRow() {
-            return this.focusedKey === '_x_autocomplete_new'
+        focusedIndexIsNewItemRow() {
+            return this.focusedIndexKey() === '_x_autocomplete_new'
         },
 
-        focusedKeyIsNotNewItemRow() {
-            return !this.focusedKeyIsNewItemRow()
+        focusedIndexIsNotNewItemRow() {
+            return !this.focusedIndexIsNewItemRow()
         },
 
-        keyPosition(key) {
-            return this.focusableItems.indexOf(key)
+        indexKey(index) {
+            return this.focusableItems[index] ?? null
         },
 
         keyFound(key) {
-            return this.keyPosition(key) >= 0
+            return this.focusableItems.includes(key)
         },
 
-        keyNotFound(key) {
-            return !this.keyFound()
+        indexFound(index) {
+            return this.indexKey(index) !== null
         },
 
-        firstKey() {
-            return this.focusableItems[0] ?? null
+        indexNotFound(index) {
+            return !this.indexFound()
         },
 
-        lastKey() {
-            return this.focusableItems[this.focusableItems.length - 1] ?? null
+        firstIndex() {
+            return this.focusableItems.length ? 0 : null
+        },
+
+        lastIndex() {
+            return this.focusableItems.length ? this.focusableItems.length - 1 : null
         },
 
         focusKey(key) {
-            if (this.keyFound(key)) this.focusedKey = key
+            if (this.keyFound(key)) this.focusedIndex = this.focusableItems.indexOf(key)
+        },
+
+        focusIndex(index) {
+            if (this.focusableItems.length - 1 >= index) this.focusedIndex = index
         },
 
         focusPrevious() {
-            let foundPosition = this.focusedKeyPosition()
+            let previousFocusIndex = this.focusedIndex - 1
 
-            let previousFocusPosition = foundPosition - 1
-
-            if (this.focusableItems[previousFocusPosition]) {
-                this.focusedKey = this.focusableItems[previousFocusPosition]
+            if (this.focusableItems[previousFocusIndex] !== undefined) {
+                this.focusedIndex = previousFocusIndex
 
                 return
             }
 
-            this.resetFocusedKey()
+            this.resetFocusedIndex()
         },
 
         focusNext() {
-            let foundPosition = this.focusedKeyPosition()
+            let nextFocusIndex = this.focusedIndex === null ? 0 : this.focusedIndex + 1
 
-            let nextFocusPosition = foundPosition + 1
-
-            if (this.focusableItems[nextFocusPosition]) {
-                this.focusedKey = this.focusableItems[nextFocusPosition]
+            if (this.focusableItems[nextFocusIndex] !== undefined) {
+                this.focusedIndex = nextFocusIndex
             }
         },
 
         focusFirst() {
-            this.focusedKey = this.firstKey()
+            this.focusedIndex = this.firstIndex()
         },
 
         focusLast() {
-            this.focusedKey = this.lastKey()
+            this.focusedIndex = this.lastIndex()
         },
 
         outside() {
@@ -209,7 +233,7 @@ document.addEventListener('alpine:init', () => {
 
         selectItem() {
             // If key is set to new, then do not process the key and value
-            if (this.focusedKeyFound() && this.focusedKeyIsNotNewItemRow()) {
+            if (this.focusedIndexFound() && this.focusedIndexIsNotNewItemRow()) {
                 let valueEl = this.focusedElement()
 
                 let id = valueEl.getAttribute('wire:autocomplete-id')
@@ -217,9 +241,15 @@ document.addEventListener('alpine:init', () => {
                 this.key = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-key'))
                 this.id = id ? Alpine.evaluate(this.root, id) : this.key
                 this.value = Alpine.evaluate(this.root, valueEl.getAttribute('wire:autocomplete-value'))
+
+                this.$dispatch(this.name + '-selected', this.id)
             }
 
-            if (this.focusedKeyNotFound() && this.autoSelect) {
+            if (this.focusedIndexFound() && this.focusedIndexIsNewItemRow()) {
+                this.$dispatch(this.name + '-add-new', this.value)
+            }
+
+            if (this.focusedIndexNotFound() && this.autoSelect) {
                 this.clear()
             }
 
@@ -237,10 +267,12 @@ document.addEventListener('alpine:init', () => {
         clearSelectedItem() {
             this.key = null
             this.id = null
+
+            this.$dispatch(this.name + '-cleared')
         },
 
         hasNewItem() {
-            return !!this.items?.find((item) => item == '_x_autocomplete_new')
+            return !!this.focusableItems?.find((item) => item == '_x_autocomplete_new')
         },
 
         notHaveNewItem() {
@@ -250,8 +282,12 @@ document.addEventListener('alpine:init', () => {
         itemsChanged() {
             this.clearItems()
 
-            // if (this.focusedKeyNotFound()) {
-            this.resetFocusedKey()
+            // if (this.focusedIndexNotFound()) {
+            this.resetFocusedIndex()
+            this.$refs['autocomplete-list'].scroll({
+                top: 0,
+                // behavior: 'smooth',
+            })
             // }
         },
 

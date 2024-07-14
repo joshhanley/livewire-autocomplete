@@ -5,8 +5,9 @@ namespace LivewireAutocomplete\Tests\Browser;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\Livewire;
+use LivewireAutocomplete\Tests\TestCase;
 
-class ScrollIntoViewTest extends BrowserTestCase
+class ScrollIntoViewTest extends TestCase
 {
     public function component()
     {
@@ -37,7 +38,7 @@ class ScrollIntoViewTest extends BrowserTestCase
                             return true;
                         }
 
-                        return str_contains($result['name'], $this->input);
+                        return str_contains($result, $this->input);
                     })
                     ->values()
                     ->toArray();
@@ -72,13 +73,31 @@ class ScrollIntoViewTest extends BrowserTestCase
     {
         Livewire::visit($this->component())
             ->click('@input')
-            ->isVisibleInContainer('@result-1', '@dropdown')
-            ->isNotVisibleInContainer('@result-12', '@dropdown')
+            ->assertIsVisibleInContainer('@dropdown', '@result-1')
+            ->assertIsNotVisibleInContainer('@dropdown', '@result-12')
             ->keys('@input', '{END}')
             // Need to wait long enough for native scroll animation to happen
             ->pause(400)
-            ->isVisibleInContainer('@result-12', '@dropdown')
-            ->isNotVisibleInContainer('@result-1', '@dropdown')
-        ;
+            ->assertIsVisibleInContainer('@dropdown', '@result-12')
+            ->assertIsNotVisibleInContainer('@dropdown', '@result-1');
+    }
+
+    /** @test */
+    public function it_scrolls_to_top_if_options_have_changed()
+    {
+        Livewire::visit($this->component())
+            ->click('@input')
+            ->assertIsVisibleInContainer('@dropdown', '@result-1')
+            ->assertIsNotVisibleInContainer('@dropdown', '@result-12')
+            ->keys('@input', '{END}')
+            // Need to wait long enough for native scroll animation to happen
+            ->pause(400)
+            ->assertIsVisibleInContainer('@dropdown', '@result-12')
+            ->assertIsNotVisibleInContainer('@dropdown', '@result-1')
+            ->keys('@input', 's')
+            // Need to wait long enough for native scroll animation to happen
+            ->pause(400)
+            ->assertIsVisibleInContainer('@dropdown', '@result-1')
+            ->assertIsNotVisibleInContainer('@dropdown', '@result-12');
     }
 }
