@@ -308,4 +308,22 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@input-output', 'j')
         ;
     }
+
+    /** @test */
+    public function when_add_new_row_is_selected_pressing_enter_blurs_the_input()
+    {
+        Livewire::visit($this->component())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->waitForLivewire()->type('@input', 'j')
+            ->keys('@input', '{ARROW_DOWN}')
+            ->keys('@input', '{ENTER}')
+            // Pause to allow Livewire to run if it was going to
+            ->pause(100)
+            ->assertSeeNothingIn('@selected-output')
+            ->assertSeeIn('@input-output', 'j')
+            ->assertNotFocused('@input')
+        ;
+    }
 }

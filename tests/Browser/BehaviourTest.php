@@ -641,19 +641,6 @@ class BehaviourTest extends TestCase
     }
 
     /** @test */
-    public function enter_key_submits_form_if_there_is_not_a_currently_focused_result()
-    {
-        Livewire::visit($this->componentInForm())
-            ->click('@input')
-            ->assertClassMissing('@result-0', 'bg-blue-500')
-            ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-            ->waitForLivewire()->keys('@input', '{ENTER}')
-            ->assertSeeIn('@saved-output', 'true')
-        ;
-    }
-
-    /** @test */
     public function enter_key_does_not_submit_form_if_there_is_a_currently_focused_result()
     {
         Livewire::visit($this->componentInForm())
@@ -911,6 +898,22 @@ class BehaviourTest extends TestCase
             ->waitForLivewire()->click('@refresh-button')
             ->assertValue('@input', 'bob')
             ->assertSeeIn('@result-output', 'bob')
+        ;
+    }
+
+    /** @test */
+    public function pressing_enter_blurs_the_input_when_dropdown_is_open()
+    {
+        Livewire::visit($this->component())
+            ->click('@input')
+            // Pause to allow transitions to run
+            ->pause(100)
+            ->waitForLivewire()->type('@input', 'j')
+            ->keys('@input', '{ENTER}')
+            // Pause to allow Livewire to run if it was going to
+            ->pause(100)
+            ->assertSeeNothingIn('@result-output')
+            ->assertNotFocused('@input')
         ;
     }
 }

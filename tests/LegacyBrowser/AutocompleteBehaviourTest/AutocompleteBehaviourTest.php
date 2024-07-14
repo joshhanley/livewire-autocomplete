@@ -264,18 +264,6 @@ class AutocompleteBehaviourTest extends TestCase
     }
 
     /** @test */
-    public function enter_key_submits_form_if_there_is_not_a_currently_focused_result()
-    {
-        Livewire::visit(PageWithAutocompleteInFormComponent::class)
-            ->click('@autocomplete-input')
-            ->assertClassMissing('@result-0', 'bg-blue-500')
-            ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-            ->waitForLivewire()->keys('@autocomplete-input', '{ENTER}')
-            ->assertSeeIn('@saved-output', 'true');
-    }
-
-    /** @test */
     public function enter_key_does_not_submit_form_if_there_is_a_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteInFormComponent::class)

@@ -227,9 +227,9 @@ document.addEventListener('alpine:init', () => {
 
             if (this.hasSelectedItem()) {
                 $event.preventDefault()
-
-                $event.target.blur()
             }
+
+            $event.target.blur()
         },
 
         selectItem() {
