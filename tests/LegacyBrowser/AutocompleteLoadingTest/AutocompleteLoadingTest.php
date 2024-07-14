@@ -13,10 +13,10 @@ class AutocompleteLoadingTest extends TestCase
         Livewire::visit(AutocompleteWithLoadingComponent::class)
             ->assertMissing('@autocomplete-dropdown')
             ->click('@autocomplete-input')
-            ->assertMissing('@autocomplete-loading')
+            ->assertMissing('@loading')
             ->type('@autocomplete-input', 'b')
                 // Wait for loading indicator to show up
             ->pause(700)
-            ->assertVisible('@autocomplete-loading');
+            ->assertVisible('@loading');
     }
 }

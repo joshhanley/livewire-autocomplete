@@ -76,7 +76,7 @@
         :containerClass="$getOption('inline') ? $getOption('inline-styles') : $getOption('overlay-styles')"
         class="mx-2 mt-1 max-h-56 overflow-y-auto"
         dusk="autocomplete-dropdown">
-        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-loading'" />
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-loading'" dusk="loading" />
 
         @if ($shouldShowPlaceholder($resultsValue, $inputValue))
             {{-- prompt --}}
