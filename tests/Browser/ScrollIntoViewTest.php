@@ -38,7 +38,7 @@ class ScrollIntoViewTest extends TestCase
                             return true;
                         }
 
-                        return str_contains($result['name'], $this->input);
+                        return str_contains($result, $this->input);
                     })
                     ->values()
                     ->toArray();

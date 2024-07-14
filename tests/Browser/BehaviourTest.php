@@ -39,7 +39,7 @@ class BehaviourTest extends TestCase
             {
                 return <<< 'HTML'
                 <div>
-                    <div dusk="forMouseAway"></div>
+                    <div dusk="forMouseAway">Mouse away</div>
                     <x-autocomplete wire:model.live="selected">
                         <x-autocomplete-input wire:model.live="input" dusk="input" />
 
@@ -371,7 +371,8 @@ class BehaviourTest extends TestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->assertVisible('@dropdown')
-            ->clickAtXPath('//body')
+            // Click on a different element that's not the autocomplete
+            ->click('@forMouseAway')
             // Pause to allow transitions to run
             ->pause(100)
             ->assertNotFocused('@input')
