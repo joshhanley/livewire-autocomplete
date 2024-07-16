@@ -13,6 +13,7 @@ document.addEventListener('alpine:init', () => {
         shiftTab: false,
         autoSelect: config.autoSelect,
         fireEvents: config.fireEvents,
+        hookDestroy: null,
 
         init() {
             this.root = this.$el
@@ -25,13 +26,23 @@ document.addEventListener('alpine:init', () => {
                 this.scrollFocusedIntoView()
             })
 
-            Livewire.hook('commit', ({ component, succeed }) => {
+            this.hookDestroy = Livewire.hook('commit', ({ component, succeed }) => {
                 if (component.id !== this.$wire.id) return
 
                 succeed(() => {
-                    this.$nextTick(() => this.itemsChanged())
+                    this.$nextTick(() => {
+                        if (this.hookDestroy === null) return
+
+                        this.itemsChanged()
+                    })
                 })
             })
+        },
+
+        destroy() {
+            this.hookDestroy()
+
+            this.hookDestroy = null
         },
 
         clear() {
