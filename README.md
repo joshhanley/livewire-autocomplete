@@ -26,6 +26,23 @@ To install the package run
 composer require joshhanley/livewire-autocomplete
 ```
 
+Once the composer install finishes, the next step is to configure Tailwind to look for the autocomplete components, so all the styles are generated correctly.
+
+In your `tailwind.config.js` file, add the path to the autocomplete view directory to the end of the `content` array:
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        ...
+        './vendor/joshhanley/livewire-autocomplete/resources/views/**/*.blade.php',
+    ],
+    ...
+}
+```
+
+And that's it, we have everything we need.
+
 <!-- Then include the scripts by putting this tag inside your app layout after `<livewire:scripts />` or you can push it to your scripts stack.
 
 ```html
