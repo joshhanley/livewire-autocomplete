@@ -5,7 +5,7 @@ namespace LivewireAutocomplete;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ServiceProvider extends BaseServiceProvider
+class LivewireAutocompleteServiceProvider extends BaseServiceProvider
 {
     public $name = 'livewire-autocomplete';
     public $namespace = 'lwa';
