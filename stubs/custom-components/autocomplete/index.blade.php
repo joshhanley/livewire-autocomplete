@@ -1,0 +1,1 @@
+<x-lwa::autocomplete :attributes="$attributes->class('')" unstyled />
