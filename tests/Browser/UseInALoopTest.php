@@ -66,14 +66,14 @@ class UseInALoopTest extends TestCase
                         @foreach ($this->selectedNames as $index => $selectedName)
                             <div>
                                 <x-autocomplete wire:model.live="selectedNames.{{ $index }}.selected" dusk="autocomplete-{{ $index }}">
-                                    <x-autocomplete-input wire:model.live="selectedNames.{{ $index }}.search" dusk="input-{{ $index }}" />
-                                    <x-autocomplete-list dusk="dropdown-{{ $index }}" x-cloak>
+                                    <x-autocomplete.input wire:model.live="selectedNames.{{ $index }}.search" dusk="input-{{ $index }}" />
+                                    <x-autocomplete.list dusk="dropdown-{{ $index }}" x-cloak>
                                         @foreach($this->results($index) as $key => $result)
-                                            <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $index }}-{{ $key }}">
+                                            <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $index }}-{{ $key }}">
                                                 {{ $result }}
-                                            </x-autocomplete-item>
+                                            </x-autocomplete.item>
                                         @endforeach
-                                    </x-autocomplete-list>
+                                    </x-autocomplete.list>
                                 </x-autocomplete>
 
                                 <button type="button" wire:click="removeRow({{ $index }})" dusk="remove-row-{{ $index }}">Remove</button>

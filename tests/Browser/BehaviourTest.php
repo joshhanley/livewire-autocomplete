@@ -14,6 +14,7 @@ class BehaviourTest extends TestCase
         return new class extends Component
         {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -41,15 +42,15 @@ class BehaviourTest extends TestCase
                 <div>
                     <div dusk="forMouseAway">Mouse away</div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @foreach($this->results as $key => $result)
-                                <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                     {{ $result }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>
@@ -64,6 +65,7 @@ class BehaviourTest extends TestCase
         return new class extends Component
         {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -100,15 +102,15 @@ class BehaviourTest extends TestCase
                 <div>
                     <div dusk="forMouseAway"></div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @foreach($this->results as $key => $result)
-                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $key }}">
+                                <x-autocomplete.item :key="$result['id']" :value="$result['name']" dusk="result-{{ $key }}">
                                     {{ $result['name'] }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>
@@ -123,6 +125,7 @@ class BehaviourTest extends TestCase
         return new class extends Component
         {
             public $input;
+
             public $selected;
 
             public $saved = false;
@@ -157,15 +160,15 @@ class BehaviourTest extends TestCase
                 <div>
                     <form wire:submit="save">
                         <x-autocomplete wire:model.live="selected">
-                            <x-autocomplete-input wire:model.live="input" dusk="input" />
+                            <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                            <x-autocomplete-list dusk="dropdown" x-cloak>
+                            <x-autocomplete.list dusk="dropdown" x-cloak>
                                 @foreach($this->results as $key => $result)
-                                    <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                    <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                         {{ $result }}
-                                    </x-autocomplete-item>
+                                    </x-autocomplete.item>
                                 @endforeach
-                            </x-autocomplete-list>
+                            </x-autocomplete.list>
                         </x-autocomplete>
                     </form>
 
@@ -182,6 +185,7 @@ class BehaviourTest extends TestCase
         return new class extends Component
         {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -213,15 +217,15 @@ class BehaviourTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @foreach($this->results as $key => $result)
-                                <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                     {{ $result }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>
@@ -236,6 +240,7 @@ class BehaviourTest extends TestCase
         return new class extends Component
         {
             public $input = 'bob';
+
             public $selected = 0;
 
             #[Computed]
@@ -268,15 +273,15 @@ class BehaviourTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @foreach($this->results as $key => $result)
-                                <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                     {{ $result }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>
@@ -293,6 +298,7 @@ class BehaviourTest extends TestCase
         return new class extends Component
         {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -320,18 +326,18 @@ class BehaviourTest extends TestCase
                 <div>
                     <div dusk="forMouseAway"></div>
                     <x-autocomplete wire:model="selected">
-                        <x-autocomplete-input wire:model="input" dusk="input" />
+                        <x-autocomplete.input wire:model="input" dusk="input" />
 
                         {{-- Don't actually need a search method here, so just calling `$refresh` --}}
                         <button type="button" wire:click="$refresh" dusk="search-button">Search</button>
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @foreach($this->results as $key => $result)
-                                <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                     {{ $result }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>
@@ -347,8 +353,7 @@ class BehaviourTest extends TestCase
     public function an_input_is_shown_on_screen()
     {
         Livewire::visit($this->component())
-            ->assertPresent('@input')
-        ;
+            ->assertPresent('@input');
     }
 
     /** @test */
@@ -359,8 +364,7 @@ class BehaviourTest extends TestCase
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
-            ->assertVisible('@dropdown')
-        ;
+            ->assertVisible('@dropdown');
     }
 
     /** @test */
@@ -376,8 +380,7 @@ class BehaviourTest extends TestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->assertNotFocused('@input')
-            ->assertMissing('@dropdown')
-        ;
+            ->assertMissing('@dropdown');
     }
 
     /** @test */
@@ -392,8 +395,7 @@ class BehaviourTest extends TestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->assertNotFocused('@input')
-            ->assertMissing('@dropdown')
-        ;
+            ->assertMissing('@dropdown');
     }
 
     /** @test */
@@ -406,8 +408,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@dropdown', 'bob')
             ->assertSeeIn('@dropdown', 'john')
             ->assertSeeIn('@dropdown', 'bill')
-            ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill'])
-        ;
+            ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill']);
     }
 
     /** @test */
@@ -420,8 +421,7 @@ class BehaviourTest extends TestCase
             ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill'])
             ->waitForLivewire()->type('@input', 'b')
             ->assertSeeInOrder('@dropdown', ['bob', 'bill'])
-            ->assertDontSeeIn('@dropdown', 'john')
-        ;
+            ->assertDontSeeIn('@dropdown', 'john');
     }
 
     /** @test */
@@ -435,8 +435,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -448,8 +447,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertHasClass('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -466,8 +464,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertHasClass('@result-2', 'bg-blue-500')
-        ;
+            ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -482,8 +479,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_UP}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -499,8 +495,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_UP}')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -514,8 +509,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_UP}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -537,8 +531,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{ARROW_UP}')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -564,8 +557,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{HOME}')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -591,8 +583,7 @@ class BehaviourTest extends TestCase
             ->keys('@input', '{END}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertHasClass('@result-2', 'bg-blue-500')
-        ;
+            ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -607,8 +598,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->waitForLivewire()->type('@input', 'b')
             ->assertClassMissing('@result-0', 'bg-blue-500')
-            ->assertClassMissing('@result-1', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-1', 'bg-blue-500');
     }
 
     /** @test */
@@ -622,8 +612,7 @@ class BehaviourTest extends TestCase
             ->assertHasClass('@result-1', 'bg-blue-500')
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->waitForLivewire()->keys('@input', '{ENTER}')
-            ->assertSeeIn('@result-output', 'john')
-        ;
+            ->assertSeeIn('@result-output', 'john');
     }
 
     /** @test */
@@ -636,8 +625,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->keys('@input', '{ENTER}')
             ->pause(300)
-            ->assertSeeNothingIn('@result-output')
-        ;
+            ->assertSeeNothingIn('@result-output');
     }
 
     /** @test */
@@ -650,8 +638,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->keys('@input', '{ARROW_DOWN}')
             ->waitForLivewire()->keys('@input', '{ENTER}')
-            ->assertSeeIn('@saved-output', 'false')
-        ;
+            ->assertSeeIn('@saved-output', 'false');
     }
 
     /** @test */
@@ -669,8 +656,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'bob')
             ->assertMissing('@dropdown')
             ->click('@input')
-            ->assertClassMissing('@result-0', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-0', 'bg-blue-500');
     }
 
     /** @test */
@@ -683,8 +669,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertHasClass('@result-2', 'bg-blue-500')
             ->waitForLivewire()->keys('@input', '{TAB}')
-            ->assertSeeIn('@result-output', 'bill')
-        ;
+            ->assertSeeIn('@result-output', 'bill');
     }
 
     /** @test */
@@ -697,8 +682,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-1', 'bg-blue-500')
             ->assertHasClass('@result-2', 'bg-blue-500')
             ->waitForLivewire()->keys('@input', '{TAB}')
-            ->assertSeeIn('@result-output', 'bill')
-        ;
+            ->assertSeeIn('@result-output', 'bill');
     }
 
     /** @test */
@@ -712,8 +696,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->keys('@input', '{SHIFT}', '{TAB}')
             ->pause(300)
-            ->assertDontSeeIn('@result-output', 'bob')
-        ;
+            ->assertDontSeeIn('@result-output', 'bob');
     }
 
     /** @test */
@@ -734,8 +717,7 @@ class BehaviourTest extends TestCase
             ->mouseover('@result-0')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -753,8 +735,7 @@ class BehaviourTest extends TestCase
             ->mouseover('@forMouseAway')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -763,8 +744,7 @@ class BehaviourTest extends TestCase
         Livewire::visit($this->component())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
-            ->assertSeeIn('@result-output', 'john')
-        ;
+            ->assertSeeIn('@result-output', 'john');
     }
 
     /** @test */
@@ -773,8 +753,7 @@ class BehaviourTest extends TestCase
         Livewire::visit($this->component())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
-            ->assertValue('@input', 'john')
-        ;
+            ->assertValue('@input', 'john');
     }
 
     /** @test */
@@ -793,8 +772,7 @@ class BehaviourTest extends TestCase
             ->waitForLivewire()->keys('@input', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}', '{BACKSPACE}')
             ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill'])
             ->waitForLivewire()->click('@result-2')
-            ->assertSeeIn('@result-output', 'bill')
-        ;
+            ->assertSeeIn('@result-output', 'bill');
     }
 
     /** @test */
@@ -807,8 +785,7 @@ class BehaviourTest extends TestCase
             // Pause to allow transitions to run
             ->pause(100)
             ->waitForLivewire()->keys('@input', '{SHIFT}', 'b')
-            ->assertValue('@input', 'B')
-        ;
+            ->assertValue('@input', 'B');
     }
 
     /** @test */
@@ -840,8 +817,7 @@ class BehaviourTest extends TestCase
             ->pause(300)
 
             // Assert final text value is still "bob"
-            ->assertValue('@input', 'bob')
-        ;
+            ->assertValue('@input', 'bob');
     }
 
     /** @test */
@@ -853,8 +829,7 @@ class BehaviourTest extends TestCase
             ->pause(100)
 
             ->assertValue('@input', 'bob')
-            ->assertSeeIn('@result-output', 0)
-        ;
+            ->assertSeeIn('@result-output', 0);
     }
 
     /** @test */
@@ -869,8 +844,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 0)
             ->waitForLivewire()->click('@change-selected')
             ->assertValue('@input', 'john')
-            ->assertSeeIn('@result-output', 1)
-        ;
+            ->assertSeeIn('@result-output', 1);
     }
 
     /** @test */
@@ -897,8 +871,7 @@ class BehaviourTest extends TestCase
 
             ->waitForLivewire()->click('@refresh-button')
             ->assertValue('@input', 'bob')
-            ->assertSeeIn('@result-output', 'bob')
-        ;
+            ->assertSeeIn('@result-output', 'bob');
     }
 
     /** @test */
@@ -913,7 +886,6 @@ class BehaviourTest extends TestCase
             // Pause to allow Livewire to run if it was going to
             ->pause(100)
             ->assertSeeNothingIn('@result-output')
-            ->assertNotFocused('@input')
-        ;
+            ->assertNotFocused('@input');
     }
 }

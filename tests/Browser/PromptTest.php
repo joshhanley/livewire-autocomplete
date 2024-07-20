@@ -11,8 +11,10 @@ class PromptTest extends TestCase
 {
     public function component()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -48,21 +50,21 @@ class PromptTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @if ($input)
                                 @forelse($this->results as $index => $result)
-                                    <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
+                                    <x-autocomplete.item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
                                         {{ $result['name'] }}
-                                    </x-autocomplete-item>
+                                    </x-autocomplete.item>
                                 @empty
-                                    <x-autocomplete-empty dusk="empty" />
+                                    <x-autocomplete.empty dusk="empty" />
                                 @endforelse
                             @else
-                                <x-autocomplete-prompt dusk="prompt" />
+                                <x-autocomplete.prompt dusk="prompt" />
                             @endif
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
@@ -82,8 +84,7 @@ class PromptTest extends TestCase
             ->pause(101)
             ->assertVisible('@dropdown')
             ->assertVisible('@prompt')
-            ->assertSeeIn('@prompt', 'Start typing to search')
-        ;
+            ->assertSeeIn('@prompt', 'Start typing to search');
     }
 
     /** @test */
@@ -95,7 +96,6 @@ class PromptTest extends TestCase
             ->pause(101)
             ->assertVisible('@dropdown')
             ->waitForLivewire()->type('@input', 'a')
-            ->assertSeeIn('@dropdown', 'No results found')
-        ;
+            ->assertSeeIn('@dropdown', 'No results found');
     }
 }

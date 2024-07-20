@@ -62,8 +62,7 @@ class DatabaseTest extends TestCase
                     ->when($this->itemName, function ($query, $itemName) {
                         return $query->where('name', 'LIKE', "%{$itemName}%");
                     })
-                    ->get()
-                ;
+                    ->get();
             }
 
             public function updatedItemName()
@@ -83,18 +82,18 @@ class DatabaseTest extends TestCase
                 return <<<'HTML'
                     <div dusk="page">
                         <x-autocomplete wire:model.live="selectedItem">
-                            <x-autocomplete-input wire:model.live="itemName" dusk="input" :disabled="(bool) $selectedItem" />
+                            <x-autocomplete.input wire:model.live="itemName" dusk="input" :disabled="(bool) $selectedItem" />
                             @if ($selectedItem)
                                 <button type="button" x-on:click="clear" dusk="clear">Clear</button>
                             @endif
 
-                            <x-autocomplete-list dusk="dropdown">
+                            <x-autocomplete.list dusk="dropdown">
                                 @foreach($this->items as $index => $item)
-                                    <x-autocomplete-item :key="$item->id" :value="$item->name" dusk="result-{{ $index }}">
+                                    <x-autocomplete.item :key="$item->id" :value="$item->name" dusk="result-{{ $index }}">
                                         <div>{{ $item->name }}</div>
-                                    </x-autocomplete-item>
+                                    </x-autocomplete.item>
                                 @endforeach
-                            </x-autocomplete-list>
+                            </x-autocomplete.list>
                         </x-autocomplete>
 
                         <div dusk="result-output">@if($selectedItem)ID:{{ $selectedItem->id }} - Name:{{ $selectedItem->name }}@endif</div>
@@ -125,8 +124,7 @@ class DatabaseTest extends TestCase
                 'test3',
                 'test4',
                 'test5',
-            ])
-        ;
+            ]);
     }
 
     /** @test */
@@ -149,8 +147,7 @@ class DatabaseTest extends TestCase
             ->assertSeeInOrder('@dropdown', [
                 'other1',
                 'other2',
-            ])
-        ;
+            ]);
     }
 
     /** @test */
@@ -176,8 +173,7 @@ class DatabaseTest extends TestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@result-1', 'bg-blue-500')
             ->keys('@input', '{ARROW_DOWN}')
-            ->assertHasClass('@result-1', 'bg-blue-500')
-        ;
+            ->assertHasClass('@result-1', 'bg-blue-500');
     }
 
     // /** @test */
@@ -225,8 +221,7 @@ class DatabaseTest extends TestCase
             ->assertSeeIn('@result-output', 'ID:2')
             ->waitForLivewire()->click('@clear')
             ->assertValue('@input', '')
-            ->assertSeeNothingIn('@result-output')
-        ;
+            ->assertSeeNothingIn('@result-output');
 
         Item::truncate();
     }
@@ -242,9 +237,8 @@ class DatabaseTest extends TestCase
 
         Livewire::visit($this->component())
             ->click('@input')
-            ->assertMissing('@clear')
-            // ->waitForLivewire()->click('@clear')
-        ;
+            ->assertMissing('@clear');
+        // ->waitForLivewire()->click('@clear')
     }
 
     /** @test */
@@ -264,8 +258,7 @@ class DatabaseTest extends TestCase
             ->assertValue('@input', 'test2')
             ->assertNotFocused('@input')
             ->click('@input')
-            ->assertNotFocused('@input')
-        ;
+            ->assertNotFocused('@input');
     }
 }
 

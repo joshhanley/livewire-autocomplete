@@ -11,8 +11,10 @@ class GroupedTest extends TestCase
 {
     public function component()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -72,25 +74,25 @@ class GroupedTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             <li>Top results</li>
-                            
+
                             @foreach($this->topResults as $index => $result)
-                                <x-autocomplete-item key="top-{{ $result['id'] }}" :id="$result['id']" :value="$result['name']" dusk="top-result-{{ $index }}">
+                                <x-autocomplete.item key="top-{{ $result['id'] }}" :id="$result['id']" :value="$result['name']" dusk="top-result-{{ $index }}">
                                     {{ $result['name'] }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
 
                             <li>All results</li>
 
                             @foreach($this->allResults as $index => $result)
-                                <x-autocomplete-item key="all-{{ $result['id'] }}" :id="$result['id']" :value="$result['name']" dusk="all-result-{{ $index }}">
+                                <x-autocomplete.item key="all-{{ $result['id'] }}" :id="$result['id']" :value="$result['name']" dusk="all-result-{{ $index }}">
                                     {{ $result['name'] }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
@@ -125,7 +127,6 @@ class GroupedTest extends TestCase
             ->assertClassMissing('@top-result-1', 'bg-blue-500')
             ->assertHasClass('@all-result-0', 'bg-blue-500')
             ->assertClassMissing('@all-result-1', 'bg-blue-500')
-            ->assertClassMissing('@all-result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@all-result-2', 'bg-blue-500');
     }
 }

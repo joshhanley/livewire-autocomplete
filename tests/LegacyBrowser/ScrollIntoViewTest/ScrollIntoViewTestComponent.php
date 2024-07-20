@@ -30,7 +30,7 @@ class ScrollIntoViewTestComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-autocomplete-legacy
+                <x-autocomplete.legacy
                     wire:model-text="inputText"
                     wire:model-id="selectedSlug"
                     wire:model-results="results"

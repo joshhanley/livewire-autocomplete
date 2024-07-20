@@ -57,31 +57,31 @@ class LocalNamespaceTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-lwa::autocomplete wire:model.live="selected" dusk="autocomplete">
-                        <x-lwa::autocomplete-input wire:model.live="input" dusk="input">
-                            <x-lwa::autocomplete-clear-button dusk="clear-button" />
-                        </x-lwa::autocomplete-input>
+                        <x-lwa::autocomplete.input wire:model.live="input" dusk="input">
+                            <x-lwa::autocomplete.clear-button dusk="clear-button" />
+                        </x-lwa::autocomplete.input>
 
-                        <x-lwa::autocomplete-list dusk="dropdown" x-cloak>
-                            <x-lwa::autocomplete-loading dusk="loading" />
+                        <x-lwa::autocomplete.list dusk="dropdown" x-cloak>
+                            <x-lwa::autocomplete.loading dusk="loading" />
 
                             @if (!$input && $this->results->isEmpty())
-                                <x-lwa::autocomplete-prompt dusk="prompt" />
+                                <x-lwa::autocomplete.prompt dusk="prompt" />
                             @endif
 
                             @if ($input)
-                                <x-lwa::autocomplete-new-item :value="$input" dusk="add-new" />
+                                <x-lwa::autocomplete.new-item :value="$input" dusk="add-new" />
 
                                 @forelse($this->results as $key => $result)
-                                    <x-lwa::autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                    <x-lwa::autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                         {{ $result }}
-                                    </x-lwa::autocomplete-item>
+                                    </x-lwa::autocomplete.item>
                                 @empty
-                                    <x-lwa::autocomplete-empty dusk="empty">
+                                    <x-lwa::autocomplete.empty dusk="empty">
                                         No results found
-                                    </x-lwa::autocomplete-empty>
+                                    </x-lwa::autocomplete.empty>
                                 @endforelse
                             @endif
-                        </x-lwa::autocomplete-list>
+                        </x-lwa::autocomplete.list>
                     </x-lwa::autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>

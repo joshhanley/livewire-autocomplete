@@ -64,21 +64,21 @@ class EventsTest extends TestCase
                                 :autoSelect="$autoselect"
                                 name="item"
                                 wire:model.live="selected">
-                                <x-autocomplete-input wire:model.live="input" dusk="input">
-                                    <x-autocomplete-clear-button dusk="clear-button" />
-                                </x-autocomplete-input>
+                                <x-autocomplete.input wire:model.live="input" dusk="input">
+                                    <x-autocomplete.clear-button dusk="clear-button" />
+                                </x-autocomplete.input>
 
-                                <x-autocomplete-list dusk="dropdown" x-cloak>
+                                <x-autocomplete.list dusk="dropdown" x-cloak>
                                     @unless($autoselect)
-                                        <x-autocomplete-new-item :value="$input" dusk="new-item" />
+                                        <x-autocomplete.new-item :value="$input" dusk="new-item" />
                                     @endunless
 
                                     @foreach($this->results as $key => $result)
-                                        <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                        <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $key }}">
                                             {{ $result }}
-                                        </x-autocomplete-item>
+                                        </x-autocomplete.item>
                                     @endforeach
-                                </x-autocomplete-list>
+                                </x-autocomplete.list>
                             </x-autocomplete>
                         </div>
 

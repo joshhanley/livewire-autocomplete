@@ -11,8 +11,10 @@ class ScrollIntoViewTest extends TestCase
 {
     public function component()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -49,15 +51,15 @@ class ScrollIntoViewTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list style="height: 50px; overflow: scroll;" dusk="dropdown" x-cloak>
+                        <x-autocomplete.list style="height: 50px; overflow: scroll;" dusk="dropdown" x-cloak>
                             @foreach($this->results as $index => $result)
-                                <x-autocomplete-item :key="$result" :value="$result" dusk="result-{{ $index }}">
+                                <x-autocomplete.item :key="$result" :value="$result" dusk="result-{{ $index }}">
                                     {{ $result }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
