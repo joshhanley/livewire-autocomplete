@@ -1,4 +1,4 @@
-<x-lwa::autocomplete.input :attributes="$attributes->class('')" unstyled>
+<x-lwa::autocomplete.input :attributes="$attributes->class('')" containerClass="" unstyled>
     @if (isset($prefix))
         <x-slot:prefix>
             {{ $prefix }}
