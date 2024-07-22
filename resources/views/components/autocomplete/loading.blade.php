@@ -1,8 +1,12 @@
-<li wire:loading.block {{ $attributes }}>
+@props([
+    'unstyled' => false,
+])
+
+<li wire:loading.block {{ $attributes->class(['absolute w-full h-full' => !$unstyled]) }}>
     @if (isset($slot) && (string) $slot !== '')
         {{ $slot }}
     @else
-        <div class="absolute w-full h-full flex items-center justify-center">
+        <div class="w-full h-full flex items-center justify-center">
             <div class="absolute inset-0 bg-gray-500 dark:bg-gray-400 opacity-25"></div>
             <svg class="animate-spin h-4 w-4 text-gray-700 dark:text-zinc-300 stroke-current" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24">
