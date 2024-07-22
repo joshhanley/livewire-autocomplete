@@ -16,6 +16,7 @@ class LoadOnFocusTest extends TestCase
             protected $queryString = ['loadOnceOnFocus', 'useParameters'];
 
             public $loadOnceOnFocus = true;
+
             public $useParameters = false;
 
             public $results = [];
@@ -27,6 +28,7 @@ class LoadOnFocusTest extends TestCase
             public $calculateResultsCalledCount = 0;
 
             public $parameter1Value = '';
+
             public $parameter2Value = '';
 
             public function calculateResults($parameter1 = null, $parameter2 = null)
@@ -60,8 +62,7 @@ class LoadOnFocusTest extends TestCase
                         return str_contains($result['text'], $this->inputText);
                     })
                     ->values()
-                    ->toArray()
-                ;
+                    ->toArray();
             }
 
             public function render()
@@ -70,18 +71,18 @@ class LoadOnFocusTest extends TestCase
                     <div dusk="page">
                         <x-autocomplete wire:model.live="selectedSlug">
                             @if ($loadOnceOnFocus)
-                                <x-autocomplete-input :wire:focus.once="$useParameters ? 'calculateResults(\'some-parameter\', \'other-parameter\')' : 'calculateResults'" wire:model.live="inputText" dusk="input" />
+                                <x-autocomplete.input :wire:focus.once="$useParameters ? 'calculateResults(\'some-parameter\', \'other-parameter\')' : 'calculateResults'" wire:model.live="inputText" dusk="input" />
                             @else
-                                <x-autocomplete-input :wire:focus="$useParameters ? 'calculateResults(\'some-parameter\', \'other-parameter\')' : 'calculateResults'" wire:model.live="inputText" dusk="input" />
+                                <x-autocomplete.input :wire:focus="$useParameters ? 'calculateResults(\'some-parameter\', \'other-parameter\')' : 'calculateResults'" wire:model.live="inputText" dusk="input" />
                             @endif
 
-                            <x-autocomplete-list dusk="dropdown">
+                            <x-autocomplete.list dusk="dropdown">
                                 @foreach($this->results as $index => $result)
-                                    <x-autocomplete-item :key="$result['id']" :value="$result['text']" dusk="result-{{ $index }}">
+                                    <x-autocomplete.item :key="$result['id']" :value="$result['text']" dusk="result-{{ $index }}">
                                         {{ $result['text'] }}
-                                    </x-autocomplete-item>
+                                    </x-autocomplete.item>
                                 @endforeach
-                            </x-autocomplete-list>
+                            </x-autocomplete.list>
                         </x-autocomplete>
 
                         <div dusk="number-times-calculate-called">{{ $calculateResultsCalledCount }}</div>
@@ -101,8 +102,7 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeIn('@number-times-calculate-called', 0)
             ->assertDontSeeIn('@dropdown', 'bob')
             ->assertDontSeeIn('@dropdown', 'john')
-            ->assertDontSeeIn('@dropdown', 'bill')
-        ;
+            ->assertDontSeeIn('@dropdown', 'bill');
     }
 
     /** @test */
@@ -113,8 +113,7 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeIn('@number-times-calculate-called', 1)
             ->assertSeeIn('@dropdown', 'bob')
             ->assertSeeIn('@dropdown', 'john')
-            ->assertSeeIn('@dropdown', 'bill')
-        ;
+            ->assertSeeIn('@dropdown', 'bill');
     }
 
     /** @test */
@@ -127,8 +126,7 @@ class LoadOnFocusTest extends TestCase
             ->click('@input')
             // Wait for livewire request if it was going to happen (it shouldn't)
             ->pause(100)
-            ->assertSeeIn('@number-times-calculate-called', 1)
-        ;
+            ->assertSeeIn('@number-times-calculate-called', 1);
     }
 
     /** @test */
@@ -140,8 +138,7 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeIn('@number-times-calculate-called', 1)
             ->keys('@input', '{ESCAPE}')
             ->waitForLivewire()->click('@input')
-            ->assertSeeIn('@number-times-calculate-called', 2)
-        ;
+            ->assertSeeIn('@number-times-calculate-called', 2);
     }
 
     /** @test */
@@ -156,7 +153,6 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeNothingIn('@parameter-2-value')
             ->waitForLivewire()->click('@input')
             ->assertSeeIn('@parameter-1-value', 'some-parameter')
-            ->assertSeeIn('@parameter-2-value', 'other-parameter')
-        ;
+            ->assertSeeIn('@parameter-2-value', 'other-parameter');
     }
 }

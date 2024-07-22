@@ -42,15 +42,15 @@ class CustomStylesTest extends TestCase
                 return <<<'HTML'
                     <div dusk="page">
                         <x-autocomplete wire:model.live="selectedSlug">
-                            <x-autocomplete-input wire:model.live="inputText" dusk="input" />
+                            <x-autocomplete.input wire:model.live="inputText" dusk="input" />
 
-                            <x-autocomplete-list :inline="$inline" dusk="dropdown">
+                            <x-autocomplete.list :inline="$inline" dusk="dropdown">
                                 @foreach($this->results as $index => $result)
-                                    <x-autocomplete-item :key="$result['id']" :value="$result['text']" dusk="result-{{ $index }}">
+                                    <x-autocomplete.item :key="$result['id']" :value="$result['text']" dusk="result-{{ $index }}">
                                         {{ $result['text'] }}
-                                    </x-autocomplete-item>
+                                    </x-autocomplete.item>
                                 @endforeach
-                            </x-autocomplete-list>
+                            </x-autocomplete.list>
                         </x-autocomplete>
 
                         <div dusk="input-text-output">{{ $inputText }}</div>
@@ -95,15 +95,15 @@ class CustomStylesTest extends TestCase
                 return <<<'HTML'
                     <div dusk="page">
                         <x-autocomplete wire:model.live="selectedSlug">
-                            <x-autocomplete-input wire:model.live="inputText" dusk="input" />
+                            <x-autocomplete.input wire:model.live="inputText" dusk="input" />
 
-                            <x-autocomplete-list :inline="$inline" containerClass="some-style" dusk="dropdown" unstyled>
+                            <x-autocomplete.list :inline="$inline" containerClass="some-style" dusk="dropdown" unstyled>
                                 @foreach($this->results as $index => $result)
-                                    <x-autocomplete-item active="some-focus-style" :key="$result['id']" :value="$result['text']" dusk="result-{{ $index }}">
+                                    <x-autocomplete.item active="some-focus-style" :key="$result['id']" :value="$result['text']" dusk="result-{{ $index }}">
                                         {{ $result['text'] }}
-                                    </x-autocomplete-item>
+                                    </x-autocomplete.item>
                                 @endforeach
-                            </x-autocomplete-list>
+                            </x-autocomplete.list>
                         </x-autocomplete>
 
                         <div dusk="input-text-output">{{ $inputText }}</div>
@@ -121,8 +121,7 @@ class CustomStylesTest extends TestCase
             ->visit($this->component())
             ->click('@input')
             // Get the wrapper div around the dropdown list
-            ->assertClassMissing('div:has(> [dusk="dropdown"])', 'absolute')
-        ;
+            ->assertClassMissing('div:has(> [dusk="dropdown"])', 'absolute');
     }
 
     /** @test */
@@ -132,8 +131,7 @@ class CustomStylesTest extends TestCase
             ->visit($this->component())
             ->click('@input')
             // Get the wrapper div around the dropdown list
-            ->assertHasClass('div:has(> [dusk="dropdown"])', 'absolute')
-        ;
+            ->assertHasClass('div:has(> [dusk="dropdown"])', 'absolute');
     }
 
     /** @test */
@@ -142,8 +140,7 @@ class CustomStylesTest extends TestCase
         Livewire::visit($this->component())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
-            ->assertHasClass('@result-0', 'bg-blue-500')
-        ;
+            ->assertHasClass('@result-0', 'bg-blue-500');
     }
 
     /** @test */
@@ -155,8 +152,7 @@ class CustomStylesTest extends TestCase
             // Get the wrapper div around the dropdown list
             ->assertHasClass('div:has(> [dusk="dropdown"])', 'some-style')
             ->assertClassMissing('div:has(> [dusk="dropdown"])', 'absolute')
-            ->assertClassMissing('div:has(> [dusk="dropdown"])', 'w-full')
-        ;
+            ->assertClassMissing('div:has(> [dusk="dropdown"])', 'w-full');
     }
 
     /** @test */
@@ -168,8 +164,7 @@ class CustomStylesTest extends TestCase
             // Get the wrapper div around the dropdown list
             ->assertHasClass('div:has(> [dusk="dropdown"])', 'some-style')
             ->assertClassMissing('div:has(> [dusk="dropdown"])', 'absolute')
-            ->assertClassMissing('div:has(> [dusk="dropdown"])', 'w-full')
-        ;
+            ->assertClassMissing('div:has(> [dusk="dropdown"])', 'w-full');
     }
 
     /** @test */
@@ -179,7 +174,6 @@ class CustomStylesTest extends TestCase
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@result-0', 'some-focus-style')
-            ->assertClassMissing('@result-0', 'bg-blue-500')
-            ;
+            ->assertClassMissing('@result-0', 'bg-blue-500');
     }
 }

@@ -11,8 +11,10 @@ class LoadingTest extends TestCase
 {
     public function component()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -44,17 +46,17 @@ class LoadingTest extends TestCase
                 return <<< 'HTML'
                 <div>
                     <x-autocomplete wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
-                            <x-autocomplete-loading wire:target="input" wire:key="loading" dusk="loading"/>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
+                            <x-autocomplete.loading wire:target="input" wire:key="loading" dusk="loading"/>
 
                             @foreach($this->results as $key => $result)
-                                <x-autocomplete-item wire:target="input" wire:loading.remove :key="$result" :value="$result" dusk="result-{{ $key }}">
+                                <x-autocomplete.item wire:target="input" wire:loading.remove :key="$result" :value="$result" dusk="result-{{ $key }}">
                                     {{ $result }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div dusk="result-output">{{ $selected }}</div>
@@ -75,7 +77,6 @@ class LoadingTest extends TestCase
             // Wait for loading indicator to show up
             ->pause(700)
             ->assertVisible('@loading')
-            ->assertMissing('@result-0')
-        ;
+            ->assertMissing('@result-0');
     }
 }

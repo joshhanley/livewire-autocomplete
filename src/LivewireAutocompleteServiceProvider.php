@@ -4,8 +4,9 @@ namespace LivewireAutocomplete;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LivewireAutocomplete\Console\Commands\CustomComponentsCommand;
 
-class ServiceProvider extends BaseServiceProvider
+class LivewireAutocompleteServiceProvider extends BaseServiceProvider
 {
     public $name = 'livewire-autocomplete';
     public $namespace = 'lwa';
@@ -34,6 +35,10 @@ class ServiceProvider extends BaseServiceProvider
         if (config($this->name . '.use_global_namespace', true)) {
             Blade::anonymousComponentNamespace(__DIR__ . '/../resources/views/components');
         }
+
+        $this->commands([
+            CustomComponentsCommand::class,
+        ]);
     }
 
     protected function loadViews($path, $namespace, $useGlobalNamespace = false)

@@ -50,7 +50,7 @@ class PageWithAutocompleteComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 <div dusk="forMouseAway"></div>
-                <x-autocomplete-legacy
+                <x-autocomplete.legacy
                     wire:model-text="input"
                     wire:model-id="selected"
                     wire:model-results="results"

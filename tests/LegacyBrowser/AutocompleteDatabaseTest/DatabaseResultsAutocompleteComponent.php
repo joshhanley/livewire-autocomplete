@@ -49,7 +49,7 @@ class DatabaseResultsAutocompleteComponent extends Component
     {
         return <<<'HTML'
             <div dusk="page">
-                <x-autocomplete-legacy
+                <x-autocomplete.legacy
                     wire:model-text="itemName"
                     wire:model-id="selectedItem"
                     wire:model-results="items"

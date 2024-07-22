@@ -57,7 +57,7 @@ class PageWithAutocompleteInFormComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 <form wire:submit.prevent="save">
-                <x-autocomplete-legacy
+                <x-autocomplete.legacy
                     wire:model-text="input"
                     wire:model-id="selected"
                     wire:model-results="results"

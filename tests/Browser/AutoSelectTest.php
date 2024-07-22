@@ -11,8 +11,10 @@ class AutoSelectTest extends TestCase
 {
     public function component()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -49,15 +51,15 @@ class AutoSelectTest extends TestCase
                 <div>
                     <p dusk="some-element-other-than-the-input">some-element-other-than-the-input</p>
                     <x-autocomplete auto-select wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
                             @foreach($this->results as $index => $result)
-                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
+                                <x-autocomplete.item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
                                     {{ $result['name'] }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
@@ -70,8 +72,10 @@ class AutoSelectTest extends TestCase
 
     public function componentWithNewItem()
     {
-        return new class extends Component {
+        return new class extends Component
+        {
             public $input;
+
             public $selected;
 
             #[Computed]
@@ -108,17 +112,17 @@ class AutoSelectTest extends TestCase
                 <div>
                     <p dusk="some-element-other-than-the-input">some-element-other-than-the-input</p>
                     <x-autocomplete auto-select wire:model.live="selected">
-                        <x-autocomplete-input wire:model.live="input" dusk="input" />
+                        <x-autocomplete.input wire:model.live="input" dusk="input" />
 
-                        <x-autocomplete-list dusk="dropdown" x-cloak>
-                            <x-autocomplete-new-item :value="$input" dusk="add-new" />
+                        <x-autocomplete.list dusk="dropdown" x-cloak>
+                            <x-autocomplete.new-item :value="$input" dusk="add-new" />
 
                             @foreach($this->results as $index => $result)
-                                <x-autocomplete-item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
+                                <x-autocomplete.item :key="$result['id']" :value="$result['name']" dusk="result-{{ $index }}">
                                     {{ $result['name'] }}
-                                </x-autocomplete-item>
+                                </x-autocomplete.item>
                             @endforeach
-                        </x-autocomplete-list>
+                        </x-autocomplete.list>
                     </x-autocomplete>
 
                     <div>Selected: <span dusk="selected-output">{{ $selected }}</span></div>
@@ -136,8 +140,7 @@ class AutoSelectTest extends TestCase
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -151,8 +154,7 @@ class AutoSelectTest extends TestCase
             ->keys('@input', '{ARROW_UP}')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -167,8 +169,7 @@ class AutoSelectTest extends TestCase
             ->keys('@input', '{ARROW_DOWN}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertHasClass('@result-2', 'bg-blue-500')
-        ;
+            ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -186,8 +187,7 @@ class AutoSelectTest extends TestCase
             ->mouseover('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -202,8 +202,7 @@ class AutoSelectTest extends TestCase
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertClassMissing('@result-2', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
     /** @test */
@@ -216,8 +215,7 @@ class AutoSelectTest extends TestCase
             ->pause(100)
             ->assertValue('@input', 'steve')
             ->waitForLivewire()->keys('@input', '{ENTER}')
-            ->assertValue('@input', '')
-        ;
+            ->assertValue('@input', '');
     }
 
     /** @test */
@@ -231,8 +229,7 @@ class AutoSelectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500')
             ->waitForLivewire()->type('@input', 'b')
             ->assertHasClass('@result-0', 'bg-blue-500')
-            ->assertClassMissing('@result-1', 'bg-blue-500')
-        ;
+            ->assertClassMissing('@result-1', 'bg-blue-500');
     }
 
     /** @test */
@@ -245,8 +242,7 @@ class AutoSelectTest extends TestCase
             ->waitForLivewire()->type('@input', 'steve')
             ->assertValue('@input', 'steve')
             ->waitForLivewire()->keys('@input', '{ESCAPE}')
-            ->assertValue('@input', '')
-        ;
+            ->assertValue('@input', '');
     }
 
     /** @test */
@@ -259,8 +255,7 @@ class AutoSelectTest extends TestCase
             ->waitForLivewire()->click('@result-0')
             ->assertValue('@input', 'bob')
             ->keys('@input', '{ESCAPE}')
-            ->waitForNoLivewire()->assertValue('@input', 'bob')
-        ;
+            ->waitForNoLivewire()->assertValue('@input', 'bob');
     }
 
     /** @test */
@@ -275,8 +270,7 @@ class AutoSelectTest extends TestCase
             ->assertHasClass('@add-new', 'bg-blue-500')
             ->assertValue('@input', 'steve')
             ->keys('@input', '{ESCAPE}')
-            ->waitForNoLivewire()->assertValue('@input', 'steve')
-        ;
+            ->waitForNoLivewire()->assertValue('@input', 'steve');
     }
 
     /** @test */
@@ -288,8 +282,7 @@ class AutoSelectTest extends TestCase
             ->pause(100)
             ->waitForLivewire()->type('@input', 'steve')
             ->waitForLivewire()->click('@some-element-other-than-the-input')
-            ->assertValue('@input', '')
-        ;
+            ->assertValue('@input', '');
     }
 
     /** @test */
@@ -302,8 +295,7 @@ class AutoSelectTest extends TestCase
             ->waitForLivewire()->click('@result-0')
             ->assertValue('@input', 'bob')
             ->waitForNoLivewire()->click('@some-element-other-than-the-input')
-            ->assertValue('@input', 'bob')
-        ;
+            ->assertValue('@input', 'bob');
     }
 
     /** @test */
@@ -318,8 +310,7 @@ class AutoSelectTest extends TestCase
             ->assertHasClass('@add-new', 'bg-blue-500')
             ->assertValue('@input', 'steve')
             ->waitForNoLivewire()->click('@some-element-other-than-the-input')
-            ->assertValue('@input', 'steve')
-        ;
+            ->assertValue('@input', 'steve');
     }
 
     /** @test */
@@ -337,7 +328,6 @@ class AutoSelectTest extends TestCase
             ->mouseover('@some-element-other-than-the-input')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
-            ->assertHasClass('@result-2', 'bg-blue-500')
-        ;
+            ->assertHasClass('@result-2', 'bg-blue-500');
     }
 }

@@ -57,41 +57,41 @@
     :wire:model.live="$selectedProperty->value"
     >
     @if ($loadOnceOnFocus)
-        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.input'"
             :wire:model.live="$inputProperty->value"
             :wire:focus.once="$focusAction->value"
             x-bind:disabled="id"
             :attributes="$attributes"
             dusk="autocomplete-input">
-            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" dusk="clear" />
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.clear-button'" dusk="clear" />
         </x-dynamic-component>
     @else
-        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-input'"
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.input'"
             :wire:model.live="$inputProperty->value"
             :wire:focus="$focusAction->value"
             x-bind:disabled="id"
             :attributes="$attributes"
             dusk="autocomplete-input">
-            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-clear-button'" dusk="clear" />
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.clear-button'" dusk="clear" />
         </x-dynamic-component>
     @endif
 
-    <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-list'"
+    <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.list'"
         :inline="$getOption('inline')"
         :containerClass="$getOption('inline') ? $getOption('inline-styles') : $getOption('overlay-styles')"
         class="mx-2 mt-1 max-h-56 overflow-y-auto"
         dusk="autocomplete-dropdown">
-        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-loading'" dusk="loading" />
+        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.loading'" dusk="loading" />
 
         @if ($shouldShowPlaceholder($resultsValue, $inputValue))
             {{-- prompt --}}
-            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-prompt'" wire:key="{{ $name }}-prompt">
+            <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.prompt'" wire:key="{{ $name }}-prompt">
                 Start typing to search...
             </x-dynamic-component>
         @else
             @if ($hasResults($resultsValue) || $allowNew)
                 @if ($allowNew && strlen($inputValue) > 0)
-                    <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-new-item'"
+                    <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.new-item'"
                         :value="$inputValue"
                         wire:key='{{ $name }}-add-new'
                         :active="$getOption('result-focus-styles')"
@@ -107,7 +107,7 @@
 
                 @if ($resultsValue)
                     @foreach ($resultsValue as $key => $result)
-                        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-item'"
+                        <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.item'"
                             :key="$result[$getOption('id')] ?? $result"
                             :value="$result[$getOption('text')] ?? $result"
                             wire:key="{{ $name }}-result-{{ $key }}"
@@ -124,7 +124,7 @@
                 @endif
             @else
                 {{-- no-results --}}
-                <x-dynamic-component :component="$componentNamePrefix . 'autocomplete-empty'" wire:key="{{ $name }}-no-results">
+                <x-dynamic-component :component="$componentNamePrefix . 'autocomplete.empty'" wire:key="{{ $name }}-no-results">
                     No results found
                 </x-dynamic-component>
             @endif

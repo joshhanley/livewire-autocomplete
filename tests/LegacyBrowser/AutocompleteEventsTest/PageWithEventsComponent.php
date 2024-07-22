@@ -54,7 +54,7 @@ class PageWithEventsComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 <div>
-                    <x-autocomplete-legacy
+                    <x-autocomplete.legacy
                         name="item"
                         wire:model-text="input"
                         wire:model-id="selected"

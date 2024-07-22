@@ -64,7 +64,7 @@ class LoadOnFocusComponent extends Component
         return <<<'HTML'
             <div dusk="page">
                 @if($useParameters)
-                    <x-autocomplete-legacy
+                    <x-autocomplete.legacy
                         wire:model-text="inputText"
                         wire:model-id="selectedSlug"
                         wire:model-results="results"
@@ -75,7 +75,7 @@ class LoadOnFocusComponent extends Component
                         ]"
                         />
                 @else
-                    <x-autocomplete-legacy
+                    <x-autocomplete.legacy
                         wire:model-text="inputText"
                         wire:model-id="selectedSlug"
                         wire:model-results="results"
