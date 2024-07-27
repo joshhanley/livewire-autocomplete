@@ -1,0 +1,216 @@
+{
+  "main": {
+    "id": "3fd68773aa2361d1",
+    "type": "split",
+    "children": [
+      {
+        "id": "4d750d3b517a05b6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e25b885fcfd8706e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02. examples/01. basic-search-select.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "094bb906e5592c53",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01. getting-started/02. installation.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "cacf4128f51bcb5c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01. getting-started/02. installation.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "11f4833ac703450a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_options.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "2099e77479b15b83",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01. getting-started/03. upgrade-guide.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7114168bb320988f",
+    "type": "split",
+    "children": [
+      {
+        "id": "044abb2e40f1c8b4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "29a76a0d4ebe2b68",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "007da37015f05e1d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ec17d72dd0825ac1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 305.5
+  },
+  "right": {
+    "id": "bdbedf58eaa79300",
+    "type": "split",
+    "children": [
+      {
+        "id": "9f8d31942dd1fddc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1318c8b046f6e710",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "_options.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "30558ac15bca1ed1",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "_options.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "579db96f94cb78c7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "5a0b72cc41fe3a82",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "_options.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "markdown-importer:Open format converter": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "11f4833ac703450a",
+  "lastOpenFiles": [
+    "02. examples/01. basic-search-select.md",
+    "attachments/Pasted image 20240727210917.png",
+    "01. getting-started/03. upgrade-guide.md",
+    "01. getting-started/02. installation.md",
+    "01. getting-started/01. quickstart.md",
+    "01. getting-started",
+    "02. examples",
+    "_options.md",
+    "attachments/Pasted image 20240723225757.png",
+    "attachments/Pasted image 20240723223521.png",
+    "attachments/Pasted image 20240723223457.png",
+    "attachments/Pasted image 20240723223355.png",
+    "attachments",
+    "Pasted image 20240723223312.png"
+  ]
+}
