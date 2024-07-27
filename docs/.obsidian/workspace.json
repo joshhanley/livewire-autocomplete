@@ -13,9 +13,27 @@
             "state": {
               "type": "markdown",
               "state": {
+                "file": "01. getting-started/03. tutorial.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "dd670682441c9562",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4152f8b079a33561",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "02. examples/01. basic-search-select.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           }
@@ -69,7 +87,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 305.5
+    "width": 455.5
   },
   "right": {
     "id": "bdbedf58eaa79300",
@@ -85,7 +103,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "02. examples/01. basic-search-select.md",
+                "file": "01. getting-started/03. tutorial.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +120,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "02. examples/01. basic-search-select.md",
+                "file": "01. getting-started/03. tutorial.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +143,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "02. examples/01. basic-search-select.md"
+                "file": "01. getting-started/03. tutorial.md"
               }
             }
           }
@@ -149,19 +167,26 @@
   },
   "active": "e016198b5f08e0db",
   "lastOpenFiles": [
-    "01. getting-started/03. upgrade-guide.md",
-    "01. getting-started/02. installation.md",
-    "01. getting-started/01. quickstart.md",
+    "installation.md",
+    "01. getting-started/03. tutorial.md",
     "02. examples/01. basic-search-select.md",
+    "attachments/Pasted image 20240723225757.png",
+    "attachments/remove/Pasted image 20240712195540.png",
+    "attachments/remove/Pasted image 20240712185303.png",
+    "attachments/remove/Pasted image 20240723222746.png",
+    "attachments/Pasted image 20240723223521.png",
+    "attachments/Pasted image 20240712195651.png",
+    "attachments/Pasted image 20240712195630.png",
+    "attachments/Pasted image 20240712194526.png",
+    "attachments/Pasted image 20240712194458.png",
+    "attachments/Pasted image 20240712191730.png",
+    "01. getting-started/02. installation.md",
+    "attachments/remove",
+    "01. getting-started/04. upgrade-guide.md",
+    "01. getting-started/01. quickstart.md",
     "_options.md",
-    "attachments/Pasted image 20240727210917.png",
     "01. getting-started",
     "02. examples",
-    "attachments/Pasted image 20240723225757.png",
-    "attachments/Pasted image 20240723223521.png",
-    "attachments/Pasted image 20240723223457.png",
-    "attachments/Pasted image 20240723223355.png",
-    "attachments",
-    "Pasted image 20240723223312.png"
+    "attachments"
   ]
 }
