@@ -13,27 +13,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01. getting-started/03. tutorial.md",
+                "file": "03. components/01. input-prefix.md",
                 "mode": "source",
-                "source": true
-              }
-            }
-          }
-        ]
-      },
-      {
-        "id": "dd670682441c9562",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "4152f8b079a33561",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02. examples/01. basic-search-select.md",
-                "mode": "source",
-                "source": true
+                "source": false
               }
             }
           }
@@ -103,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "01. getting-started/03. tutorial.md",
+                "file": "03. components/01. input-prefix.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "01. getting-started/03. tutorial.md",
+                "file": "03. components/01. input-prefix.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -143,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "01. getting-started/03. tutorial.md"
+                "file": "03. components/01. input-prefix.md"
               }
             }
           }
@@ -167,9 +149,12 @@
   },
   "active": "e016198b5f08e0db",
   "lastOpenFiles": [
-    "installation.md",
-    "01. getting-started/03. tutorial.md",
     "02. examples/01. basic-search-select.md",
+    "03. components/01. input-prefix.md",
+    "attachments/Pasted image 20240621180634.png",
+    "01. getting-started/03. tutorial.md",
+    "03. components",
+    "installation.md",
     "attachments/Pasted image 20240723225757.png",
     "attachments/remove/Pasted image 20240712195540.png",
     "attachments/remove/Pasted image 20240712185303.png",
@@ -179,7 +164,6 @@
     "attachments/Pasted image 20240712195630.png",
     "attachments/Pasted image 20240712194526.png",
     "attachments/Pasted image 20240712194458.png",
-    "attachments/Pasted image 20240712191730.png",
     "01. getting-started/02. installation.md",
     "attachments/remove",
     "01. getting-started/04. upgrade-guide.md",
