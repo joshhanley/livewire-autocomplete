@@ -18,10 +18,6 @@ class AssetController
                 'Cache-Control' => $cacheControl,
             ]);
         }
-        $x = 1;
-
-        if ($x == 1) {
-        }
 
         return response()->file(
             $path,
