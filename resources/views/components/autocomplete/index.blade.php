@@ -19,7 +19,7 @@
     {{ $slot }}
 </div>
 
-@if (config('livewire-autocomplete.inline-scripts'))
+@if (config('livewire-autocomplete.inline_scripts'))
     @assets
         <script src="{{ route('livewire-autocomplete.asset', 'autocomplete.js') }}"></script>
     @endassets

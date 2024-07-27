@@ -10,7 +10,7 @@ return [
      */
     'use_global_namespace' => true,
 
-    'inline-scripts' => true,
+    'inline_scripts' => true,
 
     // Only to be used for apps that are using the legacy version of the package
     'legacy_options' => [],
