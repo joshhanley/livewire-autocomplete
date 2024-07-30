@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03. advanced-examples/17. completely-custom-styles.md",
+                "file": "05. reference/03. keyboard-shortcuts.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "03. advanced-examples/17. completely-custom-styles.md",
+                "file": "05. reference/03. keyboard-shortcuts.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "03. advanced-examples/17. completely-custom-styles.md",
+                "file": "05. reference/03. keyboard-shortcuts.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "03. advanced-examples/17. completely-custom-styles.md"
+                "file": "05. reference/03. keyboard-shortcuts.md"
               }
             }
           }
@@ -149,9 +149,10 @@
   },
   "active": "e016198b5f08e0db",
   "lastOpenFiles": [
+    "03. advanced-examples/17. completely-custom-styles.md",
     "05. reference/02. events-and-listeners.md",
     "05. reference/01. attributes.md",
-    "01. getting-started/05. keyboard-shortcuts.md",
+    "05. reference/03. keyboard-shortcuts.md",
     "05. reference",
     "02. basic-examples/01. basic-search-select.md",
     "02. basic-examples/07. disabled-input.md",
@@ -165,7 +166,6 @@
     "03. advanced-examples/12. autocomplete-in-dynamic-rows.md",
     "02. basic-examples/03. saving-data-from-autocomplete.md",
     "02. basic-examples/04. mounting-existing-data.md",
-    "03. advanced-examples/17. completely-custom-styles.md",
     "02. basic-examples/05. disabled-results.md",
     "02. basic-examples/06. grouped-results.md",
     "02. basic-examples/02. basic-combobox.md",
