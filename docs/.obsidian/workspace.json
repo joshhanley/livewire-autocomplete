@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. reference/03. keyboard-shortcuts.md",
+                "file": "02. basic-examples/03. save-search-select.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "05. reference/03. keyboard-shortcuts.md",
+                "file": "02. basic-examples/03. save-search-select.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "05. reference/03. keyboard-shortcuts.md",
+                "file": "02. basic-examples/03. save-search-select.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "05. reference/03. keyboard-shortcuts.md"
+                "file": "02. basic-examples/03. save-search-select.md"
               }
             }
           }
@@ -133,8 +133,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -149,12 +148,21 @@
   },
   "active": "e016198b5f08e0db",
   "lastOpenFiles": [
+    "attachments/Pasted image 20240731215857.png",
+    "attachments/Pasted image 20240731215827.png",
+    "attachments/Pasted image 20240731215856.png",
+    "02. basic-examples/03. save-search-select.md",
+    "02. basic-examples/02. basic-combobox.md",
+    "02. basic-examples/01. basic-search-select.md",
+    "attachments/Pasted image 20240731215518.png",
+    "attachments/Pasted image 20240731215417.png",
+    "attachments/Pasted image 20240731211203.png",
+    "attachments/Pasted image 20240731211132.png",
+    "05. reference/03. keyboard-shortcuts.md",
     "03. advanced-examples/17. completely-custom-styles.md",
     "05. reference/02. events-and-listeners.md",
     "05. reference/01. attributes.md",
-    "05. reference/03. keyboard-shortcuts.md",
     "05. reference",
-    "02. basic-examples/01. basic-search-select.md",
     "02. basic-examples/07. disabled-input.md",
     "03. advanced-examples/11. cascaded-autocompletes.md",
     "03. advanced-examples/16. multi-select-hack.md",
@@ -164,11 +172,9 @@
     "02. basic-examples/08. input-prefix-suffixes.md",
     "03. advanced-examples/13. add-new-modal-trigger.md",
     "03. advanced-examples/12. autocomplete-in-dynamic-rows.md",
-    "02. basic-examples/03. saving-data-from-autocomplete.md",
     "02. basic-examples/04. mounting-existing-data.md",
     "02. basic-examples/05. disabled-results.md",
     "02. basic-examples/06. grouped-results.md",
-    "02. basic-examples/02. basic-combobox.md",
     "04. components/input-prefix.md",
     "04. components/legacy.md",
     "04. components/input-suffix.md",
@@ -176,18 +182,10 @@
     "04. components/clear-button.md",
     "04. components/loading.md",
     "04. components/prompt.md",
-    "04. components/new-item.md",
     "attachments/Pasted image 20240621180634.png",
     "04. components",
     "attachments/Pasted image 20240723225757.png",
     "attachments/remove/Pasted image 20240712195540.png",
-    "attachments/remove/Pasted image 20240712185303.png",
-    "attachments/remove/Pasted image 20240723222746.png",
-    "attachments/Pasted image 20240723223521.png",
-    "attachments/Pasted image 20240712195651.png",
-    "attachments/Pasted image 20240712195630.png",
-    "attachments/Pasted image 20240712194526.png",
-    "attachments/Pasted image 20240712194458.png",
     "attachments/remove",
     "01. getting-started",
     "02. basic-examples",
