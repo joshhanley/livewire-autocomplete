@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. basic-examples/03. save-search-select.md",
-                "mode": "source",
+                "file": "01. getting-started/03. tutorial.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "02. basic-examples/03. save-search-select.md",
+                "file": "01. getting-started/03. tutorial.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "02. basic-examples/03. save-search-select.md",
+                "file": "01. getting-started/03. tutorial.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "02. basic-examples/03. save-search-select.md"
+                "file": "01. getting-started/03. tutorial.md"
               }
             }
           }
@@ -148,10 +148,10 @@
   },
   "active": "e016198b5f08e0db",
   "lastOpenFiles": [
+    "02. basic-examples/03. save-search-select.md",
     "attachments/Pasted image 20240731215857.png",
     "attachments/Pasted image 20240731215827.png",
     "attachments/Pasted image 20240731215856.png",
-    "02. basic-examples/03. save-search-select.md",
     "02. basic-examples/02. basic-combobox.md",
     "02. basic-examples/01. basic-search-select.md",
     "attachments/Pasted image 20240731215518.png",
