@@ -2,9 +2,10 @@ name: Deploy Docs
 
 on:
   push:
-    branches:
-      - main
-      - next
+    # branches:
+    #   - main
+    #   - next
+    #   - next-docs
   pull_request:
     types: [ready_for_review, synchronize, opened]
 
