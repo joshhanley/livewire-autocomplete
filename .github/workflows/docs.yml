@@ -1,0 +1,17 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+      - next
+  pull_request:
+    types: [ready_for_review, synchronize, opened]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Development
+        # if: github.ref_name == 'dev'
+        run: curl ${{ secrets.ENVOYER_HOOK_DEV_DOCS }}?sha=${{ github.sha }}
