@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class UseInALoopTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -97,7 +97,7 @@ class UseInALoopTest extends TestCase
     /** @test */
     public function autocomplete_can_be_used_in_a_loop_without_errors()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertPresent('@autocomplete-0')
             ->assertNotPresent('@autocomplete-1')
             ->assertNotPresent('@autocomplete-2')

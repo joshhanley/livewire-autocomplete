@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class AllowNewTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -138,7 +138,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function add_new_row_is_not_shown_when_there_is_no_input()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -148,7 +148,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function add_new_row_appears_when_allow_new_is_true_and_text_is_entered()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -160,7 +160,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function add_new_row_is_visible_when_no_results_found()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -172,7 +172,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function first_result_should_be_highlighted_when_add_new_row_not_displayed_yet()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -183,7 +183,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function add_new_row_should_be_highlighed_when_add_new_row_is_displayed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -195,7 +195,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function add_new_row_should_be_highlighed_after_arrowing_down_and_back_up()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -215,7 +215,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function first_result_should_be_selected_when_add_new_row_not_displayed_yet()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -228,7 +228,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function add_new_row_should_be_selected_but_nothing_happen()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -244,7 +244,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function highlighted_record_should_be_selected_even_when_add_new_row_displayed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -259,7 +259,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function escape_does_not_clear_the_input_when_add_new_allowed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -273,7 +273,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function clicking_away_does_not_clear_the_input_when_add_new_allowed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -304,7 +304,7 @@ class AllowNewTest extends TestCase
     /** @test */
     public function when_add_new_row_is_selected_pressing_enter_blurs_the_input()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)

@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class EventsTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -109,7 +109,7 @@ class EventsTest extends TestCase
     /** @test */
     public function event_is_dispatched_on_selected_item()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertSeeNothingIn('@alpine-selected')
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
@@ -119,7 +119,7 @@ class EventsTest extends TestCase
     /** @test */
     public function event_is_dispatched_on_add_new_item()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertSeeNothingIn('@alpine-add-new')
             ->click('@input')
             ->waitForLivewire()->type('@input', 'bbb')
@@ -130,7 +130,7 @@ class EventsTest extends TestCase
     /** @test */
     public function event_is_dispatched_on_selected_item_and_input_is_changed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertSeeNothingIn('@alpine-selected')
             ->click('@input')
             ->waitForLivewire()->type('@input', 'b')
@@ -141,7 +141,7 @@ class EventsTest extends TestCase
     /** @test */
     public function event_is_dispatched_when_selected_item_is_cleared()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertSeeIn('@alpine-selected', 'john')
@@ -152,7 +152,7 @@ class EventsTest extends TestCase
     /** @test */
     public function selected_is_cleared_when_clear_event_received()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-2')
             ->assertSeeIn('@result-output', 'bill')

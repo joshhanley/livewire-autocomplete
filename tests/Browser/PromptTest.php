@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class PromptTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -78,7 +78,7 @@ class PromptTest extends TestCase
     /** @test */
     public function placeholder_text_prompt_is_shown_on_focus()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(101)
@@ -90,7 +90,7 @@ class PromptTest extends TestCase
     /** @test */
     public function no_results_text_prompt_is_shown_if_nothing_found()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(101)

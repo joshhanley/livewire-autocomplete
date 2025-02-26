@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class ScrollIntoViewTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -73,7 +73,7 @@ class ScrollIntoViewTest extends TestCase
     /** @test */
     public function it_shows_custom_component_when_passed_into_the_instance_through_props()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertIsVisibleInContainer('@dropdown', '@result-1')
             ->assertIsNotVisibleInContainer('@dropdown', '@result-12')
@@ -87,7 +87,7 @@ class ScrollIntoViewTest extends TestCase
     /** @test */
     public function it_scrolls_to_top_if_options_have_changed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertIsVisibleInContainer('@dropdown', '@result-1')
             ->assertIsNotVisibleInContainer('@dropdown', '@result-12')

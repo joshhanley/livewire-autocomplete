@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class BehaviourTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -352,14 +352,14 @@ class BehaviourTest extends TestCase
     /** @test */
     public function an_input_is_shown_on_screen()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertPresent('@input');
     }
 
     /** @test */
     public function dropdown_appears_when_input_is_focused()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertMissing('@dropdown')
             ->click('@input')
             // Pause to allow transitions to run
@@ -370,7 +370,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function dropdown_closes_when_anything_else_is_clicked_and_focus_is_removed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -386,7 +386,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function dropdown_closes_when_escape_is_pressed_and_focus_removed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -401,7 +401,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function dropdown_shows_list_of_results()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -414,7 +414,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function results_are_filtered_based_on_input()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -427,7 +427,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function down_arrow_focus_first_option_if_there_is_no_focus_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -441,7 +441,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function down_arrow_focus_next_option_if_there_is_already_a_focus_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->keys('@input', '{ARROW_DOWN}')
@@ -453,7 +453,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function down_arrow_focus_remains_on_last_result_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->keys('@input', '{ARROW_DOWN}')
@@ -470,7 +470,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function up_arrow_clears_focus_if_first_option_is_focused_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@result-0', 'bg-blue-500')
@@ -485,7 +485,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function up_arrow_focuses_previous_option_if_there_is_another_option_before_current_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->keys('@input', '{ARROW_DOWN}')
@@ -501,7 +501,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function up_arrow_focuses_nothing_if_nothing_currently_focused_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -537,7 +537,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function home_key_focuses_first_result_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Attempt if none selected
             ->assertClassMissing('@result-0', 'bg-blue-500')
@@ -563,7 +563,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function end_key_focuses_last_result_in_dropdown()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Attempt if none selected
             ->assertClassMissing('@result-0', 'bg-blue-500')
@@ -589,7 +589,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function focus_is_cleared_if_input_changes()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->keys('@input', '{ARROW_DOWN}')
@@ -604,7 +604,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function enter_key_selects_currently_focused_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->keys('@input', '{ARROW_DOWN}')
@@ -618,7 +618,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function enter_key_only_selects_if_there_is_a_currently_focused_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertClassMissing('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -644,7 +644,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function dropdown_is_hidden_and_focus_cleared_on_selection()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@result-0', 'bg-blue-500')
@@ -662,7 +662,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function tab_key_selects_currently_focused_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{END}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
@@ -675,7 +675,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function tab_key_only_selects_if_there_is_a_currently_focused_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{END}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
@@ -688,7 +688,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function shift_tab_does_not_select_currently_focused_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{HOME}')
             ->assertHasClass('@result-0', 'bg-blue-500')
@@ -702,7 +702,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function mouse_hover_focuses_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -723,7 +723,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function mouse_leave_clears_focus_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -741,7 +741,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function mouse_click_selects_result()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertSeeIn('@result-output', 'john');
@@ -750,7 +750,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function selected_result_shown_in_input()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertValue('@input', 'john');
@@ -762,7 +762,7 @@ class BehaviourTest extends TestCase
         // This is a bug in livewire/livewire#763, this test triggers it without work around.
 
         // As of Livewire V3 I think this is no longer relevant but leaving the test here anyway.
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->type('@input', 'john')
             ->assertSeeIn('@dropdown', 'john')
@@ -780,7 +780,7 @@ class BehaviourTest extends TestCase
     {
         // This was a bug with the shift keyup firing before the x-model, so needed to add the same debounce on the keyup event.
         // This is no longer needed as the way shift is handled has been changed but leaving test here anyway.
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -877,7 +877,7 @@ class BehaviourTest extends TestCase
     /** @test */
     public function pressing_enter_blurs_the_input_when_dropdown_is_open()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)

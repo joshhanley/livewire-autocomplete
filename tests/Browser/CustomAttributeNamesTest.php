@@ -8,7 +8,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class CustomAttributeNamesTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -58,7 +58,7 @@ class CustomAttributeNamesTest extends TestCase
     /** @test */
     public function custom_attribute_names_can_be_passed_in_via_options()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertValue('@input', 'john')

@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class AutoSelectTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -136,7 +136,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_first_option_is_selected_by_default()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -146,7 +146,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_up_arrow_stops_on_first_option()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -160,7 +160,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_down_arrow_stops_on_last_option()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{END}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
@@ -175,7 +175,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_mouse_out_does_not_deselect_current_option()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Have to mouseover or mouseleave won't fire
             ->mouseover('@result-0')
@@ -193,7 +193,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_refocus_first_option_selected()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertHasClass('@result-0', 'bg-blue-500')
             ->assertClassMissing('@result-1', 'bg-blue-500')
@@ -208,7 +208,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_if_no_results_clear_input_on_selection()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->type('@input', 'steve')
             // Pause to allow transitions to run
@@ -221,7 +221,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_refocus_first_option_if_items_have_changed()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->assertClassMissing('@result-0', 'bg-blue-500')
@@ -235,7 +235,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_clear_input_on_escape()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -248,7 +248,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_escape_does_not_clear_selected_text()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -276,7 +276,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_click_away_clears_input_text()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -288,7 +288,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_click_away_does_not_clear_selected_text()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -316,7 +316,7 @@ class AutoSelectTest extends TestCase
     /** @test */
     public function on_autoselect_mouse_out_does_not_reset_the_focused_element_back_to_the_first_one()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)

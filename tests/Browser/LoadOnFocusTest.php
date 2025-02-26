@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class LoadOnFocusTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -98,7 +98,7 @@ class LoadOnFocusTest extends TestCase
     /** @test */
     public function results_are_not_loaded_initially()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertSeeIn('@number-times-calculate-called', 0)
             ->assertDontSeeIn('@dropdown', 'bob')
             ->assertDontSeeIn('@dropdown', 'john')
@@ -108,7 +108,7 @@ class LoadOnFocusTest extends TestCase
     /** @test */
     public function it_loads_results_on_focus_if_action_is_present()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->waitForLivewire()->click('@input')
             ->assertSeeIn('@number-times-calculate-called', 1)
             ->assertSeeIn('@dropdown', 'bob')
@@ -119,7 +119,7 @@ class LoadOnFocusTest extends TestCase
     /** @test */
     public function it_only_loads_results_once_if_load_once_on_focus_is_set_to_true()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->waitForLivewire()->click('@input')
             ->assertSeeIn('@number-times-calculate-called', 1)
             ->keys('@input', '{ESCAPE}')
@@ -133,7 +133,7 @@ class LoadOnFocusTest extends TestCase
     public function it_loads_results_on_every_focus_if_load_once_on_focus_is_set_to_false()
     {
         Livewire::withQueryParams(['loadOnceOnFocus' => false])
-            ->visit($this->component())
+            ->visit($this->defaultComponent())
             ->waitForLivewire()->click('@input')
             ->assertSeeIn('@number-times-calculate-called', 1)
             ->keys('@input', '{ESCAPE}')
@@ -148,7 +148,7 @@ class LoadOnFocusTest extends TestCase
             'loadOnceOnFocus' => false,
             'useParameters' => true,
         ])
-            ->visit($this->component())
+            ->visit($this->defaultComponent())
             ->assertSeeNothingIn('@parameter-1-value')
             ->assertSeeNothingIn('@parameter-2-value')
             ->waitForLivewire()->click('@input')

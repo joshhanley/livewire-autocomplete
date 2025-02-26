@@ -16,7 +16,7 @@ class LocalNamespaceTest extends TestCase
         $app['config']->set('livewire-autocomplete.use_global_namespace', false);
     }
 
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -94,7 +94,7 @@ class LocalNamespaceTest extends TestCase
     /** @test */
     public function all_components_load_successfully_from_local_namespace()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->waitForLivewireToLoad()
             ->assertVisible('@autocomplete')
             ->assertVisible('@input')

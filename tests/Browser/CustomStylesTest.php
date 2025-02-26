@@ -8,7 +8,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class CustomStylesTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -118,7 +118,7 @@ class CustomStylesTest extends TestCase
     public function default_inline_styles_are_used_when_inline_is_true()
     {
         Livewire::withQueryParams(['inline' => true])
-            ->visit($this->component())
+            ->visit($this->defaultComponent())
             ->click('@input')
             // Get the wrapper div around the dropdown list
             ->assertClassMissing('div:has(> [dusk="dropdown"])', 'absolute');
@@ -128,7 +128,7 @@ class CustomStylesTest extends TestCase
     public function default_overlay_styles_are_used_when_inline_is_false()
     {
         Livewire::withQueryParams(['inline' => false])
-            ->visit($this->component())
+            ->visit($this->defaultComponent())
             ->click('@input')
             // Get the wrapper div around the dropdown list
             ->assertHasClass('div:has(> [dusk="dropdown"])', 'absolute');
@@ -137,7 +137,7 @@ class CustomStylesTest extends TestCase
     /** @test */
     public function default_result_focus_styles_are_used()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->assertHasClass('@result-0', 'bg-blue-500');

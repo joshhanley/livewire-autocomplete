@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class GroupedTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -106,7 +106,7 @@ class GroupedTest extends TestCase
     /** @test */
     public function list_items_can_be_given_unique_keys_in_the_scenario_where_an_item_is_displayed_multiple_times_in_different_groupings_to_ensure_it_is_highlighted_correctly()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(101)

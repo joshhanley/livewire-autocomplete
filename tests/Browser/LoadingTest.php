@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class LoadingTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -69,7 +69,7 @@ class LoadingTest extends TestCase
     /** @test */
     public function loading_indicator_appears_when_request_is_taking_too_long()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->assertMissing('@dropdown')
             ->click('@input')
             ->assertMissing('@loading')

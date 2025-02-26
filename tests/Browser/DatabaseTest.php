@@ -35,7 +35,7 @@ class DatabaseTest extends TestCase
         $app['config']->set('livewire.legacy_model_binding', true);
     }
 
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -114,7 +114,7 @@ class DatabaseTest extends TestCase
         Item::create(['name' => 'test4']);
         Item::create(['name' => 'test5']);
 
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             // Pause to allow transitions to run
             ->pause(100)
@@ -138,7 +138,7 @@ class DatabaseTest extends TestCase
         Item::create(['name' => 'other1']);
         Item::create(['name' => 'other2']);
 
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->type('@input', 'o')
             ->assertDontSeeIn('@dropdown', 'test1')
@@ -161,7 +161,7 @@ class DatabaseTest extends TestCase
         Item::create(['name' => 'other1']);
         Item::create(['name' => 'other2']);
 
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->keys('@input', '{ARROW_DOWN}')
             ->waitForLivewire()->type('@input', 'o')
@@ -214,7 +214,7 @@ class DatabaseTest extends TestCase
         Item::create(['name' => 'other1']);
         Item::create(['name' => 'other2']);
 
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertValue('@input', 'test2')
@@ -235,7 +235,7 @@ class DatabaseTest extends TestCase
         Item::create(['name' => 'other1']);
         Item::create(['name' => 'other2']);
 
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->assertMissing('@clear');
         // ->waitForLivewire()->click('@clear')
@@ -252,7 +252,7 @@ class DatabaseTest extends TestCase
         Item::create(['name' => 'other1']);
         Item::create(['name' => 'other2']);
 
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertValue('@input', 'test2')

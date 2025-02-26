@@ -9,7 +9,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class ClearButtonTest extends TestCase
 {
-    public function component()
+    public function defaultComponent()
     {
         return new class extends Component
         {
@@ -64,7 +64,7 @@ class ClearButtonTest extends TestCase
     /** @test */
     public function clear_button_is_shown_on_load()
     {
-        Livewire::visit($this->component())
+        Livewire::visit($this->defaultComponent())
             ->click('@input')
             ->waitForLivewire()->click('@result-1')
             ->assertValue('@input', 'john')
