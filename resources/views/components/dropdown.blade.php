@@ -7,7 +7,7 @@
     x-transition:leave-end="transform opacity-0 scale-y-90"
     x-cloak>
     <div
-        class="relative max-h-56 overflow-y-auto rounded-md border border-gray-300 bg-white shadow">
+        class="relative max-h-56 overflow-y-auto rounded-md border border-gray-300 bg-white shadow-sm">
         {{ $slot }}
     </div>
 </div>
