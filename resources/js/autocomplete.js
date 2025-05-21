@@ -87,7 +87,7 @@ document.addEventListener('livewire:init', () => {
         },
 
         escape($dispatch) {
-            if (!this.allowNew && this.autoSelect) this.resetValue($dispatch)
+            if (!this.allowNew && this.autoSelect) this.clearItem($dispatch)
 
             this.hide()
         },
