@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AutocompleteEventsTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function event_is_dispatched_on_input()
     {
         Livewire::visit(PageWithEventsComponent::class)
@@ -18,7 +18,7 @@ class AutocompleteEventsTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function event_is_dispatched_on_selected_item()
     {
         Livewire::visit(PageWithEventsComponent::class)
@@ -29,7 +29,7 @@ class AutocompleteEventsTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function event_is_dispatched_on_selected_item_and_input_is_changed()
     {
         Livewire::visit(PageWithEventsComponent::class)
@@ -44,7 +44,7 @@ class AutocompleteEventsTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function event_is_dispatched_when_selected_item_is_cleared()
     {
         Livewire::visit(PageWithEventsComponent::class)
@@ -58,7 +58,7 @@ class AutocompleteEventsTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function event_is_dispatched_when_input_is_reset()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -73,7 +73,7 @@ class AutocompleteEventsTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function selected_is_cleared_when_clear_event_received()
     {
         Livewire::visit(PageWithEventsComponent::class)
@@ -91,7 +91,7 @@ class AutocompleteEventsTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function selected_is_set_when_set_event_received()
     {
         Livewire::visit(PageWithEventsComponent::class)

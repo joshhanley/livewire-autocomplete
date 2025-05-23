@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class LoadOnFocusTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function results_are_not_loaded_initially()
     {
         Livewire::visit(LoadOnFocusComponent::class)
@@ -18,7 +18,7 @@ class LoadOnFocusTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_loads_results_on_focus_if_action_is_present()
     {
         Livewire::visit(LoadOnFocusComponent::class)
@@ -30,7 +30,7 @@ class LoadOnFocusTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_only_loads_results_once_if_load_once_on_focus_is_set_to_true()
     {
         Livewire::visit(LoadOnFocusComponent::class)
@@ -44,7 +44,7 @@ class LoadOnFocusTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_loads_results_on_every_focus_if_load_once_on_focus_is_set_to_false()
     {
         Livewire::withQueryParams(['loadOnceOnFocus' => false])
@@ -57,7 +57,7 @@ class LoadOnFocusTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_can_call_focus_method_with_parameters()
     {
         Livewire::withQueryParams(['loadOnceOnFocus' => false, 'useParameters' => true])

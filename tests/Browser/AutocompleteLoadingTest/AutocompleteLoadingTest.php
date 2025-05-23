@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AutocompleteLoadingTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function loading_indicator_appears_when_request_is_taking_too_long()
     {
         Livewire::visit(AutocompleteWithLoadingComponent::class)

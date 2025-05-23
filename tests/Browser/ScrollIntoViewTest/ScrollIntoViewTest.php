@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class ScrollIntoViewTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_shows_custom_component_when_passed_into_the_instance_through_props()
     {
         Livewire::visit(ScrollIntoViewTestComponent::class)
