@@ -256,3 +256,21 @@ Or you can include the autocomplete scripts in your `app.js` bundle.
 ```js
 require('../../vendor/joshhanley/livewire-autocomplete/resources/js/autocomplete.js')
 ```
+
+## Running tests
+
+If you want to run the unit tests locally, you need to ensure that your environment is correctly configured:
+
+```bash
+vendor/bin/dusk-updater detect
+```
+
+Then you must ensure the `database/database.sqlite` file exists (you can run `touch database/database.sqlite`).
+
+And you can execute the tests locally with:
+
+```bash
+CI=true vendor/bin/phpunit
+```
+
+The `CI=true` will make use of the headless browser mode. Also, you might encounter issue if you ran the tests as root (inside a docker container), please ensure you run the tests as a non root user.
