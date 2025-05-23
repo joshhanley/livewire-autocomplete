@@ -15,7 +15,7 @@
     },
     "require-dev": {
         "spatie/laravel-ray": "^1.19",
-        "phpunit/phpunit": "^10.0|^11.5.3|^12.0.1",
+        "phpunit/phpunit": "^10.0|^11.5.3",
         "orchestra/testbench-dusk": "^8.0|^9.0|^10.0",
         "orchestra/testbench": "^8.0|^9.0|^10.0",
         "psy/psysh": "^0.11.18|^0.12",
