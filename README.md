@@ -256,3 +256,33 @@ Or you can include the autocomplete scripts in your `app.js` bundle.
 ```js
 require('../../vendor/joshhanley/livewire-autocomplete/resources/js/autocomplete.js')
 ```
+
+## Contributing
+
+### Setup tests
+
+If you want to run the tests for this package locally, you need to ensure that Testbench Dusk has the latest Chrome driver.
+
+```bash
+vendor/bin/dusk-updater detect --auto-update
+```
+
+You will also need to ensure the `database/database.sqlite` file exists.
+
+```bash
+touch database/database.sqlite
+```
+
+### Run tests
+
+Now you can execute the tests locally using PHPUnit.
+
+```bash
+vendor/bin/phpunit
+```
+
+If you'd prefer to run tests in a headless browser, prefix the PHPUnit call with `CI=true`.
+
+```bash
+CI=true vendor/bin/phpunit
+```
