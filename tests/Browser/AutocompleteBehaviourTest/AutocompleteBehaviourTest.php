@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AutocompleteBehaviourTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function an_input_is_shown_on_screen()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -15,7 +15,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_appears_when_input_is_focused()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -27,7 +27,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_closes_when_anything_else_is_clicked_and_focus_is_removed()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -43,7 +43,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_closes_when_escape_is_pressed_and_focus_removed()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -59,7 +59,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_shows_list_of_results()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -73,7 +73,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function results_are_filtered_based_on_input()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -87,7 +87,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_arrow_focus_first_option_if_there_is_no_focus_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -102,7 +102,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_arrow_focus_next_option_if_there_is_already_a_focus_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -115,7 +115,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_arrow_focus_remains_on_last_result_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -133,7 +133,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function up_arrow_clears_focus_if_first_option_is_focused_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -149,7 +149,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function up_arrow_focuses_previous_option_if_there_is_another_option_before_current_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -166,7 +166,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function up_arrow_focuses_nothing_if_nothing_currently_focused_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -181,7 +181,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function home_key_focuses_first_result_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -208,7 +208,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function end_key_focuses_last_result_in_dropdown()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -235,7 +235,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function focus_is_cleared_if_input_changes()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -251,7 +251,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_selects_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -266,7 +266,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_only_selects_if_there_is_a_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -280,7 +280,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_submits_form_if_there_is_not_a_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteInFormComponent::class)
@@ -293,7 +293,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_does_not_submit_form_if_there_is_a_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteInFormComponent::class)
@@ -307,7 +307,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_is_hidden_and_focus_cleared_on_selection()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -326,7 +326,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function tab_key_selects_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -340,7 +340,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function tab_key_only_selects_if_there_is_a_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -354,7 +354,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function shift_tab_does_not_select_currently_focused_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -369,7 +369,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_hover_focuses_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -391,7 +391,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_leave_clears_focus_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -410,7 +410,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_click_selects_result()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -420,7 +420,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function selected_result_shown_in_input()
     {
         Livewire::visit(PageWithAutocompleteComponent::class)
@@ -430,7 +430,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_click_only_fires_once_on_newly_generated_morphed_results()
     {
         // This is a bug in livewire/livewire#763, this test triggers it without work around
@@ -448,7 +448,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function using_shift_does_not_clear_input()
     {
         // This bug has been fixed, but for some reason the test still fails, while a manual test confirms it is ok. Leaving here for future reference.
@@ -466,7 +466,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function input_does_not_get_overridden_when_multiple_network_requests_are_sent()
     {
         Livewire::visit(PageWithNetworkDelayComponent::class)
@@ -499,7 +499,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function pre_selected_value_is_shown_in_input()
     {
         Livewire::visit(PageWithPreSelectedValueComponent::class)
@@ -512,7 +512,7 @@ class AutocompleteBehaviourTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function pre_selected_value_can_be_changed_from_other_backend_actions()
     {
         Livewire::visit(PageWithPreSelectedValueComponent::class)

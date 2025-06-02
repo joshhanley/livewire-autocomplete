@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\Browser\TestCase;
 
 class AllowNewTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_is_not_shown_when_there_is_no_input()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -18,7 +18,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_appears_when_allow_new_is_true_and_text_is_entered()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -31,7 +31,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_is_visible_when_no_results_found()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -44,7 +44,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function first_result_should_be_highlighted_when_add_new_row_not_displayed_yet()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -55,7 +55,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_should_be_highlighed_by_default()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -67,7 +67,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_should_be_highlighed_after_arrowing_down_and_back_up()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -87,7 +87,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function first_result_should_be_selected_when_add_new_row_not_displayed_yet()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -100,7 +100,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_should_be_selected_but_nothing_happen()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -116,7 +116,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function highlighted_record_should_be_selected_even_when_add_new_row_displayed()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -131,7 +131,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function escape_does_not_clear_the_input_when_add_new_allowed()
     {
         Livewire::visit(AddNewItemComponent::class)
@@ -146,7 +146,7 @@ class AllowNewTest extends TestCase
         ;
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function clicking_away_does_not_clear_the_input_when_add_new_allowed()
     {
         Livewire::visit(AddNewItemComponent::class)
