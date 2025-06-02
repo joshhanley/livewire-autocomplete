@@ -87,7 +87,7 @@ document.addEventListener('livewire:init', () => {
         },
 
         escape($dispatch) {
-            if (!this.allowNew && this.autoSelect) this.resetValue($dispatch)
+            if (!this.allowNew && this.autoSelect) this.clearItem($dispatch)
 
             this.hide()
         },
@@ -254,9 +254,13 @@ document.addEventListener('livewire:init', () => {
         },
 
         setSelected($dispatch, selected) {
-            this.decoupledValue = null
+            const newValue = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
+            if (newValue === this.value) {
+                return
+            }
 
-            this.value = typeof selected === 'object' && selected.hasOwnProperty(this.searchAttribute) ? selected[this.searchAttribute] : selected
+            this.decoupledValue = null
+            this.value = newValue
             this.selected = typeof selected === 'object' && selected.hasOwnProperty(this.idAttribute) ? selected[this.idAttribute] : selected
             $dispatch((this.name ?? 'autocomplete') + '-selected-object', selected)
             $dispatch((this.name ?? 'autocomplete') + '-selected', this.selected)
