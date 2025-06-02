@@ -16,11 +16,4 @@ class TestCase extends BaseTestCase
     {
         return __DIR__.'/Browser/views';
     }
-
-    protected function driver(): RemoteWebDriver
-    {
-        DuskOptions::noSandbox();
-
-        return parent::driver();
-    }
 }
