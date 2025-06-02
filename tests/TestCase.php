@@ -2,9 +2,7 @@
 
 namespace LivewireAutocomplete\Tests;
 
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use LivewireDuskTestbench\TestCase as BaseTestCase;
-use Orchestra\Testbench\Dusk\Options as DuskOptions;
 
 class TestCase extends BaseTestCase
 {
