@@ -349,14 +349,14 @@ class BehaviourTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function an_input_is_shown_on_screen()
     {
         Livewire::visit($this->defaultComponent())
             ->assertPresent('@input');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_appears_when_input_is_focused()
     {
         Livewire::visit($this->defaultComponent())
@@ -367,7 +367,7 @@ class BehaviourTest extends TestCase
             ->assertVisible('@dropdown');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_closes_when_anything_else_is_clicked_and_focus_is_removed()
     {
         Livewire::visit($this->defaultComponent())
@@ -383,7 +383,7 @@ class BehaviourTest extends TestCase
             ->assertMissing('@dropdown');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_closes_when_escape_is_pressed_and_focus_removed()
     {
         Livewire::visit($this->defaultComponent())
@@ -398,7 +398,7 @@ class BehaviourTest extends TestCase
             ->assertMissing('@dropdown');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_shows_list_of_results()
     {
         Livewire::visit($this->defaultComponent())
@@ -411,7 +411,7 @@ class BehaviourTest extends TestCase
             ->assertSeeInOrder('@dropdown', ['bob', 'john', 'bill']);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function results_are_filtered_based_on_input()
     {
         Livewire::visit($this->defaultComponent())
@@ -424,7 +424,7 @@ class BehaviourTest extends TestCase
             ->assertDontSeeIn('@dropdown', 'john');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_arrow_focus_first_option_if_there_is_no_focus_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -438,7 +438,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_arrow_focus_next_option_if_there_is_already_a_focus_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -450,7 +450,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_arrow_focus_remains_on_last_result_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -467,7 +467,7 @@ class BehaviourTest extends TestCase
             ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function up_arrow_clears_focus_if_first_option_is_focused_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -482,7 +482,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function up_arrow_focuses_previous_option_if_there_is_another_option_before_current_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -498,7 +498,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function up_arrow_focuses_nothing_if_nothing_currently_focused_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -512,7 +512,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function down_and_up_arrow_focuses_result_with_a_zero_as_the_key()
     {
         Livewire::visit($this->componentWithNumericKeys())
@@ -534,7 +534,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function home_key_focuses_first_result_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -560,7 +560,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function end_key_focuses_last_result_in_dropdown()
     {
         Livewire::visit($this->defaultComponent())
@@ -586,7 +586,7 @@ class BehaviourTest extends TestCase
             ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function focus_is_cleared_if_input_changes()
     {
         Livewire::visit($this->defaultComponent())
@@ -601,7 +601,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-1', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_selects_currently_focused_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -615,7 +615,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'john');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_only_selects_if_there_is_a_currently_focused_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -628,7 +628,7 @@ class BehaviourTest extends TestCase
             ->assertSeeNothingIn('@result-output');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function enter_key_does_not_submit_form_if_there_is_a_currently_focused_result()
     {
         Livewire::visit($this->componentInForm())
@@ -641,7 +641,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@saved-output', 'false');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_is_hidden_and_focus_cleared_on_selection()
     {
         Livewire::visit($this->defaultComponent())
@@ -659,7 +659,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-0', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function tab_key_selects_currently_focused_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -672,7 +672,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'bill');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function tab_key_only_selects_if_there_is_a_currently_focused_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -685,7 +685,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'bill');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function shift_tab_does_not_select_currently_focused_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -699,7 +699,7 @@ class BehaviourTest extends TestCase
             ->assertDontSeeIn('@result-output', 'bob');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_hover_focuses_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -720,7 +720,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_leave_clears_focus_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -738,7 +738,7 @@ class BehaviourTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_click_selects_result()
     {
         Livewire::visit($this->defaultComponent())
@@ -747,7 +747,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'john');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function selected_result_shown_in_input()
     {
         Livewire::visit($this->defaultComponent())
@@ -756,7 +756,7 @@ class BehaviourTest extends TestCase
             ->assertValue('@input', 'john');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function mouse_click_only_fires_once_on_newly_generated_morphed_results()
     {
         // This is a bug in livewire/livewire#763, this test triggers it without work around.
@@ -775,7 +775,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'bill');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function using_shift_does_not_clear_input()
     {
         // This was a bug with the shift keyup firing before the x-model, so needed to add the same debounce on the keyup event.
@@ -788,7 +788,7 @@ class BehaviourTest extends TestCase
             ->assertValue('@input', 'B');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function input_does_not_get_overridden_when_multiple_network_requests_are_sent()
     {
         Livewire::visit($this->componentWithNetworkDelay())
@@ -820,7 +820,7 @@ class BehaviourTest extends TestCase
             ->assertValue('@input', 'bob');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function pre_selected_value_is_shown_in_input()
     {
         Livewire::visit($this->componentWithPreSelectedValue())
@@ -832,7 +832,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 0);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function pre_selected_value_can_be_changed_from_other_backend_actions()
     {
         Livewire::visit($this->componentWithPreSelectedValue())
@@ -847,7 +847,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 1);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function component_without_wire_model_live_modifiers_still_works()
     {
         Livewire::visit($this->componentWithoutLiveModifiers())
@@ -874,7 +874,7 @@ class BehaviourTest extends TestCase
             ->assertSeeIn('@result-output', 'bob');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function pressing_enter_blurs_the_input_when_dropdown_is_open()
     {
         Livewire::visit($this->defaultComponent())

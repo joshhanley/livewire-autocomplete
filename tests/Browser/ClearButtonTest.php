@@ -61,7 +61,7 @@ class ClearButtonTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function clear_button_is_shown_on_load()
     {
         Livewire::visit($this->defaultComponent())

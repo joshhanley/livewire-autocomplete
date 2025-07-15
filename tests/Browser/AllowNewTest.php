@@ -135,7 +135,7 @@ class AllowNewTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_is_not_shown_when_there_is_no_input()
     {
         Livewire::visit($this->defaultComponent())
@@ -145,7 +145,7 @@ class AllowNewTest extends TestCase
             ->assertNotPresent('@add-new');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_appears_when_allow_new_is_true_and_text_is_entered()
     {
         Livewire::visit($this->defaultComponent())
@@ -157,7 +157,7 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@add-new', 'Add new "b"');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_is_visible_when_no_results_found()
     {
         Livewire::visit($this->defaultComponent())
@@ -169,7 +169,7 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@add-new', 'Add new "greg"');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function first_result_should_be_highlighted_when_add_new_row_not_displayed_yet()
     {
         Livewire::visit($this->defaultComponent())
@@ -180,7 +180,7 @@ class AllowNewTest extends TestCase
             ->assertHasClass('@result-0', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_should_be_highlighed_when_add_new_row_is_displayed()
     {
         Livewire::visit($this->defaultComponent())
@@ -192,7 +192,7 @@ class AllowNewTest extends TestCase
             ->assertHasClass('@add-new', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_should_be_highlighed_after_arrowing_down_and_back_up()
     {
         Livewire::visit($this->defaultComponent())
@@ -212,7 +212,7 @@ class AllowNewTest extends TestCase
             ->assertClassMissing('@result-1', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function first_result_should_be_selected_when_add_new_row_not_displayed_yet()
     {
         Livewire::visit($this->defaultComponent())
@@ -225,7 +225,7 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@input-output', 'bob');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function add_new_row_should_be_selected_but_nothing_happen()
     {
         Livewire::visit($this->defaultComponent())
@@ -241,7 +241,7 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@input-output', 'j');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function highlighted_record_should_be_selected_even_when_add_new_row_displayed()
     {
         Livewire::visit($this->defaultComponent())
@@ -256,7 +256,7 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@input-output', 'john');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function escape_does_not_clear_the_input_when_add_new_allowed()
     {
         Livewire::visit($this->defaultComponent())
@@ -270,7 +270,7 @@ class AllowNewTest extends TestCase
             ->assertValue('@input', 'b');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function clicking_away_does_not_clear_the_input_when_add_new_allowed()
     {
         Livewire::visit($this->defaultComponent())
@@ -284,7 +284,7 @@ class AllowNewTest extends TestCase
             ->assertValue('@input', 'c');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function the_provided_new_item_component_works_the_same_way()
     {
         Livewire::visit($this->componentWithNewItemComponent())
@@ -301,7 +301,7 @@ class AllowNewTest extends TestCase
             ->assertSeeIn('@input-output', 'j');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function when_add_new_row_is_selected_pressing_enter_blurs_the_input()
     {
         Livewire::visit($this->defaultComponent())

@@ -55,7 +55,7 @@ class CustomAttributeNamesTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_attribute_names_can_be_passed_in_via_options()
     {
         Livewire::visit($this->defaultComponent())

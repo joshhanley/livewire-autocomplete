@@ -33,7 +33,7 @@ class AutocompleteDatabaseTest extends TestCase
         $app['config']->set('livewire.legacy_model_binding', true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dropdown_shows_list_of_results()
     {
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
@@ -55,7 +55,7 @@ class AutocompleteDatabaseTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function results_are_filtered_based_on_input()
     {
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
@@ -76,7 +76,7 @@ class AutocompleteDatabaseTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function ensure_results_count_gets_updated_so_focus_cant_go_off_the_end_of_results()
     {
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
@@ -100,7 +100,7 @@ class AutocompleteDatabaseTest extends TestCase
             ->assertHasClass('@result-1', 'bg-blue-500');
     }
 
-    // /** @test */
+    // #[\PHPUnit\Framework\Attributes\Test]
     // public function results_dropdown_is_not_shown_if_there_are_no_results_found()
     // {
     //     Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
@@ -127,7 +127,7 @@ class AutocompleteDatabaseTest extends TestCase
     //     });
     // }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function selected_item_can_be_cleared()
     {
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
@@ -146,7 +146,7 @@ class AutocompleteDatabaseTest extends TestCase
             ->assertSeeNothingIn('@result-output');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function clear_button_cant_be_pressed_if_nothing_selected()
     {
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);
@@ -161,7 +161,7 @@ class AutocompleteDatabaseTest extends TestCase
         // ->waitForLivewire()->click('@clear')
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function input_cannot_be_focused_when_item_is_selected()
     {
         Item::updateOrCreate(['id' => 1], ['name' => 'test1']);

@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class AutocompleteAutoselectTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_first_option_is_selected_by_default()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -18,7 +18,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_up_arrow_stops_on_first_option()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -33,7 +33,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_down_arrow_stops_on_last_option()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -49,7 +49,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_mouse_out_does_not_deselect_current_option()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -68,7 +68,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_refocus_first_option_selected()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -84,7 +84,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_if_no_results_clear_input_on_selection()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -98,7 +98,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertValue('@autocomplete-input', '');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_clear_input_on_escape()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -112,7 +112,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertValue('@autocomplete-input', '');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_click_away_clears_input_text()
     {
         Livewire::withQueryParams(['autoselect' => true])
@@ -125,7 +125,7 @@ class AutocompleteAutoselectTest extends TestCase
             ->assertValue('@autocomplete-input', '');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_click_away_does_not_clear_selected_text()
     {
         Livewire::withQueryParams(['autoselect' => true])

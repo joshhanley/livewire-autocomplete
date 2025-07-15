@@ -133,7 +133,7 @@ class AutoSelectTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_first_option_is_selected_by_default()
     {
         Livewire::visit($this->defaultComponent())
@@ -143,7 +143,7 @@ class AutoSelectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_up_arrow_stops_on_first_option()
     {
         Livewire::visit($this->defaultComponent())
@@ -157,7 +157,7 @@ class AutoSelectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_down_arrow_stops_on_last_option()
     {
         Livewire::visit($this->defaultComponent())
@@ -172,7 +172,7 @@ class AutoSelectTest extends TestCase
             ->assertHasClass('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_mouse_out_does_not_deselect_current_option()
     {
         Livewire::visit($this->defaultComponent())
@@ -190,7 +190,7 @@ class AutoSelectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_refocus_first_option_selected()
     {
         Livewire::visit($this->defaultComponent())
@@ -205,7 +205,7 @@ class AutoSelectTest extends TestCase
             ->assertClassMissing('@result-2', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_if_no_results_clear_input_on_selection()
     {
         Livewire::visit($this->defaultComponent())
@@ -218,7 +218,7 @@ class AutoSelectTest extends TestCase
             ->assertValue('@input', '');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_refocus_first_option_if_items_have_changed()
     {
         Livewire::visit($this->defaultComponent())
@@ -232,7 +232,7 @@ class AutoSelectTest extends TestCase
             ->assertClassMissing('@result-1', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_clear_input_on_escape()
     {
         Livewire::visit($this->defaultComponent())
@@ -245,7 +245,7 @@ class AutoSelectTest extends TestCase
             ->assertValue('@input', '');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_escape_does_not_clear_selected_text()
     {
         Livewire::visit($this->defaultComponent())
@@ -258,7 +258,7 @@ class AutoSelectTest extends TestCase
             ->waitForNoLivewire()->assertValue('@input', 'bob');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_escape_does_not_clear_input_value_if_new_item_is_present()
     {
         Livewire::visit($this->componentWithNewItem())
@@ -273,7 +273,7 @@ class AutoSelectTest extends TestCase
             ->waitForNoLivewire()->assertValue('@input', 'steve');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_click_away_clears_input_text()
     {
         Livewire::visit($this->defaultComponent())
@@ -285,7 +285,7 @@ class AutoSelectTest extends TestCase
             ->assertValue('@input', '');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_click_away_does_not_clear_selected_text()
     {
         Livewire::visit($this->defaultComponent())
@@ -298,7 +298,7 @@ class AutoSelectTest extends TestCase
             ->assertValue('@input', 'bob');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_click_away_does_not_clear_input_value_if_new_item_is_present()
     {
         Livewire::visit($this->componentWithNewItem())
@@ -313,7 +313,7 @@ class AutoSelectTest extends TestCase
             ->assertValue('@input', 'steve');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function on_autoselect_mouse_out_does_not_reset_the_focused_element_back_to_the_first_one()
     {
         Livewire::visit($this->defaultComponent())

@@ -114,7 +114,7 @@ class CustomStylesTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function default_inline_styles_are_used_when_inline_is_true()
     {
         Livewire::withQueryParams(['inline' => true])
@@ -124,7 +124,7 @@ class CustomStylesTest extends TestCase
             ->assertClassMissing('div:has(> [dusk="dropdown"])', 'absolute');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function default_overlay_styles_are_used_when_inline_is_false()
     {
         Livewire::withQueryParams(['inline' => false])
@@ -134,7 +134,7 @@ class CustomStylesTest extends TestCase
             ->assertHasClass('div:has(> [dusk="dropdown"])', 'absolute');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function default_result_focus_styles_are_used()
     {
         Livewire::visit($this->defaultComponent())
@@ -143,7 +143,7 @@ class CustomStylesTest extends TestCase
             ->assertHasClass('@result-0', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_inline_styles_are_used_when_inline_is_true()
     {
         Livewire::withQueryParams(['inline' => true])
@@ -155,7 +155,7 @@ class CustomStylesTest extends TestCase
             ->assertClassMissing('div:has(> [dusk="dropdown"])', 'w-full');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_overlay_styles_are_used_when_inline_is_false()
     {
         Livewire::withQueryParams(['inline' => false])
@@ -167,7 +167,7 @@ class CustomStylesTest extends TestCase
             ->assertClassMissing('div:has(> [dusk="dropdown"])', 'w-full');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_result_focus_styles_are_used()
     {
         Livewire::visit($this->componentWithCustomStyles())

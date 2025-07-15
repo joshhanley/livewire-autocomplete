@@ -91,7 +91,7 @@ class LocalNamespaceTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function all_components_load_successfully_from_local_namespace()
     {
         Livewire::visit($this->defaultComponent())

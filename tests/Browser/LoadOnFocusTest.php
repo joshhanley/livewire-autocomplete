@@ -95,7 +95,7 @@ class LoadOnFocusTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function results_are_not_loaded_initially()
     {
         Livewire::visit($this->defaultComponent())
@@ -105,7 +105,7 @@ class LoadOnFocusTest extends TestCase
             ->assertDontSeeIn('@dropdown', 'bill');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_loads_results_on_focus_if_action_is_present()
     {
         Livewire::visit($this->defaultComponent())
@@ -116,7 +116,7 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeIn('@dropdown', 'bill');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_only_loads_results_once_if_load_once_on_focus_is_set_to_true()
     {
         Livewire::visit($this->defaultComponent())
@@ -129,7 +129,7 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeIn('@number-times-calculate-called', 1);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_loads_results_on_every_focus_if_load_once_on_focus_is_set_to_false()
     {
         Livewire::withQueryParams(['loadOnceOnFocus' => false])
@@ -141,7 +141,7 @@ class LoadOnFocusTest extends TestCase
             ->assertSeeIn('@number-times-calculate-called', 2);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_can_call_focus_method_with_parameters()
     {
         Livewire::withQueryParams([

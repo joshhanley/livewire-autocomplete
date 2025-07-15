@@ -70,7 +70,7 @@ class ScrollIntoViewTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_shows_custom_component_when_passed_into_the_instance_through_props()
     {
         Livewire::visit($this->defaultComponent())
@@ -84,7 +84,7 @@ class ScrollIntoViewTest extends TestCase
             ->assertIsNotVisibleInContainer('@dropdown', '@result-1');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_scrolls_to_top_if_options_have_changed()
     {
         Livewire::visit($this->defaultComponent())

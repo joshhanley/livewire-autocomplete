@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class AutocompletePromptsTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function placeholder_text_prompt_is_shown_on_focus()
     {
         Livewire::visit(AutocompletePromptsComponent::class)
@@ -18,7 +18,7 @@ class AutocompletePromptsTest extends TestCase
             ->assertSeeIn('@autocomplete-dropdown', 'Start typing to search');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function no_results_text_prompt_is_shown_if_nothing_found()
     {
         Livewire::visit(AutocompletePromptsComponent::class)

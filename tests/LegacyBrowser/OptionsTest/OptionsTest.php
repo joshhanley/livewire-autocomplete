@@ -7,7 +7,7 @@ use LivewireAutocomplete\Tests\TestCase;
 
 class OptionsTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_attribute_names_can_be_passed_in_via_options()
     {
         Livewire::visit(CustomAttributesComponent::class)
@@ -17,7 +17,7 @@ class OptionsTest extends TestCase
             ->assertSeeIn('@selected-slug-output', 'B');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function default_inline_styles_are_used_when_inline_is_true()
     {
         Livewire::withQueryParams(['inline' => true])
@@ -26,7 +26,7 @@ class OptionsTest extends TestCase
             ->assertClassMissing('div:has(> [dusk="autocomplete-dropdown"])', 'absolute');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function default_overlay_styles_are_used_when_inline_is_false()
     {
         Livewire::withQueryParams(['inline' => false])
@@ -36,7 +36,7 @@ class OptionsTest extends TestCase
             ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'z-10');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function default_result_focus_styles_are_used()
     {
         Livewire::withQueryParams(['inline' => false])
@@ -46,7 +46,7 @@ class OptionsTest extends TestCase
             ->assertHasClass('@result-0', 'bg-blue-500');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_inline_styles_are_used_when_inline_is_true()
     {
         Livewire::withQueryParams(['inline' => true])
@@ -55,7 +55,7 @@ class OptionsTest extends TestCase
             ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'some-inline-style');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_overlay_styles_are_used_when_inline_is_false()
     {
         Livewire::withQueryParams(['inline' => false])
@@ -64,7 +64,7 @@ class OptionsTest extends TestCase
             ->assertHasClass('div:has(> [dusk="autocomplete-dropdown"])', 'some-overlay-style');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function custom_result_focus_styles_are_used()
     {
         Livewire::withQueryParams(['inline' => false])

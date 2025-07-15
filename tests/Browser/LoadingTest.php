@@ -66,7 +66,7 @@ class LoadingTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function loading_indicator_appears_when_request_is_taking_too_long()
     {
         Livewire::visit($this->defaultComponent())

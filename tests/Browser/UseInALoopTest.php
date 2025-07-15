@@ -94,7 +94,7 @@ class UseInALoopTest extends TestCase
         };
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function autocomplete_can_be_used_in_a_loop_without_errors()
     {
         Livewire::visit($this->defaultComponent())
