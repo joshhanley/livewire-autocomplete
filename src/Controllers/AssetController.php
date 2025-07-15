@@ -6,6 +6,10 @@ class AssetController
 {
     public function __invoke(string $file)
     {
+        if ($file != 'autocomplete.js') {
+            abort(404);
+        }
+
         $path = __DIR__ . '/../../resources/js/' . $file;
 
         $expires = strtotime('+1 year');

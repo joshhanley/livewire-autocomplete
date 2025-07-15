@@ -4,9 +4,19 @@ An autocomplete select component designed for use with Livewire that allows you 
 
 ## Requirements
 
-- Laravel ^8.0.0
-- Livewire ^2.3.6
-- Alpine ^2.8.1 | ^3.0.6 (must have Livewire ^2.5.0)
+- Laravel ^10.0.0
+- Livewire ^3.0.0
+- Alpine ^3.0.0 (included in Livewire V3)
+
+## Upgrades
+
+Version 1.x of this package supports Livewire V2.
+
+If you want to use this with Livewire V3, you will need to upgrade to version 2.x of this package.
+
+There shouldn't be any breaking changes that you have to deal with, as all the breaking changes are internal.
+
+**Note:** Livewire V3 no longer supports Eloquent Model binding out of the box. If you are using Eloquent Models in your autocomplete search results (as previously recommended by this package), you can enable `legacy_model_binding` in Livewire V3. **It's not recommended to use legacy model binding in Livewire V3**, so it should only be used to assist with upgrading and refactoring away from models.
 
 ## Installation
 
@@ -15,6 +25,23 @@ To install the package run
 ```bash
 composer require joshhanley/livewire-autocomplete
 ```
+
+Once the composer install finishes, the next step is to configure Tailwind to look for the autocomplete components, so all the styles are generated correctly.
+
+In your `tailwind.config.js` file, add the path to the autocomplete view directory to the end of the `content` array:
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        ...
+        './vendor/joshhanley/livewire-autocomplete/resources/views/**/*.blade.php',
+    ],
+    ...
+}
+```
+
+And that's it, we have everything we need.
 
 <!-- Then include the scripts by putting this tag inside your app layout after `<livewire:scripts />` or you can push it to your scripts stack.
 
@@ -159,10 +186,30 @@ The source code for a demo of this Livewire Autocomplete component can be found 
 
 - `wire:model-text` this is the property on the Livewire component that should be populated with the text value of the input field
 
-- `wire:model-result` this is the property on the Livewire component that contains the list of results.
-This can be an array or collection of values, array with keys, or eloquent models
+- `wire:model-results` this is the property on the Livewire component that contains the list of results.
+This can be an array or collection of values, array with keys, or eloquent models (note for eloquent models to work in Livewire V3, you need to use `legacy_model_binding` for this to work - **but it's not recommended**)
 
 - `wire:focus` this is the method on the Livewire component that should be called on focus to load results into the results property
+
+## Events
+
+- `{$name}-add-new` event, this is the main event the component fires, it uses the `name` attribute used for the component to fire the event (The `allow-new` option ***needs*** to be set true).
+
+### Add new event example
+
+```html
+    <div x-on:my-autocomplete-add-new.window="$wire.createUser($event.detail)">
+        <x-lwa::autocomplete
+            name="my-autocomplete"
+            wire:model-text="name"
+            wire:model-id="userId"
+            wire:model-results="users"
+            :options="[
+                'text'=> 'name',
+                'allow-new'=> 'true',
+            ]" />
+    </div>
+```
 
 ## Options and Components
 
@@ -192,7 +239,6 @@ Then individual options and components can be passed into each instance of the c
 - **overlay-styles** the styles to use when displaying the dropdown as an overlay.
 
 - **result-focus-styles** the styles to use on a result row when it has focus.
-
 
 ### Components
 
@@ -274,4 +320,57 @@ https://github.com/joshhanley/livewire-autocomplete/blob/main/config/autocomplet
 The default styles on this component use Tailwind, but they can be overridden by:
 - publishing the components and changing them;
 - publishing the config and setting custom component names to use in the config; or
-- manually passing in component names to each instance of the autocomplete component through the `components` prop -->
+- manually passing in component names to each instance of the autocomplete component through the `components` prop
+
+## Scripts
+
+Livewire Autocomplete scripts are automatically included whenever you have an `<x-autocomplete>` component on the page.
+
+But the scripts don't load, if the autocomplete component isn't displayed on page render.
+
+To get around this, you can disable the inline scripts by setting the config `autocomplete.inline-scripts` to `false`.
+
+You can then either include the script in your `app.blade.php` layout file at the end of the body tag, after Livewire's scripts.
+
+```blade
+    <livewire:scripts />
+    <script src="{{ route('livewire-autocomplete.asset', 'autocomplete.js') }}"></script>
+</body>
+```
+
+Or you can include the autocomplete scripts in your `app.js` bundle.
+
+```js
+require('../../vendor/joshhanley/livewire-autocomplete/resources/js/autocomplete.js')
+```
+
+## Contributing
+
+### Setup tests
+
+If you want to run the tests for this package locally, you need to ensure that Testbench Dusk has the latest Chrome driver.
+
+```bash
+vendor/bin/dusk-updater detect --auto-update
+```
+
+You will also need to ensure the `database/database.sqlite` file exists.
+
+```bash
+touch database/database.sqlite
+```
+
+### Run tests
+
+Now you can execute the tests locally using PHPUnit.
+
+```bash
+vendor/bin/phpunit
+```
+
+If you'd prefer to run tests in a headless browser, prefix the PHPUnit call with `CI=true`.
+
+```bash
+CI=true vendor/bin/phpunit
+```
+-->
