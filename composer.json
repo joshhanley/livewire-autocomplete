@@ -11,7 +11,7 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.0|^12.0|^13.0|dev-master",
-        "livewire/livewire": "^3.0|dev-main"
+        "livewire/livewire": "^3.0|^4.0|dev-main"
     },
     "require-dev": {
         "spatie/laravel-ray": "^1.19",

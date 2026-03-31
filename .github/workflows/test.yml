@@ -16,11 +16,12 @@ jobs:
       matrix:
         php: [8.2, 8.3, 8.4, 8.5]
         laravel: [11.*, 12.*, 13.*]
+        livewire: [3.*, 4.*]
         exclude:
             - php: 8.2
               laravel: 13.*
 
-    name: PHP:${{ matrix.php }} / Laravel:${{ matrix.laravel }}
+    name: PHP:${{ matrix.php }} / Laravel:${{ matrix.laravel }} / Livewire:${{ matrix.livewire }}
 
     steps:
       - name: Checkout
@@ -42,12 +43,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-
+          key: dependencies-laravel-${{ matrix.laravel }}-livewire-${{ matrix.livewire }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: dependencies-laravel-${{ matrix.laravel }}-livewire-${{ matrix.livewire }}-php-${{ matrix.php }}-composer-
 
       - name: Install Composer dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
+          composer require "laravel/framework:${{ matrix.laravel }}" "livewire/livewire:${{ matrix.livewire }}" --no-interaction --no-update --dev
           composer update --prefer-stable --no-interaction --no-suggest
 
     # Not needed as have moved the touch into the database tests
