@@ -4,26 +4,20 @@ An autocomplete select component designed for use with Livewire that allows you 
 
 ## Requirements
 
-- Laravel ^10.0.0
-- Livewire ^3.0.0
-- Alpine ^3.0.0 (included in Livewire V3)
+- Laravel `^11.0|^12.0|^13.0`
+- Livewire `^3.0|^4.0`
+- Alpine `^3.0` (included in Livewire)
 
 ## Upgrades
 
-Version 1.x of this package supports Livewire V2.
-
-If you want to use this with Livewire V3, you will need to upgrade to version 2.x of this package.
-
-There shouldn't be any breaking changes that you have to deal with, as all the breaking changes are internal.
-
-**Note:** Livewire V3 no longer supports Eloquent Model binding out of the box. If you are using Eloquent Models in your autocomplete search results (as previously recommended by this package), you can enable `legacy_model_binding` in Livewire V3. **It's not recommended to use legacy model binding in Livewire V3**, so it should only be used to assist with upgrading and refactoring away from models.
+WIP
 
 ## Installation
 
 To install the package run
 
 ```bash
-composer require joshhanley/livewire-autocomplete
+composer require joshhanley/livewire-autocomplete:^3.0@alpha
 ```
 
 Once the composer install finishes, the next step is to configure Tailwind to look for the autocomplete components, so all the styles are generated correctly.
