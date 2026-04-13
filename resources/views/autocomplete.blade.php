@@ -12,6 +12,7 @@ $resultsValue = $this->getPropertyValue($resultsProperty->value);
 
 $autoSelect = filter_var($getOption('auto-select'), FILTER_VALIDATE_BOOLEAN);
 $allowNew = filter_var($getOption('allow-new'), FILTER_VALIDATE_BOOLEAN);
+$allowSelectionEdition = filter_var($getOption('allow-selection-edition'), FILTER_VALIDATE_BOOLEAN);
 $loadOnceOnFocus = filter_var($getOption('load-once-on-focus'), FILTER_VALIDATE_BOOLEAN);
 $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
 @endphp
@@ -29,6 +30,7 @@ $inline = filter_var($getOption('inline'), FILTER_VALIDATE_BOOLEAN);
         searchAttribute: '{{ $getOption('text') }}',
         autoSelect: {{ $autoSelect ? 'true' : 'false' }},
         allowNew: {{ $allowNew ? 'true' : 'false' }},
+        allowSelectionEdition: {{ $allowSelectionEdition ? 'true' : 'false' }},
         loadOnceOnFocus: {{ $loadOnceOnFocus ? 'true' : 'false' }},
     })"
     x-init="init($dispatch)"
